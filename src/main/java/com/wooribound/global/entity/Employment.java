@@ -4,6 +4,8 @@ import com.wooribound.domain.individual.entity.WbUser;
 import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.YN;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -23,9 +25,10 @@ import lombok.*;
 public class Employment {
   @Id
   private Long empId;
-  private String userId;
   private String entId;
+  @Enumerated(value = EnumType.STRING)
   private YN empState;
+  @Enumerated(value = EnumType.STRING)
   private YN empRecomm;
 
   @ManyToOne(fetch = FetchType.LAZY)

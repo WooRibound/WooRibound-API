@@ -4,6 +4,8 @@ package com.wooribound.global.entity;
 import com.wooribound.domain.individual.entity.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -31,8 +33,8 @@ public class UserApply {
   @Id
   private Long applyId;
   private String postId;
-  private String userId;
   private String entId;
+  @Enumerated(value = EnumType.STRING)
   private ApplyResult result;
   private Date applyDate;
 

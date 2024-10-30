@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "jobs")
+@Table(name = "job")
 @AllArgsConstructor
 @Entity
 public class Job {

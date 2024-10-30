@@ -8,6 +8,8 @@ import com.wooribound.global.entity.UserApply;
 import com.wooribound.global.entity.UserEdu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +36,6 @@ import lombok.Setter;
 @Entity
 public class WbUser {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
   private String userId;
   private String providerId;
@@ -46,26 +47,25 @@ public class WbUser {
   private String addrCity;
   private String addrProvince;
   private int jobPoint;
+  @Enumerated(value = EnumType.STRING)
   private YN jobInterest;
   private Date createdAt;
   private Date updatedAt;
+  @Enumerated(value = EnumType.STRING)
   private YN isDeleted;
 
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
   private Resume resume;
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private List<UserApply> userApply;
+  private List<UserApply> userApplies;
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private List<Employment> employment;
+  private List<Employment> employments;
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  private List<UserEdu> userEdu;
+  private List<UserEdu> userEdues;
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
@@ -77,6 +77,6 @@ public class WbUser {
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  private List<Notification> notification;
+  private List<Notification> notifications;
 }
 

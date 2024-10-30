@@ -4,6 +4,8 @@ import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.entity.Employment;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -27,13 +29,14 @@ public class Enterprise {
   private String regNum;
   private String entPwd;
   private String entName;
-  private String field;
-  private String size;
+  private String entField;
+  private String entSize;
   private String ceoName;
   private String revenue;
   private String entAddr;
   private Date createdAt;
   private Date updatedAt;
+  @Enumerated(value = EnumType.STRING)
   private YN isDeleted;
 
   @OneToMany(fetch = FetchType.LAZY)
@@ -41,7 +44,6 @@ public class Enterprise {
   private List<Employment> employments;
 
   @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
-  @JoinColumn(name = "ent_id")
   private List<JobPosting> jobPostings;
 }
 
