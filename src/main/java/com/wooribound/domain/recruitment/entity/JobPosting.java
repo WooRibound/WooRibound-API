@@ -1,5 +1,6 @@
-package com.wooribound.domain.education.entity;
+package com.wooribound.domain.recruitment.entity;
 
+import com.wooribound.global.constant.PostState;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,18 +12,17 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-@Table(name = "education")
+@Table(name = "job_postings")
 @AllArgsConstructor
 @Entity
-public class education {
+public class JobPosting {
   @Id
-  private Long eduId;
-  private String eduName;
-  private String eduImg;
+  private Long postId;
+  private String entId;
+  private String postTitle;
+  private String postImg;
   private Date startDate;
   private Date endDate;
-  private String eduJob;
-  private String eduHost;
-
+  private PostState postState;
 }
 

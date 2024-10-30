@@ -1,9 +1,15 @@
 package com.wooribound.domain.corporate.entity;
 
+import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.entity.Employment;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.*;
 
 import java.util.Date;
@@ -15,7 +21,7 @@ import java.util.Date;
 @Table(name = "enterprise")
 @AllArgsConstructor
 @Entity
-public class enterprise {
+public class Enterprise {
   @Id
   private String entId;
   private String regNum;
@@ -30,5 +36,12 @@ public class enterprise {
   private Date updatedAt;
   private YN isDeleted;
 
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ent_id")
+  private List<Employment> employments;
+
+  @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
+  @JoinColumn(name = "ent_id")
+  private List<JobPosting> jobPostings;
 }
 

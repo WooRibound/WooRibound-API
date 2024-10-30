@@ -1,5 +1,6 @@
-package com.wooribound.domain.recruitment.entity;
+package com.wooribound.domain.admin.entity;
 
+import com.wooribound.global.constant.AdminType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,12 +10,13 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "jobs")
+@Table(name = "admin")
 @AllArgsConstructor
 @Entity
-public class jobs {
+public class Admin {
   @Id
-  private Long jobId;
-  private String jobName;
+  private String adminId;
+  private String adminPw;
+  private AdminType adminType;
 }
 
