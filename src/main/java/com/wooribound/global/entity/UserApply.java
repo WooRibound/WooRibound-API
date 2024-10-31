@@ -1,7 +1,9 @@
 package com.wooribound.global.entity;
 
 
+import com.wooribound.domain.corporate.entity.Enterprise;
 import com.wooribound.domain.individual.entity.WbUser;
+import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.ApplyResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,7 +34,6 @@ import org.springframework.data.util.Lazy;
 public class UserApply {
   @Id
   private Long applyId;
-  private String postId;
   private String entId;
   @Enumerated(value = EnumType.STRING)
   private ApplyResult result;
@@ -43,4 +44,7 @@ public class UserApply {
   @JoinColumn(name = "user_id")
   private WbUser wbUser;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "post_id")
+  private JobPosting jobPosting;
 }
