@@ -3,6 +3,7 @@ package com.wooribound.domain.recruitment.entity;
 import com.wooribound.domain.corporate.entity.Enterprise;
 import com.wooribound.global.constant.PostState;
 import com.wooribound.global.entity.UserApply;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,15 +28,20 @@ import java.util.Date;
 public class JobPosting {
   @Id
   private Long postId;
+  @Column(nullable = false)
   private String postTitle;
+  @Column(nullable = false)
   private String postImg;
+  @Column(nullable = false)
   private Date startDate;
+  @Column(nullable = false)
   private Date endDate;
   @Enumerated(value = EnumType.STRING)
-  private PostState postState;
+  @Column(nullable = false, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
+  private PostState postState  = PostState.PENDING;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ent_id")
+  @JoinColumn(name = "ent_id", nullable = false)
   private Enterprise enterprise;
 
   @OneToMany(mappedBy = "jobPosting",fetch = FetchType.LAZY)

@@ -1,6 +1,7 @@
 package com.wooribound.domain.individual.entity;
 
-import com.wooribound.domain.recruitment.entity.Job;
+import com.wooribound.global.entity.Job;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -11,8 +12,9 @@ import jakarta.persistence.ManyToOne;
 public class WorkHistory {
     @Id
     private Long exjobId;
+    @Column(nullable = false)
     private String userId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 }

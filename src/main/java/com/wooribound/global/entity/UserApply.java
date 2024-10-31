@@ -5,6 +5,7 @@ import com.wooribound.domain.corporate.entity.Enterprise;
 import com.wooribound.domain.individual.entity.WbUser;
 import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.ApplyResult;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,17 +35,22 @@ import org.springframework.data.util.Lazy;
 public class UserApply {
   @Id
   private Long applyId;
+
+  @Column(nullable = false)
   private String entId;
+
+  @Column(nullable = false, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
   @Enumerated(value = EnumType.STRING)
-  private ApplyResult result;
+  private ApplyResult result = ApplyResult.PENDING;
+
+  @Column(nullable = false)
   private Date applyDate;
 
-
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private WbUser wbUser;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id")
+  @JoinColumn(name = "post_id", nullable = false)
   private JobPosting jobPosting;
 }

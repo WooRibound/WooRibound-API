@@ -38,21 +38,49 @@ public class WbUser {
   @Id
   @Column(name = "user_id")
   private String userId;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String providerId;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String name;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private Date birth;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String phone;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private Gender gender;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String jobEx;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String addrCity;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private String addrProvince;
-  private int jobPoint;
+
+  @Column(nullable = false, columnDefinition = "NUMBER DEFAULT 0")
+  private int jobPoint = 0;
+
   @Enumerated(value = EnumType.STRING)
-  private YN jobInterest;
+  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  private YN jobInterest = YN.N;
+
+  @Column(nullable = false)  // NOT NULL 제약 조건
   private Date createdAt;
+
   private Date updatedAt;
+
   @Enumerated(value = EnumType.STRING)
-  private YN isDeleted;
+  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")  // NOT NULL 제약 조건
+  private YN isDeleted = YN.N;
+
+
+
 
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private Resume resume;
