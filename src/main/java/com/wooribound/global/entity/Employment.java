@@ -2,6 +2,7 @@ package com.wooribound.global.entity;
 
 import com.wooribound.domain.individual.entity.WbUser;
 import com.wooribound.global.constant.YN;
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,20 +23,21 @@ import lombok.*;
 @Entity
 public class Employment {
   @Id
+  @Column(name = "emp_id")
   private Long empId;
 
-  @Column(nullable = false)
+  @Column(name = "ent_id", nullable = false, length = 20)
   private String entId;
 
-  @Column(nullable = false)
   @Enumerated(value = EnumType.STRING)
+  @Column(name = "emp_state", nullable = false)
   private YN empState;
 
   @Enumerated(value = EnumType.STRING)
+  @Column(name = "emp_recomm")
   private YN empRecomm;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private WbUser wbUser;
 }
-

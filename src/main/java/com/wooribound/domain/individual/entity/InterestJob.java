@@ -1,5 +1,7 @@
 package com.wooribound.domain.individual.entity;
 
+import com.wooribound.domain.recruitment.entity.Job;
+import jakarta.persistence.*;
 import com.wooribound.global.entity.Job;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

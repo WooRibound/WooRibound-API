@@ -3,6 +3,8 @@ package com.wooribound.domain.recruitment.entity;
 import com.wooribound.domain.corporate.entity.Enterprise;
 import com.wooribound.global.constant.PostState;
 import com.wooribound.global.entity.UserApply;
+
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,17 +29,23 @@ import java.util.Date;
 @Entity
 public class JobPosting {
   @Id
+  @Column(name = "post_id")
   private Long postId;
-  @Column(nullable = false)
+
+  @Column(name = "post_title", nullable = false, length = 50)
   private String postTitle;
-  @Column(nullable = false)
+
+  @Column(name = "post_img", nullable = false, length = 255)
   private String postImg;
-  @Column(nullable = false)
+
+  @Column(name = "start_date", nullable = false)
   private Date startDate;
-  @Column(nullable = false)
+
+  @Column(name = "end_date", nullable = false)
   private Date endDate;
+
   @Enumerated(value = EnumType.STRING)
-  @Column(nullable = false, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
+  @Column(name = "post_state", nullable = false, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
   private PostState postState  = PostState.PENDING;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -46,6 +54,4 @@ public class JobPosting {
 
   @OneToMany(mappedBy = "jobPosting",fetch = FetchType.LAZY)
   private List<UserApply> userApply;
-
 }
-

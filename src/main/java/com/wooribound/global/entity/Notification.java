@@ -1,5 +1,6 @@
 package com.wooribound.global.entity;
 
+
 import com.wooribound.global.constant.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,10 +22,13 @@ import lombok.Setter;
 @Entity
 public class Notification {
   @Id
+  @Column(name = "noti_id")
   private Long notiId;
-  @Column(nullable = false)
+
+  @Column(name = "user_id", nullable = false, length = 20)
   private String userId;
-  @Column(nullable = false)
+
+  @Column(name = "notice", nullable = false, length = 200)
   private String notice;
 }
 
