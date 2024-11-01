@@ -20,10 +20,16 @@ import lombok.Setter;
 @Entity
 public class UserEdu {
   @Id
+  @Column(name = "useredu_id")
   private Long usereduId;
-  @Column(name = "user_id")
+
+  @Column(name = "user_id", nullable = false, length = 20)
   private String userId;
+
+  @Column(name = "comp_state", nullable = false, length = 1)
   private String compState;
+
+  @Column(name = "regist_date", nullable = false)
   private Date registDate;
 
   @ManyToOne
