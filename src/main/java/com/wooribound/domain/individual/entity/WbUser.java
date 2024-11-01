@@ -39,44 +39,46 @@ public class WbUser {
   @Column(name = "user_id")
   private String userId;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "provider_id", nullable = false, length = 20)  // NOT NULL 제약 조건
   private String providerId;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "name", nullable = false, length = 20)
   private String name;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "birth", nullable = false)  // NOT NULL 제약 조건
   private Date birth;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "phone", nullable = false, length = 20)
   private String phone;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
-  private Gender gender;
+  @Column(name = "gender", nullable = false, length = 4)
+  private String gender;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "job_ex", nullable = false, length = 20)
   private String jobEx;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "addr_city", nullable = false, length = 20)
   private String addrCity;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "addr_province", nullable = false, length = 20)
   private String addrProvince;
 
-  @Column(nullable = false, columnDefinition = "NUMBER DEFAULT 0")
+  @Column(name = "job_point", nullable = false, columnDefinition = "NUMBER DEFAULT 0")
   private int jobPoint = 0;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  @Column(name = "job_interest", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
   private YN jobInterest = YN.N;
 
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name = "created_at", nullable = false)  // NOT NULL 제약 조건
   private Date createdAt;
 
+  @Column(name = "updated_at")
   private Date updatedAt;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")  // NOT NULL 제약 조건
+  @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
+
   private YN isDeleted = YN.N;
 
 
@@ -107,4 +109,3 @@ public class WbUser {
   @JoinColumn(name = "user_id")
   private List<Notification> notifications;
 }
-
