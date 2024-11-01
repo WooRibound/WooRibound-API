@@ -1,9 +1,10 @@
-package com.wooribound.domain.recruitment.entity;
+package com.wooribound.global.domain.jobposting;
 
 import com.wooribound.domain.corporate.entity.Enterprise;
 import com.wooribound.global.constant.PostState;
-import com.wooribound.global.entity.UserApply;
+import com.wooribound.global.domain.job.Job;
 
+import com.wooribound.global.domain.userapply.UserApply;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,10 +28,23 @@ import java.util.Date;
 @Table(name = "job_posting")
 @AllArgsConstructor
 @Entity
+@SequenceGenerator(
+    name = "job_posting_seq_generator",
+    sequenceName = "job_posting_SEQ",
+    allocationSize = 1
+)
 public class JobPosting {
   @Id
+  @GeneratedValue(
+      strategy = GenerationType.AUTO,
+      generator = "job_posting_seq_generator"
+  )
   @Column(name = "post_id")
   private Long postId;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ent_id", nullable = false)
+  private Enterprise enterprise;
 
   @Column(name = "post_title", nullable = false, length = 50)
   private String postTitle;
@@ -49,8 +63,8 @@ public class JobPosting {
   private PostState postState  = PostState.PENDING;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ent_id", nullable = false)
-  private Enterprise enterprise;
+  @JoinColumn(name = "job_id")
+  private Job job;
 
   @OneToMany(mappedBy = "jobPosting",fetch = FetchType.LAZY)
   private List<UserApply> userApply;
