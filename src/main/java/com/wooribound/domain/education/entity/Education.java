@@ -22,17 +22,23 @@ import java.util.Date;
 public class Education {
   @Id
   private Long eduId;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "edu_name", length = 50, nullable = false)
   private String eduName;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "edu_img", length = 200, nullable = false)
   private String eduImg;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "start_date", nullable = false)
   private Date startDate;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "end_date", nullable = false)
   private Date endDate;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "edu_job", length = 30, nullable = false)
   private String eduJob;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "edu_host", length = 50, nullable = false)
   private String eduHost;
 
   @OneToMany(mappedBy = "education", fetch = FetchType.LAZY)

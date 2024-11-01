@@ -12,13 +12,19 @@ import jakarta.persistence.Table;
 public class Resume {
     @Id
     private Long resumeId;
+
+    @Column(name = "user_img", length = 200, nullable = false)
+    private String userImg;
+
+    @Column(name = "user_email", length = 50, nullable = false)
+    private String userEmail;
+
+    @Column(name = "user_intro", length = 200, nullable = false)
+    private String userIntro;
+
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private WbUser wbUser;
-    @Column(nullable = false)  // NOT NULL 제약 조건
-    private String userImg;
-    @Column(nullable = false)  // NOT NULL 제약 조건
-    private String userEmail;
-    @Column(nullable = false)  // NOT NULL 제약 조건
-    private String userIntro;
+
+
 }

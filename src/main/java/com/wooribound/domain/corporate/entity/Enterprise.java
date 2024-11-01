@@ -27,28 +27,39 @@ import java.util.Date;
 public class Enterprise {
   @Id
   private String entId;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "reg_num", length = 20, nullable = false)
   private String regNum;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name =  "ent_pwd", length = 20, nullable = false)
   private String entPwd;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "ent_name", length = 50, nullable = false)
   private String entName;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "ent_field", length = 20, nullable = false)
   private String entField;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name =  "ent_size", length = 20, nullable = false)
   private String entSize;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "ceo_name",length = 20, nullable = false)
   private String ceoName;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "revenue", length = 20, nullable = false)
   private String revenue;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "ent_addr", length = 200, nullable = false)
   private String entAddr;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "created_at", nullable = false)
   private Date createdAt;
+
+  @Column(name = "updated_at")
   private Date updatedAt;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
+  @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
   private YN isDeleted = YN.N; // entity 필드 기본값 설정 (jpa 함수 사용을 통한 쿼리 생성 대비)
 
   @OneToMany(fetch = FetchType.LAZY)

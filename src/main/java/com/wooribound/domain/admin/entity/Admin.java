@@ -18,11 +18,15 @@ import lombok.*;
 @Entity
 public class Admin {
   @Id
+  @Column(name = "admin_id", length = 20, nullable = false)
   private String adminId;
-  @Column(nullable = false)  // NOT NULL 제약 조건
+
+  @Column(name = "admin_pw", length = 20, nullable = false)
   private String adminPw;
+
   @Enumerated(value = EnumType.STRING)
-  @Column(nullable = false)  // NOT NULL 제약 조건
+  @Column(name  = "admin_type", nullable = false)
   private AdminType adminType;
+
 }
 

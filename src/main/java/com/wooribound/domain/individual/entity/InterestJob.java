@@ -14,10 +14,11 @@ import jakarta.persistence.Table;
 public class InterestJob {
     @Id
     private Long interestId;
-    @Column(nullable = false)  // NOT NULL 제약 조건
+
+    @Column(name = "user_id", length = 20, nullable = false)
     private String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_id", nullable = false) // NOT NULL 제약 조건
+    @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 }
