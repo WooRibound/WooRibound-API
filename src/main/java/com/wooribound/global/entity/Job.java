@@ -1,6 +1,6 @@
 package com.wooribound.global.entity;
 
-import com.wooribound.global.constant.YN;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,15 +10,13 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "employment")
+@Table(name = "job")
 @AllArgsConstructor
 @Entity
-public class employment {
+public class Job {
   @Id
-  private Long empId;
-  private String userId;
-  private String entId;
-  private YN empState;
-  private YN empRecomm;
+  private Long jobId;
+  @Column(nullable = false)
+  private String jobName;
 }
 

@@ -1,7 +1,12 @@
 package com.wooribound.global.entity;
 
+import com.wooribound.domain.education.entity.Education;
+import com.wooribound.global.constant.YN;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 import lombok.AccessLevel;
@@ -21,8 +26,16 @@ import lombok.Setter;
 public class UserEdu {
   @Id
   private Long usereduId;
+  @Column(nullable = false)
   private String userId;
+  @Column(nullable = false)
   private Long eduId;
-  private String compState;
+  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  private YN compState = YN.N;
+  @Column(nullable = false)
   private Date registDate;
+
+  @ManyToOne
+  @JoinColumn(name = "edu_id", nullable = false)
+  private Education education;
 }
