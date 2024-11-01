@@ -1,7 +1,6 @@
 package com.wooribound.global.entity;
 
 import com.wooribound.domain.education.entity.Education;
-import jakarta.persistence.*;
 import com.wooribound.global.constant.YN;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,13 +31,10 @@ public class UserEdu {
   @Column(name = "user_id", nullable = false, length = 20)
   private String userId;
 
-  @Column(name = "comp_state", nullable = false, length = 1)
-  private String compState;
-
   @Column(name = "regist_date", nullable = false)
   private Date registDate;
   
-  @Column(nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  @Column(name = "comp_state", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
   private YN compState = YN.N;
 
   @ManyToOne
