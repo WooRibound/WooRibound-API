@@ -1,9 +1,9 @@
-package com.wooribound.global.entity;
+package com.wooribound.global.domain.userapply;
 
 
 import com.wooribound.domain.individual.entity.WbUser;
-import com.wooribound.domain.recruitment.entity.JobPosting;
 import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.domain.jobposting.JobPosting;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +13,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
 
@@ -31,13 +30,27 @@ import lombok.Setter;
 @Table(name = "user_apply")
 @AllArgsConstructor
 @Entity
+@SequenceGenerator(
+    name = "user_apply_seq_generator",
+    sequenceName = "user_apply_SEQ",
+    allocationSize = 1
+)
 public class UserApply {
   @Id
+  @GeneratedValue(
+      strategy=GenerationType.AUTO,
+      generator = "user_apply_seq_generator"
+  )
   @Column(name = "apply_id")
   private Long applyId;
 
-  @Column(name = "ent_id", nullable = false, length = 20)
-  private String entId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "post_id", nullable = false)
+  private JobPosting jobPosting;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private WbUser wbUser;
 
   @Enumerated(value = EnumType.STRING)
   @Column(name = "result", nullable = false, length = 40 , columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
@@ -45,12 +58,4 @@ public class UserApply {
 
   @Column(name = "apply_date", nullable = false)
   private Date applyDate;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", nullable = false)
-  private WbUser wbUser;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id", nullable = false)
-  private JobPosting jobPosting;
 }

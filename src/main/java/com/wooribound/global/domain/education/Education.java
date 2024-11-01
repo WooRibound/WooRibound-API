@@ -1,11 +1,14 @@
-package com.wooribound.domain.education.entity;
+package com.wooribound.global.domain.education;
 
-import com.wooribound.global.entity.UserEdu;
+import com.wooribound.global.domain.useredu.UserEdu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.*;
@@ -19,8 +22,18 @@ import java.util.Date;
 @Table(name = "education")
 @AllArgsConstructor
 @Entity
+@SequenceGenerator(
+    name = "education_seq_generator",
+    sequenceName = "education_SEQ",
+    allocationSize = 1
+)
 public class Education {
   @Id
+  @GeneratedValue(
+      strategy = GenerationType.AUTO,
+      generator = "education_seq_generator"
+  )
+  @Column(name = "edu_id")
   private Long eduId;
 
   @Column(name = "edu_name", length = 50, nullable = false)
@@ -40,6 +53,9 @@ public class Education {
 
   @Column(name = "edu_host", length = 50, nullable = false)
   private String eduHost;
+
+  @Column(name = "edu_city", length = 20, nullable = false)
+  private String eduCity;
 
   @OneToMany(mappedBy = "education", fetch = FetchType.LAZY)
   private List<UserEdu> userEdu;

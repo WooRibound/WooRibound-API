@@ -2,19 +2,16 @@ package com.wooribound.domain.individual.entity;
 
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
-import com.wooribound.global.entity.Employment;
-import com.wooribound.global.entity.Notification;
-import com.wooribound.global.entity.UserApply;
-import com.wooribound.global.entity.UserEdu;
+import com.wooribound.global.domain.employment.Employment;
+import com.wooribound.global.domain.notification.Notification;
+import com.wooribound.global.domain.userapply.UserApply;
+import com.wooribound.global.domain.useredu.UserEdu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -52,10 +49,16 @@ public class WbUser {
   private String phone;
 
   @Column(name = "gender", nullable = false, length = 4)
-  private String gender;
+  @Enumerated(value = EnumType.STRING)
+  private Gender gender;
 
-  @Column(name = "job_ex", nullable = false, length = 20)
-  private String jobEx;
+  @Column(name = "exjob_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private YN exjobChk = YN.N;
+
+  @Column(name = "interest_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private YN interestChk = YN.N;
 
   @Column(name = "addr_city", nullable = false, length = 20)
   private String addrCity;
@@ -78,7 +81,6 @@ public class WbUser {
 
   @Enumerated(value = EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
-
   private YN isDeleted = YN.N;
 
 
@@ -93,19 +95,15 @@ public class WbUser {
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Employment> employments;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<UserEdu> userEdues;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<InterestJob> interestJobs;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<WorkHistory> workHistories;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Notification> notifications;
 }

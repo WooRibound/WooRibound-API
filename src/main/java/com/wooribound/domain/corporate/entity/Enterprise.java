@@ -1,15 +1,15 @@
 package com.wooribound.domain.corporate.entity;
 
-import com.wooribound.domain.recruitment.entity.JobPosting;
+import com.wooribound.global.domain.jobposting.JobPosting;
+import com.wooribound.global.constant.EntSize;
 import com.wooribound.global.constant.YN;
-import com.wooribound.global.entity.Employment;
+import com.wooribound.global.domain.employment.Employment;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -26,12 +26,13 @@ import java.util.Date;
 @Entity
 public class Enterprise {
   @Id
+  @Column(name = "ent_id")
   private String entId;
 
   @Column(name = "reg_num", length = 20, nullable = false)
   private String regNum;
 
-  @Column(name =  "ent_pwd", length = 20, nullable = false)
+  @Column(name =  "ent_pwd", length = 60, nullable = false)
   private String entPwd;
 
   @Column(name = "ent_name", length = 50, nullable = false)
@@ -41,7 +42,8 @@ public class Enterprise {
   private String entField;
 
   @Column(name =  "ent_size", length = 20, nullable = false)
-  private String entSize;
+  @Enumerated(EnumType.STRING)
+  private EntSize entSize;
 
   @Column(name = "ceo_name",length = 20, nullable = false)
   private String ceoName;
@@ -62,8 +64,7 @@ public class Enterprise {
   @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
   private YN isDeleted = YN.N; // entity 필드 기본값 설정 (jpa 함수 사용을 통한 쿼리 생성 대비)
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ent_id", nullable = false)
+  @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
   private List<Employment> employments;
 
   @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)

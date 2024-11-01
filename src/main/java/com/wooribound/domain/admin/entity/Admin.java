@@ -21,7 +21,7 @@ public class Admin {
   @Column(name = "admin_id", length = 20, nullable = false)
   private String adminId;
 
-  @Column(name = "admin_pw", length = 20, nullable = false)
+  @Column(name = "admin_pw", length = 60, nullable = false)
   private String adminPw;
 
   @Enumerated(value = EnumType.STRING)
