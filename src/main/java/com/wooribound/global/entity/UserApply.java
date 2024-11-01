@@ -39,8 +39,8 @@ public class UserApply {
   @Column(name = "ent_id", nullable = false, length = 20)
   private String entId;
 
-  @Enumerated(value = EnumType.STRING, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
-  @Column(name = "result", nullable = false, length = 40)
+  @Enumerated(value = EnumType.STRING)
+  @Column(name = "result", nullable = false, length = 40 , columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
   private ApplyResult result;
 
   @Column(name = "apply_date", nullable = false)
