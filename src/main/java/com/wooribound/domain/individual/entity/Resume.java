@@ -25,6 +25,7 @@ public class Resume {
     )
     @Column(name = "resume_id")
     private Long resumeId;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private WbUser wbUser;
