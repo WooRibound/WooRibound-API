@@ -24,3 +24,5 @@ public class Resume {
 
     @Column(name = "user_intro", nullable = false, length = 200)  // NOT NULL 제약 조건
     private String userIntro;}
+
+

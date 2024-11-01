@@ -78,6 +78,7 @@ public class WbUser {
 
   @Enumerated(value = EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
+
   private YN isDeleted = YN.N;
 
 
