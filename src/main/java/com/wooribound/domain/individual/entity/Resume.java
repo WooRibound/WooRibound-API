@@ -1,5 +1,6 @@
 package com.wooribound.domain.individual.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -11,10 +12,19 @@ import jakarta.persistence.Table;
 public class Resume {
     @Id
     private Long resumeId;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private WbUser wbUser;
+
+    @Column(name = "user_img", length = 200, nullable = false)
     private String userImg;
+
+    @Column(name = "user_email", length = 50, nullable = false)
     private String userEmail;
+
+    @Column(name = "user_intro", length = 200, nullable = false)
     private String userIntro;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private WbUser wbUser;
+
+
 }

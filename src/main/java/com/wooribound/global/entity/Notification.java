@@ -1,5 +1,7 @@
 package com.wooribound.global.entity;
 
+
+import com.wooribound.global.constant.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
