@@ -1,11 +1,8 @@
 package com.wooribound.global.entity;
 
 import com.wooribound.domain.education.entity.Education;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,8 +21,8 @@ import lombok.Setter;
 public class UserEdu {
   @Id
   private Long usereduId;
+  @Column(name = "user_id")
   private String userId;
-  private Long eduId;
   private String compState;
   private Date registDate;
 

@@ -1,6 +1,7 @@
 package com.wooribound.global.entity;
 
 import com.wooribound.global.constant.Gender;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,6 +22,7 @@ import lombok.Setter;
 public class Notification {
   @Id
   private Long notiId;
+  @Column(name = "user_id")
   private String userId;
   private String notice;
 }
