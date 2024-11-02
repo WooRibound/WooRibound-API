@@ -45,6 +45,9 @@ public class WbUser {
   @Column(name = "birth", nullable = false)  // NOT NULL 제약 조건
   private Date birth;
 
+  @Column(name = "email", nullable = false, length = 50)  // NOT NULL 제약 조건
+  private String email;
+
   @Column(name = "phone", nullable = false, length = 20)
   private String phone;
 
