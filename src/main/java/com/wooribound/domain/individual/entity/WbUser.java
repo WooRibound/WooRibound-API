@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
 @Builder
@@ -35,9 +35,6 @@ public class WbUser {
   @Id
   @Column(name = "user_id")
   private String userId;
-
-  @Column(name = "provider_id", nullable = false, length = 20)  // NOT NULL 제약 조건
-  private String providerId;
 
   @Column(name = "name", nullable = false, length = 20)
   private String name;
@@ -63,10 +60,10 @@ public class WbUser {
   @Enumerated(value = EnumType.STRING)
   private YN interestChk = YN.N;
 
-  @Column(name = "addr_city", nullable = false, length = 20)
+  @Column(name = "addr_city", length = 20)
   private String addrCity;
 
-  @Column(name = "addr_province", nullable = false, length = 20)
+  @Column(name = "addr_province", length = 20)
   private String addrProvince;
 
   @Column(name = "job_point", nullable = false, columnDefinition = "NUMBER DEFAULT 0")
