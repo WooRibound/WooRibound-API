@@ -42,7 +42,7 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     String userId = oAuth2Response.getId();
     String userName = oAuth2Response.getName();
     String userEmail = oAuth2Response.getEmail();
-    Gender gender = Gender.valueOf(oAuth2Response.getGender().toUpperCase());
+    Gender gender = oAuth2Response.getGender();
     String phone = oAuth2Response.getPhone();
 
     // null 체크 후 로그 출력
@@ -85,10 +85,35 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     if(existWbUser == null) {
 
       WbUser newWbUser = new WbUser();
+
+  // userId에 대한 null 체크
+      if (userId == null) {
+        logger.warn("User ID is null.");
+        throw new IllegalArgumentException("User ID cannot be null.");
+      }
       newWbUser.setUserId(userId);
-      newWbUser.setName(oAuth2Response.getName());
-      newWbUser.setEmail(oAuth2Response.getEmail());
-      newWbUser.setGender(Gender.valueOf(oAuth2Response.getGender().toUpperCase()));
+
+// name에 대한 null 체크
+      String name = oAuth2Response.getName();
+      if (name == null) {
+        logger.warn("User Name is null.");
+        throw new IllegalArgumentException("User Name cannot be null.");
+      }
+      newWbUser.setName(name);
+
+// email에 대한 null 체크
+      String email = oAuth2Response.getEmail();
+      if (email == null) {
+        logger.warn("User Email is null.");
+      } else{
+        newWbUser.setEmail(email);
+      }
+
+
+// gender에 대한 null 체크 및 변환
+      newWbUser.setGender(gender);
+
+// createdAt 필드에 현재 날짜 설정
       newWbUser.setCreatedAt(new Date());
 
       wbUserRepository.save(newWbUser); // 회원 정보 저장 (사실상의 최초 회원가입)
