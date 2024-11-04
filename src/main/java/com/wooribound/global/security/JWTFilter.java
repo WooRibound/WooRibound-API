@@ -1,6 +1,6 @@
 package com.wooribound.global.security;
 
-import com.wooribound.domain.individual.dto.OAuthDTO;
+import com.wooribound.api.individual.dto.OAuthDTO;
 import com.wooribound.global.util.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
