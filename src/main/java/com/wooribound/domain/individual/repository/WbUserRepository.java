@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WbUserRepository extends JpaRepository<WbUser, String> {
 
+  WbUser findByUserId(String userId);
 }
 
