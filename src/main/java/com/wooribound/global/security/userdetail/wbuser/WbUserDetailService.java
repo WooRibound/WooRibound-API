@@ -1,4 +1,4 @@
-package com.wooribound.global.security;
+package com.wooribound.global.security.userdetail.wbuser;
 
 import com.wooribound.api.individual.dto.OAuthDTO;
 import com.wooribound.domain.wbuser.WbUser;
