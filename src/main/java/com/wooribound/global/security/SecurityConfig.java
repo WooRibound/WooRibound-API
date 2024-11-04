@@ -1,6 +1,7 @@
 package com.wooribound.global.security;
 
 
+import com.wooribound.global.security.userdetail.wbuser.WbUserDetailService;
 import com.wooribound.global.util.JWTUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -22,7 +23,7 @@ public class SecurityConfig {
 
   private final JWTUtil jwtUtil;
 
-  private final CustomSuccessHandler customSuccessHandler;
+  private final com.wooribound.global.security.successhandler.WbUserSuccessHandler WbUserSuccessHandler;
 
   private final WbUserDetailService wbUserDetailService;
 
@@ -70,15 +71,18 @@ public class SecurityConfig {
     //oauth2
     http
         .oauth2Login(oauth2 -> oauth2
-            .successHandler(customSuccessHandler)
+            .successHandler(WbUserSuccessHandler)
             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                 .userService(wbUserDetailService)));
+
 
     //경로별 인가 작업
     http
         .authorizeHttpRequests((auth) -> auth
+            .requestMatchers("/auth/check").hasAuthority("ROLE_WbUser")
             .requestMatchers("/", "/**").permitAll()
-            .anyRequest().authenticated());
+            //.anyRequest().authenticated());
+            .anyRequest().permitAll());
 
     //세션 설정 : STATELESS
     http
