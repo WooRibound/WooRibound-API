@@ -48,7 +48,7 @@ public class WbUser {
   @Column(name = "email", length = 50)
   private String email;
 
-  @Column(name = "phone", nullable = false, length = 20)
+  @Column(name = "phone", length = 20)
   private String phone;
 
   @Column(name = "gender", nullable = false, length = 4)
