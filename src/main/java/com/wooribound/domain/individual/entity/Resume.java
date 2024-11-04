@@ -33,9 +33,6 @@ public class Resume {
     @Column(name = "user_img", nullable = false, length = 200)  // NOT NULL 제약 조건
     private String userImg;
 
-    @Column(name = "user_email", nullable = false, length = 50)  // NOT NULL 제약 조건
-    private String userEmail;
-
     @Column(name = "user_intro", nullable = false, length = 200)  // NOT NULL 제약 조건
     private String userIntro;}
 
