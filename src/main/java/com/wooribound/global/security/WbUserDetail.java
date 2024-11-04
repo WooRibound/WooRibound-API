@@ -1,7 +1,6 @@
 package com.wooribound.global.security;
 
-import com.wooribound.domain.individual.dto.OAuthDTO;
-import com.wooribound.global.constant.Gender;
+import com.wooribound.api.individual.dto.OAuthDTO;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

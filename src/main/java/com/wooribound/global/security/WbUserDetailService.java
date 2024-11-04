@@ -1,12 +1,13 @@
 package com.wooribound.global.security;
 
-import com.wooribound.domain.individual.dto.OAuthDTO;
-import com.wooribound.domain.individual.entity.WbUser;
-import com.wooribound.domain.individual.repository.WbUserRepository;
+import com.wooribound.api.individual.dto.OAuthDTO;
+import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.security.OauthResponseDTO.NaverResponse;
 import com.wooribound.global.security.OauthResponseDTO.OAuth2Response;
-import com.wooribound.global.security.WbUserDetail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class WbUserDetailService extends DefaultOAuth2UserService {
 
   private final WbUserRepository wbUserRepository;
+  private static final Logger logger = LoggerFactory.getLogger(WbUserDetailService.class); // Logger 선언
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -31,8 +33,50 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     // oAuth2User 객체로 부터 응답값을 꺼냄.
     oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
 
-    // 응답 객체에서 Id값을 꺼냄 이를 userId로 활용하고, redis에서도 key로 쓰일 예정
+    if (oAuth2Response == null) {
+      logger.warn("NaverResponse is null.");// 또는 예외를 던질 수 있습니다.
+    }
+    System.out.println("네이버로부터 정보 받아오기");
+    
+    // NaverResponse에서 데이터 추출
     String userId = oAuth2Response.getId();
+    String userName = oAuth2Response.getName();
+    String userEmail = oAuth2Response.getEmail();
+    Gender gender = Gender.valueOf(oAuth2Response.getGender().toUpperCase());
+    String phone = oAuth2Response.getPhone();
+
+    // null 체크 후 로그 출력
+    if (userId == null) {
+      logger.warn("User ID is null.");
+    } else {
+      logger.info("User ID: {}", userId);
+    }
+
+    if (userName == null) {
+      logger.warn("User Name is null.");
+    } else {
+      logger.info("User Name: {}", userName);
+    }
+
+    if (userEmail == null) {
+      logger.warn("User Email is null.");
+    } else {
+      logger.info("User Email: {}", userEmail);
+    }
+
+    if (gender == null) {
+      logger.warn("User gender is null");
+    } else {
+      logger.info("User gender: {}", gender);
+    }
+
+    if (phone == null) {
+      logger.warn("User phone number is null");
+    } else {
+      logger.info("User phone number: {}", phone);
+    }
+
+
 
     // 넘어온 회원정보가 이미 우리의 테이블에 존재하는지 확인
     WbUser existWbUser = wbUserRepository.findByUserId(userId);
