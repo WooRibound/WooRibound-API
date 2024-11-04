@@ -8,12 +8,6 @@ VALUES ('ENT001', 'CEO Kim', 'IT', 'MEDIUM', '1234567890', '100000000', 'Tech Co
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr, created_at, is_deleted)
 VALUES ('ENT002', 'CEO Lee', 'Finance', 'LARGE', '0987654321', '500000000', 'Finance Inc', 'securepwd', 'Busan, Korea', SYSTIMESTAMP, 'N');
 
--- Education 데이터
-INSERT INTO education (edu_id, end_date, start_date, edu_city, edu_job, edu_host, edu_name, edu_img)
-VALUES (1, TO_TIMESTAMP('2024-12-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Seoul', 'Programming', 'Tech Academy', 'Java Bootcamp', 'img/java.jpg');
-INSERT INTO education (edu_id, end_date, start_date, edu_city, edu_job, edu_host, edu_name, edu_img)
-VALUES (2, TO_TIMESTAMP('2025-12-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Busan', 'Design', 'Creative Hub', 'UI/UX Design', 'img/design.jpg');
-
 -- Wb_User 데이터
 INSERT INTO wb_user (user_id, gender, job_point, birth, created_at, addr_city, addr_province, name, phone, email, exjob_chk, interest_chk, job_interest, is_deleted)
 VALUES ('USER001', 'M', 10, TO_TIMESTAMP('1985-05-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), SYSTIMESTAMP, 'Seoul', 'Seoul', 'John Doe', '010-1234-5678', 'johndoe@example.com', 'N', 'Y', 'N', 'N');
