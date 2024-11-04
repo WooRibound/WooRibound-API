@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/individualuser/educations")
-public class WbUserEducationController {
-
+@RequestMapping("/individual/knowhow")
+public class WbUserKnowhowController {
 }

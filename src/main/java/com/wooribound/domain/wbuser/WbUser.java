@@ -1,6 +1,7 @@
 package com.wooribound.domain.wbuser;
 
 import com.wooribound.domain.interestjob.InterestJob;
+import com.wooribound.domain.knowhow.Knowhow;
 import com.wooribound.domain.resume.Resume;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.global.constant.Gender;
@@ -8,7 +9,7 @@ import com.wooribound.global.constant.YN;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.userapply.UserApply;
-import com.wooribound.domain.useredu.UserEdu;
+//import com.wooribound.domain.useredu.UserEdu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -95,8 +96,8 @@ public class WbUser {
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Employment> employments;
 
-  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
-  private List<UserEdu> userEdues;
+//  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
+//  private List<UserEdu> userEdues;
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<InterestJob> interestJobs;
@@ -106,4 +107,7 @@ public class WbUser {
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Notification> notifications;
+
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
+  private List<Knowhow> knowhows;
 }
