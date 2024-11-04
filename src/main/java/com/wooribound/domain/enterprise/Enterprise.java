@@ -49,7 +49,7 @@ public class Enterprise {
   private String ceoName;
 
   @Column(name = "revenue", length = 20, nullable = false)
-  private String revenue;
+  private Long revenue;
 
   @Column(name = "ent_addr", length = 200, nullable = false)
   private String entAddr;
