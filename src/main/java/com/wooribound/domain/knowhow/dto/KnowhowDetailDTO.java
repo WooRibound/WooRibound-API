@@ -9,8 +9,11 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowhowDTO {
+public class KnowhowDetailDTO {
+    private Long knowhowId;
+    private String userId;
     private String knowhowJob;
     private String knowhowTitle;
+    private String knowhowContent;
     private Date uploadDate;
 }

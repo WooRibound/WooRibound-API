@@ -1,4 +1,4 @@
-package com.wooribound.domain.knowhow.dto;
+package com.wooribound.api.admin.dto;
 
 import lombok.*;
 
@@ -9,8 +9,10 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowhowDTO {
+public class AdminKnowhowDTO {
+    private Long knowhowId;
+    private String userId;
     private String knowhowJob;
     private String knowhowTitle;
-    private Date uploadDate;
+    private String knowhowContent;
 }
