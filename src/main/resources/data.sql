@@ -1,6 +1,27 @@
 -- Job 데이터
-INSERT INTO job (job_id, job_name) VALUES (1, 'Developer');
-INSERT INTO job (job_id, job_name) VALUES (2, 'Designer');
+INSERT INTO job (job_id, job_name) VALUES (1, '기획·전략');
+INSERT INTO job (job_id, job_name) VALUES (2, '마케팅·홍보·조사');
+INSERT INTO job (job_id, job_name) VALUES (3, '회계·세무·재무');
+INSERT INTO job (job_id, job_name) VALUES (4, '인사·노무·HRD');
+INSERT INTO job (job_id, job_name) VALUES (5, '총무·법무·사무');
+INSERT INTO job (job_id, job_name) VALUES (6, 'IT개발·데이터');
+INSERT INTO job (job_id, job_name) VALUES (7, '디자인');
+INSERT INTO job (job_id, job_name) VALUES (8, '영업·판매·무역');
+INSERT INTO job (job_id, job_name) VALUES (9, '고객상담·TM');
+INSERT INTO job (job_id, job_name) VALUES (10, '구매·자재·물류');
+INSERT INTO job (job_id, job_name) VALUES (11, '상품기획·MD');
+INSERT INTO job (job_id, job_name) VALUES (12, '운전·운송·배송');
+INSERT INTO job (job_id, job_name) VALUES (13, '서비스');
+INSERT INTO job (job_id, job_name) VALUES (14, '생산');
+INSERT INTO job (job_id, job_name) VALUES (15, '건설·건축');
+INSERT INTO job (job_id, job_name) VALUES (16, '의료');
+INSERT INTO job (job_id, job_name) VALUES (17, '연구·R&D');
+INSERT INTO job (job_id, job_name) VALUES (18, '교육');
+INSERT INTO job (job_id, job_name) VALUES (19, '미디어·문화·스포츠');
+INSERT INTO job (job_id, job_name) VALUES (20, '금융·보험');
+INSERT INTO job (job_id, job_name) VALUES (21, '공공·복지');
+
+
 
 -- Enterprise 데이터
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr, created_at, is_deleted)
