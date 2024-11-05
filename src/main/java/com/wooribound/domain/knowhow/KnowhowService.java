@@ -10,4 +10,6 @@ public interface KnowhowService {
     List<KnowhowDTO> getAllKnowhows(AdminKnowhowDTO adminKnowhowDTO);
 
     KnowhowDetailDTO getKnowhowDetail(Long knowhowId);
+
+    String deleteKnowhow(Long knowhowId);
 }

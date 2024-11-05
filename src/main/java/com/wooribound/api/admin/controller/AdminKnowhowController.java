@@ -25,4 +25,9 @@ public class AdminKnowhowController {
     public KnowhowDetailDTO getKnowhowDetail(@RequestParam Long knowhowId) {
         return adminKnowhowFacade.getKnowhowDetail(knowhowId);
     }
+
+    @PostMapping("/delete")
+    public String deleteKnowhow(@RequestParam Long knowhowId) {
+        return adminKnowhowFacade.deleteKnowhow(knowhowId);
+    }
 }
