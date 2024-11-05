@@ -1,4 +1,4 @@
-package com.wooribound.global.security.OauthResponseDTO;
+package com.wooribound.global.security.dto;
 
 import lombok.Data;
 

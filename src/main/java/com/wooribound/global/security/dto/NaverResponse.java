@@ -1,4 +1,4 @@
-package com.wooribound.global.security.OauthResponseDTO;
+package com.wooribound.global.security.dto;
 
 import com.wooribound.global.constant.Gender;
 import java.text.ParseException;

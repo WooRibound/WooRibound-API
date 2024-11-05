@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h2>Admin Login</h2>
+<form id="loginForm">
+  <label for="userId">UserId:</label>
+  <input type="text" id="userId" name="userId" required>
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <br>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
+
+    axios.post('/auth/enterprise/login', {
+      username: userId,
+      password: password
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    })
+    .then(response => {
+      console.log('Response headers:', response.headers);
+      const accessToken = response.headers['access'];
+
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
+        console.log('Access Token saved:', accessToken);
+        alert("로그인 성공!");
+      } else {
+        console.warn('No access token found in response headers');
+        alert("토큰을 받지 못했습니다.");
+      }
+    })
+    .catch(error => {
+      console.error('Request failed:', error);
+      console.error('Error details:', error.response?.data);
+      console.error('Status:', error.response?.status);
+      alert("로그인 실패! 사용자 이름이나 비밀번호를 확인하세요.");
+    });
+  });
+</script>
+</body>
+</html>

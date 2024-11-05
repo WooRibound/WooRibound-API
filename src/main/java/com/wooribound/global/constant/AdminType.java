@@ -1,5 +1,5 @@
 package com.wooribound.global.constant;
 
 public enum AdminType {
-  I, S
+  ROLE_SERVICE_ADMIN , ROLE_INFRA_ADMIN
 }
