@@ -1,0 +1,23 @@
+name: Notify Slack on Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to Slack
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "A pull request has been ${{ github.event.action }} in the repository: ${{ github.repository }}",
+            "attachments": [
+              {
+                "title": "Pull Request #${{ github.event.pull_request.number }}",
+                "title_link": "${{ github.event.pull_request.html_url }}",
+                "text": "${{ github.event.pull_request.title }}",
+                "color": "#36a64f"
+              }
+            ]
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
