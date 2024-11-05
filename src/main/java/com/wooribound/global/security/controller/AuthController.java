@@ -1,7 +1,6 @@
 package com.wooribound.global.security.controller;
 
-import com.wooribound.domain.wbuser.WbUser;
-import com.wooribound.global.security.OauthResponseDTO.RefreshTokenRequest;
+import com.wooribound.global.security.dto.RefreshTokenRequest;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;
 import com.wooribound.global.util.JWTUtil;
 import com.wooribound.global.util.RedisUtil;
