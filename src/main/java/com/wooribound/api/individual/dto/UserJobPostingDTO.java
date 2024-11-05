@@ -1,10 +1,7 @@
 package com.wooribound.api.individual.dto;
 
 import com.wooribound.global.constant.PostState;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserJobPostingDTO {
     private String entName;
     private String postTitle;
@@ -20,4 +18,5 @@ public class UserJobPostingDTO {
     private String entAddr;
     private String jobName;
     private String AddrCity;
+
 }

@@ -8,6 +8,7 @@ import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.global.constant.ApplyResult;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserApplyServiceImpl implements UserApplyService {
 
     Logger logger = org.slf4j.LoggerFactory.getLogger(UserApplyServiceImpl.class);
@@ -25,16 +27,13 @@ public class UserApplyServiceImpl implements UserApplyService {
     private final JobPostingRepository jobPostingRepository;
     private final com.wooribound.domain.wbuser.WbUserRepository wbUserRepository;
 
-    public UserApplyServiceImpl(UserApplyRepository userApplyRepository, JobPostingRepository jobPostingRepository, com.wooribound.domain.wbuser.WbUserRepository wbUserRepository) {
-        this.userApplyRepository = userApplyRepository;
-        this.jobPostingRepository = jobPostingRepository;
-        this.wbUserRepository = wbUserRepository;
-    }
-
     // 1. 공고 지원
     @Override
     @Transactional
-    public String createUserApply(Long postId, String userId) {
+    public String createUserApply(UserApplyDTO userApplyDTO) {
+        String userId = userApplyDTO.getUserId();
+        Long postId = userApplyDTO.getPostId();
+
         try {
             JobPosting jobPosting = jobPostingRepository.findById(postId)
                     .orElseThrow(() -> new NoSuchElementException("해당 공고 ID가 존재하지 않습니다."));
@@ -60,7 +59,8 @@ public class UserApplyServiceImpl implements UserApplyService {
 
     // 2. 지원 공고 조회
     @Override
-    public List<WbUserApplyDTO> getUserApplyList(String userId) {
+    public List<WbUserApplyDTO> getUserApplyList(UserApplyDTO userApplyDTO) {
+        String userId = userApplyDTO.getUserId();
 
         List<UserApply> userApplyList = userApplyRepository.findByWbUser_UserId(userId);
 

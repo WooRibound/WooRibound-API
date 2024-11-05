@@ -6,27 +6,21 @@ import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDTO;
 import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDetailDTO;
 import com.wooribound.domain.jobposting.Service.WbUserJobPostingService;
 import com.wooribound.domain.userapply.Service.UserApplyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class WbUserJobPostingFacade {
 
     private final UserApplyService userApplyService;
     private final WbUserJobPostingService wbUserJobPostingService;
 
-    public WbUserJobPostingFacade(UserApplyService userApplyService, WbUserJobPostingService wbUserJobPostingService) {
-        this.userApplyService = userApplyService;
-        this.wbUserJobPostingService = wbUserJobPostingService;
-    }
-
-
     // 1. 공고 지원
     public String applyForJob(UserApplyDTO userApplyDTO) {
-        Long postId = userApplyDTO.getPostId();
-        String userId = userApplyDTO.getUserId();
-        return userApplyService.createUserApply(postId, userId);
+        return userApplyService.createUserApply(userApplyDTO);
     }
 
     // 2. 공고 조회 - 전체, 회사명, 직무, 지역

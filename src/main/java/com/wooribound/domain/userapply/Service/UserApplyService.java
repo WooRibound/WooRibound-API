@@ -6,12 +6,11 @@ import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
 import java.util.List;
 
 public interface UserApplyService {
-
     // 1. 공고 지원
-    String createUserApply(Long postId, String userId);
+    String createUserApply(UserApplyDTO userApplyDTO);
 
     // 2. 지원 공고 조회
-    List<WbUserApplyDTO> getUserApplyList(String userId);
+    List<WbUserApplyDTO> getUserApplyList(UserApplyDTO userApplyDTO);
 
     // 3. 지원 공고 취소
     String cancelUserApply(UserApplyDTO userApplyDTO);
