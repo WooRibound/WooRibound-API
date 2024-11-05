@@ -1,5 +1,8 @@
 package com.wooribound.global.security.OauthResponseDTO;
 
+import com.wooribound.global.constant.Gender;
+import java.util.Date;
+
 public interface OAuth2Response {
 
   // 제공자에서 발급해준 ID
@@ -11,11 +14,9 @@ public interface OAuth2Response {
   // 사용자 실명
   String getName();
 
-  String getGender();
+  Gender getGender();
 
-  String getBirthYear();
-
-  String getBirthDay();
+  Date getBirth();
 
   String getPhone();
 }

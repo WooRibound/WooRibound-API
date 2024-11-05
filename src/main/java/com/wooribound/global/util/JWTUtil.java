@@ -1,5 +1,8 @@
 package com.wooribound.global.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -56,4 +59,26 @@ public class JWTUtil {
         .signWith(secretKey)
         .compact();
   }
+
+  public boolean validateToken(String token) {
+    try {
+      // 토큰 파싱 및 검증
+      Jwts.parser()
+          .verifyWith(secretKey)
+          .build()
+          .parseSignedClaims(token);
+
+      // 만료 여부 확인
+      return !isExpired(token);
+
+    } catch (ExpiredJwtException e) {
+      // 토큰이 만료된 경우
+      return false;
+    } catch (JwtException | IllegalArgumentException e) {
+      // 그 외 유효하지 않은 토큰인 경우
+      return false;
+    }
+  }
+
+
 }

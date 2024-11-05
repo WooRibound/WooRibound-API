@@ -1,5 +1,6 @@
-package com.wooribound.global.security;
+package com.wooribound.global.security.successhandler;
 
+import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;
 import com.wooribound.global.util.JWTUtil;
 import com.wooribound.global.util.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final JWTUtil jwtUtil;
   private final RedisUtil redisUtil;
 
@@ -25,7 +26,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
       throws IOException {
     WbUserDetail wbUserDetail = (WbUserDetail) authentication.getPrincipal();
 
-    // 토큰 생성시에 사용자명과 권한이 필요하니 준비
+    // 토큰 생성시에 사용자Id와 이름, 권한이 필요하니 준비
     String userId = wbUserDetail.getId();
     String username = wbUserDetail.getName();
     // stream()을 사용해 권한 하나만 꺼내기
@@ -39,13 +40,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     String refreshToken = jwtUtil.createJwt("refresh", userId, username, role, 86400000L);
 
     // redis에 insert (key = username / value = refreshToken)
-    redisUtil.setValues(username, refreshToken, Duration.ofMillis(86400000L));
+    redisUtil.setValues(userId, refreshToken, Duration.ofMillis(86400000L));
 
     // 응답
     response.setHeader("access", "Bearer " + accessToken);
     response.addCookie(createCookie("refresh", refreshToken));
-    response.setStatus(HttpStatus.OK.value());
-    response.sendRedirect("http://localhost:8080/");       // 로그인 성공시 프론트에 알려줄 redirect 경로
+    response.sendRedirect("http://localhost:8081/loginsuccess?accesstoken=" + accessToken + "refreshtoken="+ refreshToken);       // 로그인 성공시 프론트에 알려줄 redirect 경로
   }
 
   private Cookie createCookie(String key, String value) {
