@@ -17,8 +17,8 @@ public class WbUserInfoController {
 
     // 1. 지원 공고 조회
     @GetMapping("/jobposting/myapply")
-    public List<WbUserApplyDTO> getUserApplyList(@RequestParam String user_id) {
-        return wbUserInfoFacade.getUserApplyList(user_id);
+    public List<WbUserApplyDTO> getUserApplyList(@ModelAttribute UserApplyDTO userApplyDTO) {
+        return wbUserInfoFacade.getUserApplyList(userApplyDTO);
     }
 
     // 2. 지원 공고 취소
