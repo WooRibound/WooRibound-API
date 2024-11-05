@@ -46,3 +46,19 @@ INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_
 VALUES (1, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '30' DAY, 1, 'Backend Developer', 'ENT001', 'img/backend.jpg', 'ACTIVE');
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img, post_state)
 VALUES (2, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg', 'PENDING');
+
+-- 노하우
+INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
+VALUES (1, 'Software Developer', 'Effective Debugging Techniques', 'Learn how to debug effectively to save time and increase productivity.', TO_DATE('2024-11-05', 'YYYY-MM-DD'), 'USER001');
+
+INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
+VALUES (2, 'Data Scientist', 'Building a Predictive Model', 'Step-by-step guide to building a predictive model using machine learning.', TO_DATE('2024-11-04', 'YYYY-MM-DD'), 'USER001');
+
+INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
+VALUES (3, 'Product Manager', 'Effective Communication with Stakeholders', 'Strategies for effective communication with project stakeholders.', TO_DATE('2024-11-03', 'YYYY-MM-DD'), 'USER001');
+
+INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
+VALUES (4, 'UI/UX Designer', 'User-Centered Design Principles', 'Introduction to user-centered design principles for better user experiences.', TO_DATE('2024-11-02', 'YYYY-MM-DD'), 'USER002');
+
+INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
+VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and techniques for optimizing server performance and ensuring stability.', TO_DATE('2024-11-01', 'YYYY-MM-DD'), 'USER002');

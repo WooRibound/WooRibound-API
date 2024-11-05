@@ -41,9 +41,6 @@ public class Knowhow {
   @Column(name = "upload_date", nullable = false)
   private Date uploadDate;
 
-  @Column(name = "report_cnt", nullable = false)
-  private int reportCnt = 0;
-
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private WbUser wbUser;

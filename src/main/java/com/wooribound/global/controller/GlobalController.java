@@ -20,15 +20,6 @@ public class GlobalController {
 
     private final JobService jobService;
 
-    @Operation(summary = "직무 전체 조회 기능",
-            description = "직무 목록 반환")
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved job list"),
-            @ApiResponse(responseCode = "404", description = "No jobs found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
-
     @GetMapping("/jobs")
     @ResponseBody
     public List<JobDTO> showAllJobs() {
