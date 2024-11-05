@@ -22,4 +22,8 @@ public class AdminKnowhowFacade {
     public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
         return knowhowService.getKnowhowDetail(knowhowId);
     }
+
+    public String deleteKnowhow(Long knowhowId) {
+        return knowhowService.deleteKnowhow(knowhowId);
+    }
 }
