@@ -2,6 +2,9 @@ package com.wooribound.global.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,31 +12,25 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
   @Bean
-  public OpenAPI openApi(){
+  public OpenAPI openApi() {
     return new OpenAPI()
+        .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+        .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
         .info(apiInfo());
   }
 
-  /*
+  private SecurityScheme createAPIKeyScheme() {
+    return new SecurityScheme()
+        .type(SecurityScheme.Type.HTTP)
+        .bearerFormat("JWT")
+        .scheme("bearer")
+        .description("JWT Bearer Token을 사용하여 인증합니다. 'Bearer ' 접두사를 붙여 사용하세요.");
+  }
 
-      @Bean
-      public OpenAPI openApi(){
-          return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
-              .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
-              .info(apiInfo());
-      }
-
-      private SecurityScheme createAPIKeyScheme() {
-          return new SecurityScheme().type(SecurityScheme.Type.HTTP)
-              .bearerFormat("JWT")
-              .scheme("bearer");
-      }
-  */
   private Info apiInfo() {
     return new Info()
         .title("Wooribound API 명세서")
         .description("Wooribound API 명세서입니다.")
         .version("1.0.0");
   }
-
 }
