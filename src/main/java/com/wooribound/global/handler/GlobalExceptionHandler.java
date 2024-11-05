@@ -1,5 +1,6 @@
 package com.wooribound.global.handler;
 
+import com.wooribound.global.exception.NoKnowhowException;
 import com.wooribound.global.exception.NoTokenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(400).body(e.getMessage());
   }
 
-
+  @ExceptionHandler(NoKnowhowException.class)
+  public  ResponseEntity<String> handleNoKnowhowException(NoKnowhowException e){
+    return ResponseEntity.status(400).body(e.getMessage());
+  }
 }
 

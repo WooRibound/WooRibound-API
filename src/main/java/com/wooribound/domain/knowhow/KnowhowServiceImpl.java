@@ -2,6 +2,8 @@ package com.wooribound.domain.knowhow;
 
 import com.wooribound.api.admin.dto.AdminKnowhowDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
+import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
+import com.wooribound.global.exception.NoKnowhowException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,20 @@ public class KnowhowServiceImpl implements KnowhowService {
                         .uploadDate(knowhow.getUploadDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
+        Knowhow knowhow = knowhowRepository.findById(knowhowId)
+                .orElseThrow((NoKnowhowException::new));
+
+        return KnowhowDetailDTO.builder()
+                .knowhowId(knowhow.getKnowhowId())
+                .knowhowJob(knowhow.getKnowhowJob())
+                .knowhowTitle(knowhow.getKnowhowTitle())
+                .knowhowContent(knowhow.getKnowhowContent())
+                .uploadDate(knowhow.getUploadDate())
+                .userId(knowhow.getWbUser().getUserId())
+                .build();
     }
 }

@@ -3,6 +3,7 @@ package com.wooribound.api.admin.facade;
 import com.wooribound.api.admin.dto.AdminKnowhowDTO;
 import com.wooribound.domain.knowhow.KnowhowService;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
+import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,9 @@ public class AdminKnowhowFacade {
 
     public List<KnowhowDTO> getAllKnowhows(AdminKnowhowDTO adminKnowhowDTO) {
         return knowhowService.getAllKnowhows(adminKnowhowDTO);
+    }
+
+    public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
+        return knowhowService.getKnowhowDetail(knowhowId);
     }
 }
