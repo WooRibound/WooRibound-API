@@ -1,6 +1,8 @@
 package com.wooribound.domain.jobposting;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,5 +23,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     // 2. 공고 상세 조회
     JobPosting findJobPostingByPostId(@Param("postId") Long postId);
 
-
+    @Transactional
+    @Modifying
+    int deleteByPostId(Long postId);
 }

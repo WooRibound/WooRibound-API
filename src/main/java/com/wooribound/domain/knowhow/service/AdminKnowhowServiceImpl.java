@@ -1,6 +1,8 @@
-package com.wooribound.domain.knowhow;
+package com.wooribound.domain.knowhow.service;
 
-import com.wooribound.api.admin.dto.AdminKnowhowDTO;
+import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
+import com.wooribound.domain.knowhow.Knowhow;
+import com.wooribound.domain.knowhow.KnowhowRepository;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import com.wooribound.global.exception.NoKnowhowException;
@@ -12,13 +14,13 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class KnowhowServiceImpl implements KnowhowService {
+public class AdminKnowhowServiceImpl implements AdminKnowhowService {
 
     private final KnowhowRepository knowhowRepository;
 
     @Override
-    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowDTO adminKnowhowDTO) {
-        List<Knowhow> knowhows = knowhowRepository.findAll(adminKnowhowDTO.getKnowhowJob(), adminKnowhowDTO.getKnowhowTitle());
+    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
+        List<Knowhow> knowhows = knowhowRepository.findAll(adminKnowhowReqDTO.getKnowhowJob(), adminKnowhowReqDTO.getKnowhowTitle());
 
         return knowhows.stream().map(knowhow -> KnowhowDTO.builder()
                         .knowhowJob(knowhow.getKnowhowJob())

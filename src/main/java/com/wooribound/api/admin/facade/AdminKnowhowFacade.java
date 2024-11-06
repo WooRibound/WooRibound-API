@@ -1,7 +1,7 @@
 package com.wooribound.api.admin.facade;
 
-import com.wooribound.api.admin.dto.AdminKnowhowDTO;
-import com.wooribound.domain.knowhow.KnowhowService;
+import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
+import com.wooribound.domain.knowhow.service.AdminKnowhowService;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +13,17 @@ import java.util.List;
 @Component
 public class AdminKnowhowFacade {
 
-    private final KnowhowService knowhowService;
+    private final AdminKnowhowService adminKnowhowService;
 
-    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowDTO adminKnowhowDTO) {
-        return knowhowService.getAllKnowhows(adminKnowhowDTO);
+    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
+        return adminKnowhowService.getAllKnowhows(adminKnowhowReqDTO);
     }
 
     public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
-        return knowhowService.getKnowhowDetail(knowhowId);
+        return adminKnowhowService.getKnowhowDetail(knowhowId);
     }
 
     public String deleteKnowhow(Long knowhowId) {
-        return knowhowService.deleteKnowhow(knowhowId);
+        return adminKnowhowService.deleteKnowhow(knowhowId);
     }
 }

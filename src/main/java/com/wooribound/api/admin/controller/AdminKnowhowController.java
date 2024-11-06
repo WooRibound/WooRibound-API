@@ -1,8 +1,7 @@
 package com.wooribound.api.admin.controller;
 
-import com.wooribound.api.admin.dto.AdminKnowhowDTO;
+import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
 import com.wooribound.api.admin.facade.AdminKnowhowFacade;
-import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDetailDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +16,8 @@ public class AdminKnowhowController {
     private final AdminKnowhowFacade adminKnowhowFacade;
 
     @GetMapping
-    public List<KnowhowDTO> getAllKnowhows(@ModelAttribute AdminKnowhowDTO adminKnowhowDTO) {
-        return adminKnowhowFacade.getAllKnowhows(adminKnowhowDTO);
+    public List<KnowhowDTO> getAllKnowhows(@ModelAttribute AdminKnowhowReqDTO adminKnowhowReqDTO) {
+        return adminKnowhowFacade.getAllKnowhows(adminKnowhowReqDTO);
     }
 
     @GetMapping("/detail")
