@@ -1,6 +1,8 @@
-package com.wooribound.domain.knowhow;
+package com.wooribound.domain.knowhow.service;
 
 import com.wooribound.api.admin.dto.AdminKnowhowDTO;
+import com.wooribound.domain.knowhow.Knowhow;
+import com.wooribound.domain.knowhow.KnowhowRepository;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;
 import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import com.wooribound.global.exception.NoKnowhowException;
@@ -12,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class KnowhowServiceImpl implements KnowhowService {
+public class AdminKnowhowServiceImpl implements AdminKnowhowService {
 
     private final KnowhowRepository knowhowRepository;
 
