@@ -4,8 +4,8 @@ import com.wooribound.api.individual.dto.OAuthDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.Gender;
-import com.wooribound.global.security.OauthResponseDTO.NaverResponse;
-import com.wooribound.global.security.OauthResponseDTO.OAuth2Response;
+import com.wooribound.global.security.dto.NaverResponse;
+import com.wooribound.global.security.dto.OAuth2Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;
@@ -46,37 +46,6 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     String userEmail = oAuth2Response.getEmail();
     Gender gender = oAuth2Response.getGender();
     String phone = oAuth2Response.getPhone();
-
-    // null 체크 후 로그 출력
-    if (userId == null) {
-      logger.warn("User ID is null.");
-    } else {
-      logger.info("User ID: {}", userId);
-    }
-
-    if (userName == null) {
-      logger.warn("User Name is null.");
-    } else {
-      logger.info("User Name: {}", userName);
-    }
-
-    if (userEmail == null) {
-      logger.warn("User Email is null.");
-    } else {
-      logger.info("User Email: {}", userEmail);
-    }
-
-    if (gender == null) {
-      logger.warn("User gender is null");
-    } else {
-      logger.info("User gender: {}", gender);
-    }
-
-    if (phone == null) {
-      logger.warn("User phone number is null");
-    } else {
-      logger.info("User phone number: {}", phone);
-    }
 
 
 

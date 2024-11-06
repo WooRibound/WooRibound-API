@@ -30,7 +30,7 @@ public class KnowhowServiceImpl implements KnowhowService {
 
     @Override
     public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
-        Knowhow knowhow = knowhowRepository.findById(knowhowId)
+        Knowhow knowhow = knowhowRepository.findByKnowhowId(knowhowId)
                 .orElseThrow((NoKnowhowException::new));
 
         return KnowhowDetailDTO.builder()
@@ -41,5 +41,14 @@ public class KnowhowServiceImpl implements KnowhowService {
                 .uploadDate(knowhow.getUploadDate())
                 .userId(knowhow.getWbUser().getUserId())
                 .build();
+    }
+
+    @Override
+    public String deleteKnowhow(Long knowhowId) {
+        if (knowhowRepository.deleteByKnowhowId(knowhowId) != 0) {
+            return knowhowId + "번 노하우를 성공적으로 삭제했습니다.";
+        } else {
+            throw new NoKnowhowException(knowhowId);
+        }
     }
 }
