@@ -10,4 +10,6 @@ public interface AdminJobPostingService {
     List<JobPostingDTO> getAllJobPostings(AdminJobPostingReqDTO adminJobPostingReqDTO);
 
     JobPostingDetailDTO getJobPostingDetail(Long postId);
+
+    String deleteJobPosting(Long postId);
 }

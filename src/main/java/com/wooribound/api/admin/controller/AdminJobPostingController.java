@@ -1,13 +1,9 @@
 package com.wooribound.api.admin.controller;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
-import com.wooribound.api.admin.dto.AdminKnowhowDTO;
 import com.wooribound.api.admin.facade.AdminJobPostingFacade;
-import com.wooribound.api.admin.facade.AdminKnowhowFacade;
 import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
 import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
-import com.wooribound.domain.knowhow.dto.KnowhowDTO;
-import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +25,8 @@ public class AdminJobPostingController {
         return adminJobPostingFacade.getJobPostingDetail(postId);
     }
 
-//    @PostMapping("/delete")
-//    public String deleteKnowhow(@RequestParam Long knowhowId) {
-//        return adminKnowhowFacade.deleteKnowhow(knowhowId);
-//    }
+    @PostMapping("/delete")
+    public String deleteJobPosting(@RequestParam Long postId) {
+        return adminJobPostingFacade.deleteJobPosting(postId);
+    }
 }

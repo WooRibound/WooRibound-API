@@ -22,4 +22,8 @@ public class AdminJobPostingFacade {
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         return adminJobPostingService.getJobPostingDetail(postId);
     }
+
+    public String deleteJobPosting(Long postId) {
+        return adminJobPostingService.deleteJobPosting(postId);
+    }
 }

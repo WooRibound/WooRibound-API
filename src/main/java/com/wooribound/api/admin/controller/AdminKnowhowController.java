@@ -1,6 +1,5 @@
 package com.wooribound.api.admin.controller;
 
-import com.wooribound.api.admin.dto.AdminKnowhowDTO;
 import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
 import com.wooribound.api.admin.facade.AdminKnowhowFacade;
 import com.wooribound.domain.knowhow.dto.KnowhowDTO;

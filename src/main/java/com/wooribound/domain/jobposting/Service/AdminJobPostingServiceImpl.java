@@ -5,8 +5,7 @@ import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
 import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
-import com.wooribound.domain.knowhow.KnowhowRepository;
-import com.wooribound.domain.knowhow.dto.KnowhowDTO;
+import com.wooribound.global.exception.NoJobPostingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +48,14 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                 .jobName(jobPosting.getJob().getJobName())
                 .entAddr(jobPosting.getEnterprise().getEntAddr())
                 .build();
+    }
+
+    @Override
+    public String deleteJobPosting(Long postId) {
+        if (jobPostingRepository.deleteByPostId(postId) != 0) {
+            return postId + "번 채용공고를 성공적으로 삭제했습니다.";
+        } else {
+            throw new NoJobPostingException(postId);
+        }
     }
 }
