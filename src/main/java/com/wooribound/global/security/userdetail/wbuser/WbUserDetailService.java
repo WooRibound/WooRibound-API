@@ -4,6 +4,7 @@ import com.wooribound.api.individual.dto.OAuthDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.YN;
 import com.wooribound.global.security.dto.NaverResponse;
 import com.wooribound.global.security.dto.OAuth2Response;
 import org.slf4j.Logger;
@@ -91,12 +92,14 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 
       OAuthDTO userDTO = new OAuthDTO();
       userDTO.setId(userId);
+      userDTO.setFirstLogin(YN.Y);
       userDTO.setName(oAuth2Response.getName());
 
       return new WbUserDetail(userDTO);
     } else {		// 회원정보가 존재한다면 조회된 데이터로 반환한다.
       OAuthDTO userDTO = new OAuthDTO();
       userDTO.setId(userId);
+      userDTO.setFirstLogin(YN.N);
       userDTO.setName(oAuth2Response.getName());
 
       return new WbUserDetail(userDTO);

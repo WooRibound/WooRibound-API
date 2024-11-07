@@ -91,7 +91,12 @@ public class SecurityConfig {
           @Override
           public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
+            configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:8080",
+                "http://127.0.0.1:8080",
+                "https://nid.naver.com",  // 네이버 로그인
+                "https://openapi.naver.com"
+            ));
             configuration.setAllowedMethods(Collections.singletonList("*"));
             configuration.setAllowCredentials(true);
             configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -101,15 +106,15 @@ public class SecurityConfig {
           }
         }))
         .csrf(csrf -> csrf.disable())
-        .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
         .addFilterAt(adminLoginFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterAt(enterpriseLoginFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
         .oauth2Login(oauth2 -> oauth2
             .successHandler(wbUserSuccessHandler)
             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                 .userService(wbUserDetailService)))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/admin/login", "/auth/enterprise/login").permitAll()
+            .requestMatchers("/auth/admin/login", "/auth/enterprise/login","/auth/refresh").permitAll()
             .requestMatchers("/auth/check").hasAnyAuthority(
                 "ROLE_ENTERPRISE_USER",
                 "ROLE_ADMIN_USER",

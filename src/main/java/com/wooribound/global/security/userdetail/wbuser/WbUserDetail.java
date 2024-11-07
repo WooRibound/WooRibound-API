@@ -1,6 +1,7 @@
 package com.wooribound.global.security.userdetail.wbuser;
 
 import com.wooribound.api.individual.dto.OAuthDTO;
+import com.wooribound.global.constant.YN;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,4 +33,6 @@ public class WbUserDetail implements OAuth2User {
   public String getName() {
     return oAuthDTO.getName();
   }
+
+  public YN getFirstLogin() { return oAuthDTO.getFirstLogin(); }
 }

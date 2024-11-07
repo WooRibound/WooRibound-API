@@ -34,6 +34,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
           AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
+        System.out.println("인증실패");
         objectMapper.writeValue(response.getWriter(), Map.of(
             "error", "Authentication Failed",
             "message", exception.getMessage()
@@ -83,7 +84,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
       // 실제 인증 수행
       return this.getAuthenticationManager().authenticate(authRequest);
 
-    } catch (IOException e) {
+    } catch (Exception e) {
       System.err.println("Authentication error: " + e.getMessage());
       throw new IllegalArgumentException("Failed to parse authentication request body", e);
     }

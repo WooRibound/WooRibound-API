@@ -24,6 +24,8 @@ public class AdminSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
       throws IOException {
+    System.out.println("관리자 사용자 로그인 success handler 입장");
+    
     AdminUserDetail adminUserDetail = (AdminUserDetail) authentication.getPrincipal();
 
     // 토큰 생성시에 사용자Id와 이름, 권한이 필요하니 준비
