@@ -12,6 +12,7 @@ public class AdminAuthFacade {
 
     private final AdminService adminService;
 
+
     public String join(AdminDTO adminDTO) {
         adminService.create(adminDTO);
         return "회원가입이 완료되었습니다.";

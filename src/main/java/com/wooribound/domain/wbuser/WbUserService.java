@@ -11,5 +11,7 @@ public interface WbUserService {
 
     String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
 
+    WbUserDTO getOneUserInfo(String userId);
+
     int getJobPoint(String userId);
 }
