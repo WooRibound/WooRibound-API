@@ -25,7 +25,7 @@ public class EnterpriseAuthController {
   private final EnterpriseAuthFacade enterpriseAuthFacade;
 
   @PostMapping("/join")
-  public String Join(@Validated @RequestBody EnterpiseJoinDTO enterpiseJoinDTO){
-    return enterpriseAuthFacade.Join(enterpiseJoinDTO);
+  public String join(@Validated @RequestBody EnterpiseJoinDTO enterpiseJoinDTO){
+    return enterpriseAuthFacade.join(enterpiseJoinDTO);
   }
 }

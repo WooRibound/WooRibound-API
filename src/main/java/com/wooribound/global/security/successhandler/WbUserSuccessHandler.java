@@ -1,5 +1,6 @@
 package com.wooribound.global.security.successhandler;
 
+import com.wooribound.global.constant.YN;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;
 import com.wooribound.global.util.JWTUtil;
 import com.wooribound.global.util.RedisUtil;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 @RequiredArgsConstructor
@@ -46,10 +48,26 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     // 응답
     // 응답
-    response.setHeader("Access-Control-Expose-Headers", "access");
-    response.setHeader("access", "Bearer " + accessToken);
+    String redirectUrl_oldUser = UriComponentsBuilder
+        .fromUriString("http://localhost:8080")
+        .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
+        .build()
+        .toUriString();
+
+    String redirectUrl_newUser = UriComponentsBuilder
+        .fromUriString("http://localhost:8080/individual-user/register")
+        .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
+        .build()
+        .toUriString();
+
     response.addCookie(createCookie("refresh", refreshToken));
-    response.sendRedirect("http://localhost:8081/loginsuccess?accesstoken=" + accessToken + "refreshtoken="+ refreshToken);       // 로그인 성공시 프론트에 알려줄 redirect 경로
+    if (wbUserDetail.getFirstLogin() == YN.Y) {
+      response.sendRedirect(redirectUrl_newUser);
+    } else {
+      response.sendRedirect(redirectUrl_oldUser);
+    }
+
+
   }
 
   private Cookie createCookie(String key, String value) {
