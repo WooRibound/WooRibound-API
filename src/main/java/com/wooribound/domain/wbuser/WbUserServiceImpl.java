@@ -92,4 +92,27 @@ public class WbUserServiceImpl implements WbUserService {
             return "사용자 정보 수정 중 오류가 발생했습니다.";
         }
     }
+
+    @Override
+    public WbUserDTO getOneUserInfo(String userId) {
+        WbUser user = wbUserRepository.findByUserId(userId).orElseThrow();
+
+        return WbUserDTO.builder()
+            .userId(user.getUserId())
+            .name(user.getName())
+            .birth(user.getBirth())
+            .email(user.getEmail())
+            .phone(user.getPhone())
+            .gender(user.getGender())
+            .exjobChk(user.getExjobChk())
+            .interestChk(user.getInterestChk())
+            .addrCity(user.getAddrCity())
+            .addrProvince(user.getAddrProvince())
+            .jobPoint(user.getJobPoint())
+            .jobInterest(user.getJobInterest())
+            .createdAt(user.getCreatedAt())
+            .updatedAt(user.getUpdatedAt())
+            .isDeleted(user.getIsDeleted())
+            .build();
+    }
 }

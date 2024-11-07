@@ -47,14 +47,15 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     String userEmail = oAuth2Response.getEmail();
     Gender gender = oAuth2Response.getGender();
     String phone = oAuth2Response.getPhone();
+    Date birth = oAuth2Response.getBirth();
 
 
 
     // 넘어온 회원정보가 이미 우리의 테이블에 존재하는지 확인
-    Optional<WbUser> existWbUser = wbUserRepository.findByUserId(userId);
+    Optional<WbUser> existWbUser = wbUserRepository.findById(userId);
 
     // 존재하지 않는다면 회원정보를 저장하고 CustomOAuth2User 반환
-    if(existWbUser == null) {
+    if(existWbUser.isEmpty()) {
 
       WbUser newWbUser = new WbUser();
 
@@ -66,37 +67,39 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
       newWbUser.setUserId(userId);
 
 // name에 대한 null 체크
-      String name = oAuth2Response.getName();
-      if (name == null) {
+      if (userName == null) {
         logger.warn("User Name is null.");
         throw new IllegalArgumentException("User Name cannot be null.");
       }
-      newWbUser.setName(name);
+      newWbUser.setName(userName);
 
 // email에 대한 null 체크
-      String email = oAuth2Response.getEmail();
-      if (email == null) {
+      if (userEmail == null) {
         logger.warn("User Email is null.");
       } else{
-        newWbUser.setEmail(email);
+        newWbUser.setEmail(userEmail);
       }
 
 
 // gender에 대한 null 체크 및 변환
+
       newWbUser.setGender(gender);
+      newWbUser.setPhone(phone);
+      newWbUser.setBirth(birth);
 
 // createdAt 필드에 현재 날짜 설정
       newWbUser.setCreatedAt(new Date());
-
+      System.out.println("새 유저 저장");
       wbUserRepository.save(newWbUser); // 회원 정보 저장 (사실상의 최초 회원가입)
-
+    
       OAuthDTO userDTO = new OAuthDTO();
       userDTO.setId(userId);
       userDTO.setFirstLogin(YN.Y);
-      userDTO.setName(oAuth2Response.getName());
+      userDTO.setName(userName);
 
       return new WbUserDetail(userDTO);
     } else {		// 회원정보가 존재한다면 조회된 데이터로 반환한다.
+      System.out.println("기존 유저 반환");
       OAuthDTO userDTO = new OAuthDTO();
       userDTO.setId(userId);
       userDTO.setFirstLogin(YN.N);
