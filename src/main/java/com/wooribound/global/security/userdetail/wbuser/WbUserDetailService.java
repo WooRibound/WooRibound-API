@@ -10,6 +10,8 @@ import com.wooribound.global.security.dto.OAuth2Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -49,7 +51,7 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 
 
     // 넘어온 회원정보가 이미 우리의 테이블에 존재하는지 확인
-    WbUser existWbUser = wbUserRepository.findByUserId(userId);
+    Optional<WbUser> existWbUser = wbUserRepository.findByUserId(userId);
 
     // 존재하지 않는다면 회원정보를 저장하고 CustomOAuth2User 반환
     if(existWbUser == null) {

@@ -10,9 +10,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.*;
 
-@Entity
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter
+@Setter
+@Builder
 @Table(name = "resume")
+@AllArgsConstructor
+@Entity
 @SequenceGenerator(
     name = "resume_seq_generator",
     sequenceName = "resume_SEQ",
@@ -34,7 +40,11 @@ public class Resume {
     @Column(name = "user_img", nullable = false, length = 200)  // NOT NULL 제약 조건
     private String userImg;
 
+    @Column(name = "resume_email", nullable = false, length = 50)  // NOT NULL 제약 조건
+    private String resumeEmail;
+
     @Column(name = "user_intro", nullable = false, length = 200)  // NOT NULL 제약 조건
-    private String userIntro;}
+    private String userIntro;
+}
 
 

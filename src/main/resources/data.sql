@@ -62,3 +62,6 @@ VALUES (4, 'UI/UX Designer', 'User-Centered Design Principles', 'Introduction to
 
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
 VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and techniques for optimizing server performance and ensuring stability.', TO_DATE('2024-11-01', 'YYYY-MM-DD'), 'USER002');
+
+INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
+    (1, 'USER001', 'https://example.com/image1.jpg', 'user1@example.com', 'Experienced software developer with a strong background in Java and Spring.');

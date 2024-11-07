@@ -12,13 +12,10 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-public class WbUserJobPostingDetailDTO {
-    private String postTitle;
+public class JobPostingDTO {
     private String entName;
-    private String postImg;
-    private Date startDate;
+    private String postTitle;
     private Date endDate;
     private PostState postState;
-    private String jobName;
     private String entAddr;
 }

@@ -1,6 +1,8 @@
 package com.wooribound.api.individual.controller;
 
 import com.wooribound.api.individual.dto.UserApplyDTO;
+import com.wooribound.api.individual.dto.WbUserDTO;
+import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.api.individual.facade.WbUserInfoFacade;
 import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
 import lombok.RequiredArgsConstructor;
@@ -27,4 +29,15 @@ public class WbUserInfoController {
         return wbUserInfoFacade.cancelUserApply(userApplyDTO);
     }
 
+    // 3. 사용자 정보 조회
+    @GetMapping("")
+    public List<WbUserDTO> getUserInfo(@RequestParam("user_id") String userId) {
+        return wbUserInfoFacade.getUserInfo(userId);
+    }
+
+    // 4. 사용자 정보 수정
+    @PostMapping("/update")
+    public String updateUserInfo(@RequestBody WbUserUpdateDTO wbUserUpdateDTO) {
+        return wbUserInfoFacade.updateUserInfo(wbUserUpdateDTO);
+    }
 }
