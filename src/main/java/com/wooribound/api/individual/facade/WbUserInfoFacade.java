@@ -42,4 +42,8 @@ public class WbUserInfoFacade {
     public String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
         return wbUserService.updateUserInfo(wbUserUpdateDTO);
     }
+
+    public int getJobPoint(String userId) {
+        return wbUserService.getJobPoint(userId);
+    }
 }

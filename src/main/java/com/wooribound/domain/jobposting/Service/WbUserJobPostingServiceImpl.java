@@ -1,13 +1,14 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.individual.dto.UserJobPostingDTO;
-import com.wooribound.domain.jobposting.dto.WbUserJobPostingDTO;
-import com.wooribound.domain.jobposting.dto.WbUserJobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
+import com.wooribound.domain.jobposting.dto.JobPostingDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
     // 1. 공고 조회 - 전체, 회사명, 직무, 지역
     @Override
-    public List<WbUserJobPostingDTO> getJobPostings(UserJobPostingDTO userJobPostingDTO) {
+    public List<JobPostingDTO> getJobPostings(UserJobPostingDTO userJobPostingDTO) {
         String entName = userJobPostingDTO.getEntName();
         String jobName = userJobPostingDTO.getJobName();
         String addrCity = userJobPostingDTO.getAddrCity();
@@ -39,7 +40,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
         jobPostings.forEach(job -> logger.info("검색된 공고명 - ID: {}, Title: {}", job.getPostId(), job.getPostTitle()));
 
         return jobPostings.stream()
-                .map(job -> WbUserJobPostingDTO.builder()
+                .map(job -> JobPostingDTO.builder()
                         .entName(job.getEnterprise().getEntName())
                         .postTitle(job.getPostTitle())
                         .endDate(job.getEndDate())
@@ -51,7 +52,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
     // 2. 공고 상세 조회
     @Override
-    public WbUserJobPostingDetailDTO getJobPostingDetail(Long postId) {
+    public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         // log4j - 공고 상세 조회 시작 로그
         logger.info("공고 상세 조회 요청 - ID: {}", postId);
 
@@ -61,7 +62,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
             // log4j - 조회된 공고 상세 로그
             logger.info("공고 상세 조회 결과 - ID: {}, Title: {}", jobPosting.getPostId(), jobPosting.getPostTitle());
-            return WbUserJobPostingDetailDTO.builder()
+            return JobPostingDetailDTO.builder()
                                 .postTitle(jobPosting.getPostTitle())
                                 .entName(jobPosting.getEnterprise().getEntName())
                                 .postImg(jobPosting.getPostImg())

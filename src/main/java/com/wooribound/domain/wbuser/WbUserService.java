@@ -10,4 +10,8 @@ public interface WbUserService {
     List<WbUserDTO> getUserInfo(String userId);
 
     String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
+
+    WbUserDTO getOneUserInfo(String userId);
+
+    int getJobPoint(String userId);
 }

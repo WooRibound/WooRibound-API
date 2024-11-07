@@ -3,8 +3,8 @@ package com.wooribound.api.individual.controller;
 import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.UserJobPostingDTO;
 import com.wooribound.api.individual.facade.WbUserJobPostingFacade;
-import com.wooribound.domain.jobposting.dto.WbUserJobPostingDetailDTO;
-import com.wooribound.domain.jobposting.dto.WbUserJobPostingDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.userapply.Service.UserApplyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class WbUserJobPostingController {
 
     // 2. 공고 조회 - 전체, 회사명, 직무, 지역
     @PostMapping()
-    public List<WbUserJobPostingDTO> getJobPostings(@RequestBody(required = false) UserJobPostingDTO userJobPostingDTO) {
+    public List<JobPostingDTO> getJobPostings(@RequestBody(required = false) UserJobPostingDTO userJobPostingDTO) {
 
         // RequestBody를 null로 받는 경우 빈 객체 생성
         if (userJobPostingDTO != null) {
@@ -43,7 +43,7 @@ public class WbUserJobPostingController {
 
     // 3. 공고 상세 조회
     @GetMapping("/detail")
-    public WbUserJobPostingDetailDTO getJobPostingDetail(@RequestParam Long post_id) {
+    public JobPostingDetailDTO getJobPostingDetail(@RequestParam Long post_id) {
         return wbUserJobPostingFacade.getJobPostingDetail(post_id);
     }
 

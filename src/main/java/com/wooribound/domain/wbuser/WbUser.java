@@ -87,6 +87,10 @@ public class WbUser {
   @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
   private YN isDeleted = YN.N;
 
+  @Enumerated(value = EnumType.STRING)
+  @Column(name = "first_login", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
+  private YN isInfoRegistered = YN.N;
+
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private Resume resume;
 

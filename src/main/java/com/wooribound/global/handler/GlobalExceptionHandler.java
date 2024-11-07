@@ -1,5 +1,7 @@
 package com.wooribound.global.handler;
 
+import com.wooribound.global.exception.AuthenticationException;
+import com.wooribound.global.exception.NoJobPostingException;
 import com.wooribound.global.exception.NoKnowhowException;
 import com.wooribound.global.exception.NoTokenException;
 import com.wooribound.global.exception.NoWbUserException;
@@ -26,5 +28,16 @@ public class GlobalExceptionHandler {
   public  ResponseEntity<String> handleNoWbUserException(NoWbUserException e){
     return ResponseEntity.status(400).body(e.getMessage());
   }
+
+  @ExceptionHandler(NoJobPostingException.class)
+  public  ResponseEntity<String> handleNoJobPostingException(NoJobPostingException e){
+    return ResponseEntity.status(400).body(e.getMessage());
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<String> authenticationException (AuthenticationException e){
+    return ResponseEntity.status(400).body(e.getMessage());
+  }
+
 }
 

@@ -16,7 +16,6 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
 
     Optional<Knowhow> findByKnowhowId(@Param("knowhowId") Long knowhowId);
 
-    @Transactional
     @Modifying
     int deleteByKnowhowId(Long knowhowId);
 }
