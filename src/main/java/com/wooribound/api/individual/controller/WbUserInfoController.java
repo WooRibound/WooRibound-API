@@ -40,4 +40,10 @@ public class WbUserInfoController {
     public String updateUserInfo(@RequestBody WbUserUpdateDTO wbUserUpdateDTO) {
         return wbUserInfoFacade.updateUserInfo(wbUserUpdateDTO);
     }
+
+    // 5. 우바 점수 조회
+    @GetMapping("/wbpoint")
+    public int getJobPoint(@RequestParam("user_id") String userId) {
+        return wbUserInfoFacade.getJobPoint(userId);
+    }
 }
