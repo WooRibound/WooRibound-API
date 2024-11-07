@@ -1,4 +1,4 @@
-package com.wooribound.domain.jobposting.DTO;
+package com.wooribound.domain.jobposting.dto;
 
 import com.wooribound.global.constant.PostState;
 import lombok.AllArgsConstructor;
@@ -17,5 +17,6 @@ public class WbUserJobPostingDTO {
     private String postTitle;
     private Date endDate;
     private PostState postState;
-    private String entAddr;
+    private String entAddr1;
+    private String entAddr2;
 }

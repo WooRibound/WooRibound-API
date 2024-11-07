@@ -38,6 +38,9 @@ public class EnterpiseJoinDTO {
   @NotEmpty(message = "revenue 필드는 필수입니다.")
   private Long revenue;
 
-  @NotEmpty(message = "entAddr 필드는 필수입니다.")
-  private String entAddr;
+  @NotEmpty(message = "entAddr1 필드는 필수입니다.")
+  private String entAddr1;
+
+  @NotEmpty(message = "entAddr2 필드는 필수입니다.")
+  private String entAddr2;
 }

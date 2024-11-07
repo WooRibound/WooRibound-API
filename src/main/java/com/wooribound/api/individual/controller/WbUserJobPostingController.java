@@ -3,11 +3,10 @@ package com.wooribound.api.individual.controller;
 import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.UserJobPostingDTO;
 import com.wooribound.api.individual.facade.WbUserJobPostingFacade;
-import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDetailDTO;
+import com.wooribound.domain.jobposting.dto.WbUserJobPostingDetailDTO;
+import com.wooribound.domain.jobposting.dto.WbUserJobPostingDTO;
 import com.wooribound.domain.userapply.Service.UserApplyServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.*;
 

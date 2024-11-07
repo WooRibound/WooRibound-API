@@ -7,7 +7,6 @@ import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.global.constant.ApplyResult;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,6 @@ public class UserApplyServiceImpl implements UserApplyService {
 
     // 1. 공고 지원
     @Override
-    @Transactional
     public String createUserApply(UserApplyDTO userApplyDTO) {
         String userId = userApplyDTO.getUserId();
         Long postId = userApplyDTO.getPostId();
@@ -70,14 +68,14 @@ public class UserApplyServiceImpl implements UserApplyService {
                                     .entName(userApply.getJobPosting().getEnterprise().getEntName())
                                     .postTitle(userApply.getJobPosting().getPostTitle())
                                     .endDate(userApply.getJobPosting().getEndDate())
-                                    .entCity(userApply.getJobPosting().getEnterprise().getEntAddr())
+                                    .entAddr1(userApply.getJobPosting().getEnterprise().getEntAddr1())
+                                    .entAddr2(userApply.getJobPosting().getEnterprise().getEntAddr2())
                                     .build())
                 .collect(Collectors.toList());
     }
     
     // 3. 지원 공고 취소
     @Override
-    @Transactional
     public String cancelUserApply(UserApplyDTO userApplyDTO) {
         String userId = userApplyDTO.getUserId();
         String applyId = userApplyDTO.getApplyId();

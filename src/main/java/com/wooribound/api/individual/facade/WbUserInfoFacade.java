@@ -8,6 +8,8 @@ import com.wooribound.domain.userapply.Service.UserApplyService;
 import com.wooribound.domain.wbuser.WbUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Component
@@ -18,19 +20,25 @@ public class WbUserInfoFacade {
     private final WbUserService wbUserService;
 
     // 1. 지원 공고 조회
+    @Transactional(readOnly = true)
     public List<WbUserApplyDTO> getUserApplyList(UserApplyDTO userApplyDTO) {
         return userApplyService.getUserApplyList(userApplyDTO);
     }
 
     // 2. 지원 공고 취소
+    @Transactional
     public String cancelUserApply(UserApplyDTO userApplyDTO) {
         return userApplyService.cancelUserApply(userApplyDTO);
     }
 
+    // 3. 사용자 정보 조회
+    @Transactional(readOnly = true)
     public List<WbUserDTO> getUserInfo(String userId) {
         return wbUserService.getUserInfo(userId);
     }
 
+    // 4. 사용자 정보 변경
+    @Transactional
     public String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
         return wbUserService.updateUserInfo(wbUserUpdateDTO);
     }

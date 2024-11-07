@@ -1,8 +1,8 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.individual.dto.UserJobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.WbUserJobPostingDetailDTO;
+import com.wooribound.domain.jobposting.dto.WbUserJobPostingDTO;
+import com.wooribound.domain.jobposting.dto.WbUserJobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +44,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                         .postTitle(job.getPostTitle())
                         .endDate(job.getEndDate())
                         .postState(job.getPostState())
-                        .entAddr(job.getEnterprise().getEntAddr())
+                        .entAddr1(job.getEnterprise().getEntAddr1())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -69,7 +69,8 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                                 .endDate(jobPosting.getEndDate())
                                 .postState(jobPosting.getPostState())
                                 .jobName(jobPosting.getJob().getJobName())
-                                .entAddr(jobPosting.getEnterprise().getEntAddr())
+                                .entAddr1(jobPosting.getEnterprise().getEntAddr1())
+                                .entAddr2(jobPosting.getEnterprise().getEntAddr2())
                                 .build();
         } else {
             // 공고가 존재하지 않는 경우 예외 로그

@@ -17,5 +17,6 @@ public class WbUserApplyDTO {
     private String entName;
     private String postTitle;
     private Date endDate;
-    private String entCity;
+    private String entAddr1;
+    private String entAddr2;
 }
