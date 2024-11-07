@@ -1,8 +1,8 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
-import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.global.exception.NoJobPostingException;
@@ -29,7 +29,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                         .postTitle(job.getPostTitle())
                         .endDate(job.getEndDate())
                         .postState(job.getPostState())
-                        .entAddr(job.getEnterprise().getEntAddr())
+                        .entAddr1(job.getEnterprise().getEntAddr1())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -46,7 +46,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                 .endDate(jobPosting.getEndDate())
                 .postState(jobPosting.getPostState())
                 .jobName(jobPosting.getJob().getJobName())
-                .entAddr(jobPosting.getEnterprise().getEntAddr())
+                .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                 .build();
     }
 

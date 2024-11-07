@@ -1,6 +1,7 @@
 package com.wooribound.domain.employment;
 
 import com.wooribound.domain.enterprise.Enterprise;
+import com.wooribound.domain.job.Job;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.YN;
 import jakarta.persistence.Column;
@@ -46,6 +47,10 @@ public class Employment {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ent_id", nullable = false)
   private Enterprise enterprise;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "job_id", nullable = false)
+  private Job job;
 
   @Enumerated(value = EnumType.STRING)
   @Column(name = "emp_state", nullable = false)
