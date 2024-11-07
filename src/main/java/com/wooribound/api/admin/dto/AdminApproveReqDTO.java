@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Setter
-public class AdminJoinApproveReqDTO {
+public class AdminApproveReqDTO {
     private String entId;
-    private YN joinApprove;
+    private YN approve;
 }

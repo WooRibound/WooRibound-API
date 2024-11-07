@@ -1,6 +1,6 @@
 package com.wooribound.domain.admin;
 
-import com.wooribound.api.admin.dto.AdminJoinApproveReqDTO;
+import com.wooribound.api.admin.dto.AdminApproveReqDTO;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import org.springframework.stereotype.Service;
 
@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service;
 public interface AdminService {
     void create(AdminDTO adminDTO);
 
-    String joinApprove(AdminJoinApproveReqDTO adminJoinApproveReqDTO);
+    String joinApprove(AdminApproveReqDTO adminApproveReqDTO);
+
+    String deleteApprove(AdminApproveReqDTO adminApproveReqDTO);
 }
