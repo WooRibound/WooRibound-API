@@ -13,9 +13,9 @@ public class AdminAuthFacade {
     private final AdminService adminService;
 
 
-    public String join(AdminDTO adminDTO){
-      adminService.create(adminDTO);
-      return "회원가입이 완료되었습니다.";
+    public String join(AdminDTO adminDTO) {
+        adminService.create(adminDTO);
+        return "회원가입이 완료되었습니다.";
     }
 
     // 기업 회원가입 승인/반려

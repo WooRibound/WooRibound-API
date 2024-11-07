@@ -115,4 +115,14 @@ public class WbUserServiceImpl implements WbUserService {
             .isDeleted(user.getIsDeleted())
             .build();
     }
+    // 3. 우바 점수 조회
+    @Override
+    public int getJobPoint(String userId) {
+        Optional<WbUser> optionalUser = wbUserRepository.findByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("사용자 정보를 찾을 수 없습니다.");
+        }
+
+        return optionalUser.get().getJobPoint();  // job_point 반환
+    }
 }
