@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class EnterpriseAuthFacade {
 
   private final EnterpriseService enterpriseService;
-  public String Join(EnterpiseJoinDTO enterpiseJoinDTO){
+  public String join(EnterpiseJoinDTO enterpiseJoinDTO){
     enterpriseService.create(ConvertToOriginDTO(enterpiseJoinDTO));
     return "회원가입이 완료되었습니다.";
   }
