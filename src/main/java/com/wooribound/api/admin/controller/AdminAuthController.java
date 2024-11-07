@@ -1,5 +1,6 @@
 package com.wooribound.api.admin.controller;
 
+import com.wooribound.api.admin.dto.AdminJoinApproveReqDTO;
 import com.wooribound.api.admin.facade.AdminAuthFacade;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import org.springframework.validation.annotation.Validated;
@@ -17,5 +18,10 @@ public class AdminAuthController {
   @PostMapping("/join")
   public String Join(@Validated @RequestBody AdminDTO adminDTO){
     return adminAuthFacade.Join(adminDTO);
+  }
+
+  @PostMapping("/join-approval")
+  public String JoinApproval(@RequestBody AdminJoinApproveReqDTO adminJoinApproveReqDTO){
+    return adminAuthFacade.joinApprove(adminJoinApproveReqDTO);
   }
 }
