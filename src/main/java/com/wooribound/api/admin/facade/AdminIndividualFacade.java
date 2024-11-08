@@ -3,7 +3,7 @@ package com.wooribound.api.admin.facade;
 import com.wooribound.api.admin.dto.AdminWbUserReqDTO;
 import com.wooribound.domain.resume.ResumeService;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
-import com.wooribound.domain.wbuser.AdminWbUserService;
+import com.wooribound.domain.wbuser.service.AdminWbUserService;
 import com.wooribound.domain.wbuser.dto.AdminIndividualDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
