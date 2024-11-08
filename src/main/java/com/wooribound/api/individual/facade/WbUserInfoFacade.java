@@ -3,7 +3,7 @@ package com.wooribound.api.individual.facade;
 import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
-import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
+import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.userapply.Service.UserApplyService;
 import com.wooribound.domain.wbuser.WbUserService;
 import lombok.RequiredArgsConstructor;

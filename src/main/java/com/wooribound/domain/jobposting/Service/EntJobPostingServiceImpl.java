@@ -12,7 +12,10 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
+import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
+import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.global.constant.PostState;
+import com.wooribound.global.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +36,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     private final JobRepository jobRepository;
     private final EnterpriseRepository enterpriseRepository;
     private final UserApplyRepository userApplyRepository;
+    private final RedisUtil redisUtil;
 
     // 1. 공고 등록
     @Override
@@ -86,7 +90,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         }
     }
 
-
     // 3. 내 기업 공고 목록 조회
     @Override
     public List<JobPostingDetailProjection> getJobPostingList(String entId) {
@@ -119,6 +122,18 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .applicantAge(age)
                     .build();
         }).collect(Collectors.toList());
+    }
+
+    // 5. 지원자 결과 설정
+    @Override
+    public String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO) {
+        int applyId = applicantResultReqDTO.getApplyId();
+        ApplyResult applyResult = applicantResultReqDTO.getApplyResult();
+
+        if(userApplyRepository.setApplicantResult(applyId, applyResult) == 1){
+            return "지원자 결과 설정이 완료되었습니다.";
+        }else
+            return "지원자 결과 설정에 실패했습니다.";
     }
 
 }
