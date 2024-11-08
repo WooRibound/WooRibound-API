@@ -1,10 +1,11 @@
 package com.wooribound.domain.job;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
 public class JobDTO {
     private Long jobId;
     private String jobName;
