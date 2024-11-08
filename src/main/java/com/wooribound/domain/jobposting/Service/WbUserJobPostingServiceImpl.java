@@ -26,6 +26,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
     // 1. 공고 조회 - 전체, 회사명, 직무, 지역
     @Override
     public List<JobPostingDTO> getJobPostings(UserJobPostingDTO userJobPostingDTO) {
+        // 검색 조건
         String entName = userJobPostingDTO.getEntName();
         String jobName = userJobPostingDTO.getJobName();
         String addrCity = userJobPostingDTO.getAddrCity();
@@ -44,6 +45,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                         .jobPostingId(job.getPostId())
                         .entName(job.getEnterprise().getEntName())
                         .postTitle(job.getPostTitle())
+                        .startDate(job.getStartDate())
                         .endDate(job.getEndDate())
                         .postState(job.getPostState())
                         .entAddr1(job.getEnterprise().getEntAddr1())
