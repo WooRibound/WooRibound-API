@@ -1,6 +1,7 @@
 package com.wooribound.domain.userapply;
 
 
+import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.domain.jobposting.JobPosting;
@@ -15,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -58,4 +60,7 @@ public class UserApply {
 
   @Column(name = "apply_date", nullable = false)
   private Date applyDate;
+
+  @OneToMany(mappedBy = "userApply", fetch = FetchType.LAZY)
+  private List<Notification> notifications;
 }

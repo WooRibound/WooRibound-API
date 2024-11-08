@@ -1,16 +1,10 @@
 package com.wooribound.domain.notification;
 
 
+import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.wbuser.WbUser;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.wooribound.global.constant.YN;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,24 +20,32 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @SequenceGenerator(
-    name = "notification_seq_generator",
-    sequenceName = "notification_SEQ",
-    allocationSize = 1
+        name = "notification_seq_generator",
+        sequenceName = "notification_SEQ",
+        allocationSize = 1
 )
 public class Notification {
-  @Id
-  @GeneratedValue(
-      strategy= GenerationType.AUTO,
-      generator = "notification_seq_generator"
-  )
-  @Column(name = "noti_id")
-  private Long notiId;
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.AUTO,
+            generator = "notification_seq_generator"
+    )
+    @Column(name = "noti_id")
+    private Long notiId;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
-  private WbUser wbUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private WbUser wbUser;
 
-  @Column(name = "notice", nullable = false, length = 200)
-  private String notice;
+    @Column(name = "notice", nullable = false, length = 200)
+    private String notice;
+
+    @Column(name = "is_confirmed", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private YN isConfirmed;
+
+    @ManyToOne
+    @JoinColumn(name = "apply_id", nullable = false)
+    private UserApply userApply;
 }
 
