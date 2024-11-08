@@ -4,7 +4,7 @@ import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.api.individual.facade.WbUserInfoFacade;
-import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
+import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

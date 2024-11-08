@@ -1,4 +1,4 @@
-package com.wooribound.domain.userapply.DTO;
+package com.wooribound.domain.userapply.dto;
 
 import com.wooribound.global.constant.ApplyResult;
 import lombok.AllArgsConstructor;

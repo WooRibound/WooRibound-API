@@ -1,7 +1,7 @@
 package com.wooribound.domain.userapply.Service;
 
 import com.wooribound.api.individual.dto.UserApplyDTO;
-import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
+import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 
 import java.util.List;
 

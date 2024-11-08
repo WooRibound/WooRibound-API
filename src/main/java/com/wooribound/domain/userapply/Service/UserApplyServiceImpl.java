@@ -3,9 +3,9 @@ package com.wooribound.domain.userapply.Service;
 import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
-import com.wooribound.domain.userapply.DTO.WbUserApplyDTO;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
+import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.global.constant.ApplyResult;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class UserApplyServiceImpl implements UserApplyService {
                                     .build())
                 .collect(Collectors.toList());
     }
-    
+
     // 3. 지원 공고 취소
     @Override
     public String cancelUserApply(UserApplyDTO userApplyDTO) {

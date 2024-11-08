@@ -7,6 +7,7 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.resume.ResumeService;
 import com.wooribound.domain.resume.dto.ResumeDTO;
+import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,12 @@ public class EnterpriseJobPostingFacade {
     @Transactional(readOnly = true)
     public ResumeDTO getApplicantResume(String userId) {
         return resumeService.getResume(userId);
+    }
+
+    // 5. 지원자 결과 설정
+    @Transactional
+    public String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO) {
+        return entJobPostingService.setApplicantResult(applicantResultReqDTO);
     }
 
 }

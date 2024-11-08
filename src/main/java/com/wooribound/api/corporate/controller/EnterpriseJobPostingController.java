@@ -7,6 +7,7 @@ import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.resume.dto.ResumeDTO;
+import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +50,13 @@ public class EnterpriseJobPostingController {
         return enterpriseJobPostingFacade.getApplicantResume(userId);
     }
 
+    // TODO: 합격여부 설정 시 버튼 컴포넌트 비활성화
+    // 6. 지원자 결과 설정
+    @PostMapping("/applicant/result")
+    public String setApplicantResult(@RequestBody ApplicantResultReqDTO applicantResultReqDTO) {
+        return enterpriseJobPostingFacade.setApplicantResult(applicantResultReqDTO);
+    }
 
+
+    
 }

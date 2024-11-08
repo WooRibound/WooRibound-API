@@ -4,6 +4,7 @@ import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface EntJobPostingService {
 
     // 4. 공고 지원자 전체 조회
     List<ApplicantsDTO> getJobApplicants(int postId);
+
+    // 5. 지원자 결과 설정
+    String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO);
 }
