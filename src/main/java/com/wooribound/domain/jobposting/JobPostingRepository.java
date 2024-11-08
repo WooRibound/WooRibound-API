@@ -1,6 +1,6 @@
 package com.wooribound.domain.jobposting;
 
-import com.wooribound.domain.jobposting.DTO.JobPostingDetailProjection;
+import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

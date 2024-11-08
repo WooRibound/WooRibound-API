@@ -1,4 +1,4 @@
-package com.wooribound.domain.jobposting.DTO;
+package com.wooribound.domain.jobposting.dto;
 
 import com.wooribound.global.constant.PostState;
 import lombok.AllArgsConstructor;
