@@ -1,6 +1,6 @@
-package com.wooribound.domain.jobposting.DTO;
+package com.wooribound.domain.userapply.dto;
 
-import com.wooribound.global.constant.PostState;
+import com.wooribound.global.constant.ApplyResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,10 +12,11 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-public class JobPostingDTO {
+public class WbUserApplyDTO {
+    private ApplyResult result;
     private String entName;
     private String postTitle;
     private Date endDate;
-    private PostState postState;
-    private String entAddr;
+    private String entAddr1;
+    private String entAddr2;
 }

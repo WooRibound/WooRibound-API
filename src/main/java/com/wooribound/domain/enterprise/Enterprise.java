@@ -51,8 +51,11 @@ public class Enterprise {
   @Column(name = "revenue", length = 20, nullable = false)
   private Long revenue;
 
-  @Column(name = "ent_addr", length = 200, nullable = false)
-  private String entAddr;
+  @Column(name = "ent_addr1", length = 200, nullable = false)
+  private String entAddr1;
+
+  @Column(name = "ent_addr2", length = 200, nullable = false)
+  private String entAddr2;
 
   @Column(name = "created_at", nullable = false)
   private Date createdAt;

@@ -1,11 +1,12 @@
 package com.wooribound.domain.workhistory;
 
-import com.wooribound.domain.workhistory.WorkHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> {
@@ -18,4 +19,9 @@ public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> 
         :userId
     )""", nativeQuery = true)
   void saveByJobName(@Param("userId") String userId, @Param("jobName") String jobName);
+
+  @Modifying
+  @Query("SELECT wh FROM WorkHistory wh WHERE wh.wbUser.userId = :userId")
+  List<WorkHistory> findByUserId(@Param("userId") String userId);
+
 }

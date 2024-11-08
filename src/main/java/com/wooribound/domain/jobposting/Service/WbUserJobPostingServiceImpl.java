@@ -1,13 +1,14 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.individual.dto.UserJobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
-import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
+import com.wooribound.domain.jobposting.dto.JobPostingDTO;
+import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,11 +41,12 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
         return jobPostings.stream()
                 .map(job -> JobPostingDTO.builder()
+                        .jobPostingId(job.getPostId())
                         .entName(job.getEnterprise().getEntName())
                         .postTitle(job.getPostTitle())
                         .endDate(job.getEndDate())
                         .postState(job.getPostState())
-                        .entAddr(job.getEnterprise().getEntAddr())
+                        .entAddr1(job.getEnterprise().getEntAddr1())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -69,7 +71,8 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                                 .endDate(jobPosting.getEndDate())
                                 .postState(jobPosting.getPostState())
                                 .jobName(jobPosting.getJob().getJobName())
-                                .entAddr(jobPosting.getEnterprise().getEntAddr())
+                                .entAddr1(jobPosting.getEnterprise().getEntAddr1())
+                                .entAddr2(jobPosting.getEnterprise().getEntAddr2())
                                 .build();
         } else {
             // 공고가 존재하지 않는 경우 예외 로그
