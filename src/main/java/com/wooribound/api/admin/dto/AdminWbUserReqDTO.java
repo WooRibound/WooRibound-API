@@ -1,6 +1,5 @@
 package com.wooribound.api.admin.dto;
 
-import com.wooribound.global.constant.YN;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

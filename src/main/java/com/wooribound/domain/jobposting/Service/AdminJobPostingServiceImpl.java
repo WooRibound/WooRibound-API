@@ -1,8 +1,8 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
+import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
+import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.global.exception.NoJobPostingException;
@@ -25,6 +25,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
 
         return jobPostings.stream()
                 .map(job -> JobPostingDTO.builder()
+                        .jobPostingId(job.getPostId())
                         .entName(job.getEnterprise().getEntName())
                         .postTitle(job.getPostTitle())
                         .endDate(job.getEndDate())

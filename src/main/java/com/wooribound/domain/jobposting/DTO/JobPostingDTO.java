@@ -1,4 +1,4 @@
-package com.wooribound.domain.jobposting.dto;
+package com.wooribound.domain.jobposting.DTO;
 
 import com.wooribound.global.constant.PostState;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class JobPostingDTO {
+    private Long jobPostingId;
     private String entName;
     private String postTitle;
     private Date endDate;

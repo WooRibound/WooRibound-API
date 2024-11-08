@@ -1,7 +1,6 @@
 package com.wooribound.domain.wbuser.dto;
 
 import com.wooribound.global.constant.Gender;
-import com.wooribound.global.constant.YN;
 import lombok.*;
 
 import java.util.Date;
@@ -12,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminIndividualDTO {
+    private String userId;
     private String name;
     private Date birth;
     private Gender gender;

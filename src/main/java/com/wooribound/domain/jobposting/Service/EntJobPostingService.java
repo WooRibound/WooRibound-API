@@ -2,8 +2,8 @@ package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
+import com.wooribound.domain.jobposting.DTO.JobPostingDetailProjection;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 
 import java.util.List;

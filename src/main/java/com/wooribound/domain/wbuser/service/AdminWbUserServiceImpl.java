@@ -24,6 +24,7 @@ public class AdminWbUserServiceImpl implements AdminWbUserService {
         List<WbUser> wbUsers = wbUserRepository.findWbUsers(userName, addrCity);
 
         return wbUsers.stream().map(wbUser -> AdminIndividualDTO.builder()
+                        .userId(wbUser.getUserId())
                         .name(wbUser.getName())
                         .birth(wbUser.getBirth())
                         .gender(wbUser.getGender())
