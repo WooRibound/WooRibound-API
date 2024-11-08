@@ -23,4 +23,7 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
             "AND (:entField IS NULL OR e.entField = :entField)" +
             "AND (:addrCity IS NULL OR e.entAddr1 = :addrCity)")
     List<Enterprise> findEnterprises(@Param("entName") String entName, @Param("entField") String entField, @Param("addrCity") String addrCity);
+
+
+    Enterprise findByEntId(String entId);
 }

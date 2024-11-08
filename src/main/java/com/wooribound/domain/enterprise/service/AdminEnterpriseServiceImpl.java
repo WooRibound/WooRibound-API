@@ -4,6 +4,7 @@ import com.wooribound.api.admin.dto.AdminEnterpriseReqDTO;
 import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
+import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,22 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .addrCity(enterprise.getEntAddr1())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
+        Enterprise enterprise = enterpriseRepository.findByEntId(entId);
+
+        return AdminEnterpriseDetailDTO.builder()
+                .entId(enterprise.getEntId())
+                .ceoName(enterprise.getCeoName())
+                .entName(enterprise.getEntName())
+                .regNum(enterprise.getRegNum())
+                .entAddr1(enterprise.getEntAddr1())
+                .entAddr2(enterprise.getEntAddr2())
+                .entSize(enterprise.getEntSize())
+                .entField(enterprise.getEntField())
+                .revenue(enterprise.getRevenue())
+                .build();
     }
 }

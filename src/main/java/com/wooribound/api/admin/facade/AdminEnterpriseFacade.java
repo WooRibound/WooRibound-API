@@ -2,6 +2,7 @@ package com.wooribound.api.admin.facade;
 
 import com.wooribound.api.admin.dto.AdminEnterpriseReqDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
+import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
 import com.wooribound.domain.enterprise.service.AdminEnterpriseService;
 import com.wooribound.domain.wbuser.dto.AdminIndividualDTO;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,10 @@ public class AdminEnterpriseFacade {
     @Transactional(readOnly = true)
     public List<AdminEnterpriseDTO> getEnterprises(AdminEnterpriseReqDTO adminEnterpriseReqDTO) {
         return adminEnterpriseService.getEnterprises(adminEnterpriseReqDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
+        return adminEnterpriseService.getEnterpriseInfo(entId);
     }
 }
