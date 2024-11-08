@@ -115,7 +115,7 @@ public class SecurityConfig {
                 .userService(wbUserDetailService)))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/admin/login", "/auth/enterprise/login","/auth/refresh").permitAll()
-            .requestMatchers("/auth/check").hasAnyAuthority(
+            .requestMatchers("/auth/check", "/individualuser/auth/join").hasAnyAuthority(
                 "ROLE_ENTERPRISE_USER",
                 "ROLE_ADMIN_USER",
                 "ROLE_WbUser"

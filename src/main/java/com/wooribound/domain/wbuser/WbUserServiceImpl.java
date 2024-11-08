@@ -77,12 +77,11 @@ public class WbUserServiceImpl implements WbUserService {
             user.setName(wbUserUpdateDTO.getName());
             user.setBirth(wbUserUpdateDTO.getBirth());
             user.setPhone(wbUserUpdateDTO.getPhone());
-            user.setGender(Gender.valueOf(wbUserUpdateDTO.getGender()));
-            user.setExjobChk(YN.valueOf(wbUserUpdateDTO.getExjobChk()));
-            user.setJobInterest(YN.valueOf(wbUserUpdateDTO.getJobInterest()));
+            user.setGender(wbUserUpdateDTO.getGender());
+            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
+            user.setJobInterest(wbUserUpdateDTO.getJobInterest());
             user.setAddrCity(wbUserUpdateDTO.getAddrCity());
             user.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
-
             user.setUpdatedAt(new Date());
 
             wbUserRepository.save(user);
@@ -124,5 +123,10 @@ public class WbUserServiceImpl implements WbUserService {
         }
 
         return optionalUser.get().getJobPoint();  // job_point 반환
+    }
+
+    @Override
+    public WbUser getWbUser(String userId) {
+        return wbUserRepository.findByUserId(userId).orElseThrow();
     }
 }

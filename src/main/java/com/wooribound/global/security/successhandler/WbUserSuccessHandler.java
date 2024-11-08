@@ -40,7 +40,7 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         .orElse("ROLE_UNKNOWN"); // 권한이 없을 경우 기본값 설정 가능
 
     // accessToken과 refreshToken 생성
-    String accessToken = jwtUtil.createJwt("access", userId, username, role, 60000L);
+    String accessToken = jwtUtil.createJwt("access", userId, username, role, 86400000L); //개발 편의성을 위해 하루로 해놨음 나중에 1분인 60000L 로 수정
     String refreshToken = jwtUtil.createJwt("refresh", userId, username, role, 86400000L);
 
     // redis에 insert (key = username / value = refreshToken)
@@ -56,9 +56,10 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     String redirectUrl_newUser = UriComponentsBuilder
         .fromUriString("http://localhost:8080/individual-user/register")
-        .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
+        .fragment("accessToken=" + accessToken)  // fragment로 accesstoken 전송
         .build()
         .toUriString();
+
 
     response.addCookie(createCookie("refresh", refreshToken));
     if (wbUserDetail.getFirstLogin() == YN.Y) {

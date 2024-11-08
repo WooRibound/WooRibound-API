@@ -12,8 +12,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "interest_job")
 @SequenceGenerator(
     name = "interest_job_seq_generator",
