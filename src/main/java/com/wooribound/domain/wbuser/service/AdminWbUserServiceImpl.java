@@ -1,6 +1,8 @@
-package com.wooribound.domain.wbuser;
+package com.wooribound.domain.wbuser.service;
 
 import com.wooribound.api.admin.dto.AdminWbUserReqDTO;
+import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.domain.wbuser.dto.AdminIndividualDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

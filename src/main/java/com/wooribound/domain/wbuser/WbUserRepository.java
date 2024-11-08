@@ -14,7 +14,7 @@ public interface WbUserRepository extends JpaRepository<WbUser, String> {
 
     Optional<WbUser> findByUserId(String userId);
 
-    @Query("SELECT DISTINCT w FROM WbUser w " +
+    @Query("SELECT w FROM WbUser w " +
             "WHERE (:userName IS NULL OR w.name LIKE CONCAT('%', :userName, '%')) " +
             "AND (:addrCity IS NULL OR w.addrCity = :addrCity)")
     List<WbUser> findWbUsers(@Param("userName") String userName,
