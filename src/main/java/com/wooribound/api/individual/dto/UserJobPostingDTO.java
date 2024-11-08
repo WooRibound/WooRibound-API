@@ -13,6 +13,7 @@ import java.util.Date;
 public class UserJobPostingDTO {
     private String entName;
     private String postTitle;
+    private Date startDate;
     private Date endDate;
     private PostState postState;
     private String entAddr;
