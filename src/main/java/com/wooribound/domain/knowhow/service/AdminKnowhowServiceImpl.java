@@ -23,6 +23,7 @@ public class AdminKnowhowServiceImpl implements AdminKnowhowService {
         List<Knowhow> knowhows = knowhowRepository.findAll(adminKnowhowReqDTO.getKnowhowJob(), adminKnowhowReqDTO.getKnowhowTitle());
 
         return knowhows.stream().map(knowhow -> KnowhowDTO.builder()
+                        .knowhowId(knowhow.getKnowhowId())
                         .knowhowJob(knowhow.getKnowhowJob())
                         .knowhowTitle(knowhow.getKnowhowTitle())
                         .uploadDate(knowhow.getUploadDate())

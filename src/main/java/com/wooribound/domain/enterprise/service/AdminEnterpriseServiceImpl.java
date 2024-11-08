@@ -5,7 +5,6 @@ import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
-import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

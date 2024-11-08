@@ -1,4 +1,4 @@
-package com.wooribound.domain.jobposting.dto;
+package com.wooribound.domain.jobposting.DTO;
 
 import com.wooribound.global.constant.PostState;
 

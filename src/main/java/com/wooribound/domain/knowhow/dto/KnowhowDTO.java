@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KnowhowDTO {
+    private Long knowhowId;
     private String knowhowJob;
     private String knowhowTitle;
     private Date uploadDate;

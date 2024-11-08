@@ -1,8 +1,8 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
+import com.wooribound.domain.jobposting.DTO.JobPostingDTO;
+import com.wooribound.domain.jobposting.DTO.JobPostingDetailDTO;
 
 import java.util.List;
 
