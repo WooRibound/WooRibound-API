@@ -9,7 +9,6 @@ import lombok.Getter;
 
 @Data
 public class WbUserJoinReqDTO {
-  private String userId;
   private String name;
   private String email;
   private String phone;
@@ -17,7 +16,6 @@ public class WbUserJoinReqDTO {
   private Date birth;
   private String city;
   private String province;
-  private YN IsExperienced;
   private List<String> selectedInterestJobs;
   private List<String> selectedJobs;
 }
