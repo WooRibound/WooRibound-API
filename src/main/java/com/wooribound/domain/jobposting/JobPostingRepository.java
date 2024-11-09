@@ -34,5 +34,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     List<JobPostingDetailProjection> getMyJobPostings(@Param("entId") String entId);
 
     @Modifying
-    int deleteByPostId(Long postId);
+    @Query("UPDATE JobPosting jp SET jp.isDeleted = 'Y' WHERE jp.postId = :postId")
+    int updateIsDeletedByPostId(@Param("postId") Long postId);
 }
