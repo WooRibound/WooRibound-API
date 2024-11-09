@@ -61,6 +61,7 @@ public class UserApply {
   @Column(name = "apply_date", nullable = false)
   private Date applyDate;
 
-  @OneToMany(mappedBy = "userApply", fetch = FetchType.LAZY)
-  private List<Notification> notifications;
+  @OneToOne(mappedBy = "userApply", fetch = FetchType.LAZY)
+  private Notification notification;
+
 }

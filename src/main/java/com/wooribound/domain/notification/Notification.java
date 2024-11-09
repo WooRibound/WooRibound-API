@@ -44,8 +44,8 @@ public class Notification {
     @Enumerated(value = EnumType.STRING)
     private YN isConfirmed;
 
-    @ManyToOne
-    @JoinColumn(name = "apply_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "apply_id")
     private UserApply userApply;
 }
 
