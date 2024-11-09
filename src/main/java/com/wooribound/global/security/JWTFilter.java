@@ -70,14 +70,14 @@ public class JWTFilter extends OncePerRequestFilter {
         sendErrorResponse(response, HttpStatus.UNAUTHORIZED.value(), "INVALID_TOKEN");
         return;
       }
-
+      System.out.println("토큰 유효성 검사 완료");
       // 토큰 타입 검증
       String category = jwtUtil.getCategory(originToken);
       if (!"access".equals(category)) {
         sendErrorResponse(response, HttpStatus.FORBIDDEN.value(), "INVALID_TOKEN_TYPE");
         return;
       }
-
+      System.out.println("토큰 타입 검증 완료");
       // 인증 객체 생성
       String userName = jwtUtil.getUserName(originToken);
       String userId = jwtUtil.getUserId(originToken);
@@ -99,6 +99,9 @@ public class JWTFilter extends OncePerRequestFilter {
       sendErrorResponse(response, 419, "TOKEN_EXPIRED");
     } catch (Exception e) {
       // 기타 예외
+      System.out.println("토큰 에러");
+      e.printStackTrace();
+      System.out.println("Exception during token processing: " + e.getMessage());
       sendErrorResponse(response, HttpStatus.UNAUTHORIZED.value(), "TOKEN_ERROR");
     }
   }

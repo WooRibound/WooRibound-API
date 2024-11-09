@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class WbUserJoinInfoResponseDTO {
+public class WbUserJoinInfoResDTO {
   private String name;
   private String email;
   private String phone;

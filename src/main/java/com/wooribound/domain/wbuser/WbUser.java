@@ -55,7 +55,7 @@ public class WbUser {
   @Enumerated(value = EnumType.STRING)
   private Gender gender;
 
-  @Column(name = "exjob_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+  @Column(name = "exjob_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
   @Enumerated(value = EnumType.STRING)
   private YN exjobChk = YN.N;
 

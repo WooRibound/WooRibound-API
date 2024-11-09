@@ -3,6 +3,7 @@ package com.wooribound.api.corporate.facade;
 import com.wooribound.api.corporate.dto.EnterpiseJoinDTO;
 import com.wooribound.domain.enterprise.EnterpriseService;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
+import jakarta.transaction.Transactional;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Service;
 public class EnterpriseAuthFacade {
 
   private final EnterpriseService enterpriseService;
+  @Transactional
   public String join(EnterpiseJoinDTO enterpiseJoinDTO){
     enterpriseService.create(ConvertToOriginDTO(enterpiseJoinDTO));
     return "회원가입이 완료되었습니다.";
   }
 
-  public EnterpriseDTO ConvertToOriginDTO(EnterpiseJoinDTO enterpiseJoinDTO){
+  private EnterpriseDTO ConvertToOriginDTO(EnterpiseJoinDTO enterpiseJoinDTO){
     return EnterpriseDTO.builder()
         .entId(enterpiseJoinDTO.getEntId())
         .regNum(enterpiseJoinDTO.getRegNum())

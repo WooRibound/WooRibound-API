@@ -1,5 +1,7 @@
 package com.wooribound.domain.job;
 
+import com.wooribound.global.exception.NoJobException;
+import com.wooribound.global.exception.NoJobPostingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,9 @@ public class JobServiceImpl implements JobService {
         List<Job> jobs = jobRepository.findAll();
 
         return jobs.stream().map(job -> JobDTO.builder()
-                        .jobId(job.getJobId())
-                        .jobName(job.getJobName())
-                        .build())
-                .collect(Collectors.toList());
+                .jobId(job.getJobId())
+                .jobName(job.getJobName())
+                .build())
+            .collect(Collectors.toList());
     }
 }
