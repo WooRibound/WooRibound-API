@@ -22,4 +22,14 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
     @Query("UPDATE UserApply ua SET ua.result = :applyResult WHERE ua.applyId = :applyId")
     int setApplicantResult(@Param("applyId") int applyId,
                            @Param("applyResult") ApplyResult applyResult);
+
+    // 4. 지원 결과 대기 중인 지원현황 조회
+    @Query("SELECT ua FROM UserApply ua WHERE ua.jobPosting.postId = :postId AND ua.result = 'PENDING'")
+    List<UserApply> findUserApply(Long postId);
+
+    // 4 - 1. 지원 결과 취소로 업데이트
+    @Modifying
+    @Query("UPDATE UserApply ua SET ua.result = 'CANCELED' WHERE ua.jobPosting.postId = :postId AND ua.result = 'PENDING'")
+    int cancelUserApplyByPostId(@Param("postId") Long postId);
+
 }

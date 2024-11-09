@@ -1,14 +1,6 @@
 package com.wooribound.global.handler;
 
-import com.wooribound.global.exception.AuthenticationException;
-import com.wooribound.global.exception.NoJobException;
-import com.wooribound.global.exception.NoJobPostingException;
-import com.wooribound.global.exception.NoKnowhowException;
-import com.wooribound.global.exception.NoTokenException;
-import com.wooribound.global.exception.NoWbUserException;
-import com.wooribound.global.exception.SaveInterestingJobException;
-import com.wooribound.global.exception.UpdateUserInfoException;
-import com.wooribound.global.exception.SaveWorkHistoryException;
+import com.wooribound.global.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,6 +55,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(500).body(e.getMessage());
   }
 
-
+  @ExceptionHandler(NoUserApplyException.class)
+  public  ResponseEntity<String> handleNoUserApplyException(NoUserApplyException e){
+    return ResponseEntity.status(500).body(e.getMessage());
+  }
 }
 
