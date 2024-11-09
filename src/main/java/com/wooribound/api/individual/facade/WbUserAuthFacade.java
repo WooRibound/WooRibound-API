@@ -70,7 +70,7 @@ public class WbUserAuthFacade {
           .name(wbUserJoinReqDTO.getName())
           .addrCity(wbUserJoinReqDTO.getCity())
           .addrProvince(wbUserJoinReqDTO.getProvince())
-          .exjobChk(wbUserJoinReqDTO.getIsExperienced())
+          .exjobChk(isExJobSelected)
           .jobInterest(isSelectInterested)
           .phone(wbUserJoinReqDTO.getPhone())
           .birth(wbUserJoinReqDTO.getBirth())
@@ -97,6 +97,7 @@ public class WbUserAuthFacade {
     if (isSelectInterested == YN.Y) {
       try {
         interestJobService.saveByJobNameList(selectedInterestJobs, userId);
+        wbUserService.addWbscore(userId, 500);
       } catch (Exception e) {
         throw new SaveInterestingJobException();
       }
