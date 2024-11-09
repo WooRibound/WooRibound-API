@@ -4,6 +4,7 @@ import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoWbUserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,5 +129,13 @@ public class WbUserServiceImpl implements WbUserService {
     @Override
     public WbUser getWbUser(String userId) {
         return wbUserRepository.findByUserId(userId).orElseThrow();
+    }
+
+    @Override
+    public void addWbscore(String userId, int addScore) {
+        WbUser wbUser = wbUserRepository.findByUserId(userId).orElseThrow(NoWbUserException::new);
+        int score = wbUser.getJobPoint() + addScore;
+        wbUser.setJobPoint(score);
+        wbUserRepository.save(wbUser);
     }
 }

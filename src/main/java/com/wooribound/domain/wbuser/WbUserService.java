@@ -16,4 +16,6 @@ public interface WbUserService {
     int getJobPoint(String userId);
 
     WbUser getWbUser(String userId);
+
+    void addWbscore(String userId, int addScore);
 }
