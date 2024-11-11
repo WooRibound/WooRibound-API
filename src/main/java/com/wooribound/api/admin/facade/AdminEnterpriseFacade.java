@@ -28,7 +28,12 @@ public class AdminEnterpriseFacade {
     }
 
     @Transactional(readOnly = true)
-    public  List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(String entName) {
-        return adminEnterpriseService.getPendingEnterpriseRegist(entName);
+    public List<AdminPendingEnterpriseDTO> getPendingRegist(String entName) {
+        return adminEnterpriseService.getPendingRegist(entName);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AdminPendingEnterpriseDTO> getPendingDeletion(String entName) {
+        return adminEnterpriseService.getPendingDeletion(entName);
     }
 }

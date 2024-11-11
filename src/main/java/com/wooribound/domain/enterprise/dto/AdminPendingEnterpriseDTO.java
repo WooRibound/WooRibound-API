@@ -16,4 +16,5 @@ public class AdminPendingEnterpriseDTO {
     private String entName;
     private String entField;
     private Date createdAt;
+    private Date deleteRequestedAt;
 }
