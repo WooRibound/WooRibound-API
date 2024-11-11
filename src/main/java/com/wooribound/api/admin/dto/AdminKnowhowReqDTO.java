@@ -10,4 +10,5 @@ import lombok.*;
 public class AdminKnowhowReqDTO {
     private String knowhowJob;
     private String knowhowTitle;
+    private String knowhowReport;
 }

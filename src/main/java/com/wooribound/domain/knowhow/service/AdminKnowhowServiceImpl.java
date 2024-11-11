@@ -1,10 +1,11 @@
 package com.wooribound.domain.knowhow.service;
 
 import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
-import com.wooribound.domain.knowhow.Knowhow;
 import com.wooribound.domain.knowhow.KnowhowRepository;
-import com.wooribound.domain.knowhow.dto.KnowhowDTO;
-import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowDTO;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowDetailDTO;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowDetailProjection;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowProjection;
 import com.wooribound.global.exception.NoKnowhowException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,31 +19,46 @@ public class AdminKnowhowServiceImpl implements AdminKnowhowService {
 
     private final KnowhowRepository knowhowRepository;
 
-    @Override
-    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
-        List<Knowhow> knowhows = knowhowRepository.findAll(adminKnowhowReqDTO.getKnowhowJob(), adminKnowhowReqDTO.getKnowhowTitle());
+    public List<AdminKnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
+        String knowhowTitle = adminKnowhowReqDTO.getKnowhowTitle();
+        String knowhowJob = adminKnowhowReqDTO.getKnowhowJob();
+        String knowhowReport = adminKnowhowReqDTO.getKnowhowReport();
 
-        return knowhows.stream().map(knowhow -> KnowhowDTO.builder()
-                        .knowhowId(knowhow.getKnowhowId())
-                        .knowhowJob(knowhow.getKnowhowJob())
-                        .knowhowTitle(knowhow.getKnowhowTitle())
-                        .uploadDate(knowhow.getUploadDate())
-                        .build())
-                .collect(Collectors.toList());
+        List<AdminKnowhowProjection> knowhows;
+
+        if ("desc".equals(knowhowReport)) {
+            knowhows = knowhowRepository.findAllWithReportedCntDesc(knowhowTitle, knowhowJob);
+        } else if ("asc".equals(knowhowReport)) {
+            knowhows = knowhowRepository.findAllWithReportedCntAsc(knowhowTitle, knowhowJob);
+        } else {
+            knowhows = knowhowRepository.findAllWithUploadDateDesc(knowhowTitle, knowhowJob);
+        }
+
+        return knowhows.stream().map(projection -> {
+            return AdminKnowhowDTO.builder()
+                    .knowhowId(projection.getKnowhowId())
+                    .userId(projection.getUserId())
+                    .knowhowJob(projection.getKnowhowJob())
+                    .knowhowTitle(projection.getKnowhowTitle())
+                    .uploadDate(projection.getUploadDate())
+                    .reportedCnt(projection.getReportedCnt().intValue())
+                    .build();
+        }).collect(Collectors.toList());
     }
 
     @Override
-    public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
-        Knowhow knowhow = knowhowRepository.findByKnowhowId(knowhowId)
+    public AdminKnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
+        AdminKnowhowDetailProjection knowhow = knowhowRepository.findByKnowhowId(knowhowId)
                 .orElseThrow((NoKnowhowException::new));
 
-        return KnowhowDetailDTO.builder()
+        return AdminKnowhowDetailDTO.builder()
                 .knowhowId(knowhow.getKnowhowId())
+                .userId(knowhow.getUserId())
                 .knowhowJob(knowhow.getKnowhowJob())
                 .knowhowTitle(knowhow.getKnowhowTitle())
                 .knowhowContent(knowhow.getKnowhowContent())
                 .uploadDate(knowhow.getUploadDate())
-                .userId(knowhow.getWbUser().getUserId())
+                .reportedCnt(knowhow.getReportedCnt().intValue())
                 .build();
     }
 
