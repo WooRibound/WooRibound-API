@@ -28,7 +28,12 @@ public class AdminEnterpriseController {
     }
 
     @GetMapping("/join-request")
-    public List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(@RequestParam(required = false) String entName) {
-        return adminEnterpriseFacade.getPendingEnterpriseRegist(entName);
+    public List<AdminPendingEnterpriseDTO> getPendingRegist(@RequestParam(required = false) String entName) {
+        return adminEnterpriseFacade.getPendingRegist(entName);
+    }
+
+    @GetMapping("/delete-request")
+    public List<AdminPendingEnterpriseDTO> getPendingDeletion(@RequestParam(required = false) String entName) {
+        return adminEnterpriseFacade.getPendingDeletion(entName);
     }
 }
