@@ -1,6 +1,7 @@
 package com.wooribound.api.individual.facade;
 
 import com.wooribound.api.individual.dto.WbUserDTO;
+import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserJoinInfoResDTO;
 import com.wooribound.api.individual.dto.WbUserJoinReqDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
@@ -65,7 +66,7 @@ public class WbUserAuthFacade {
     }
 
     try {
-      WbUserUpdateDTO wbUserUpdateDTO = WbUserUpdateDTO.builder()
+      WbUserJoinDTO wbUserJoinDTO = WbUserJoinDTO.builder()
           .userId(userId)
           .name(wbUserJoinReqDTO.getName())
           .addrCity(wbUserJoinReqDTO.getCity())
@@ -75,9 +76,10 @@ public class WbUserAuthFacade {
           .phone(wbUserJoinReqDTO.getPhone())
           .birth(wbUserJoinReqDTO.getBirth())
           .gender(wbUserJoinReqDTO.getGender())
+          .dataSharingConsent(wbUserJoinReqDTO.getDataSharingConsent())
           .build();
 
-      wbUserService.updateUserInfo(wbUserUpdateDTO);
+      wbUserService.craeteWbUser(wbUserJoinDTO);
     } catch (Exception e) {
       System.out.println();
       throw new UpdateUserInfoException();

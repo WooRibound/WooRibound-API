@@ -4,6 +4,7 @@ import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.DuplicatedIdException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -102,6 +103,16 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                   "EntAddr1 : " + enterprise.getEntAddr1() + ", " +
                   "EntAddr2 : " + enterprise.getEntAddr2();
     }
+
+  @Override
+  public String duplicateIdCheck(String id) {
+    Enterprise enterprise = enterpriseRepository.findById(id).orElse(null);
+    if (enterprise == null) {
+      return id+"는 사용 가능한 ID입니다.";
+    } else {
+      throw new DuplicatedIdException(id);
+    }
+  }
 
 
 }
