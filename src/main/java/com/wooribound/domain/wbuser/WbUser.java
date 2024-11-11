@@ -2,6 +2,7 @@ package com.wooribound.domain.wbuser;
 
 import com.wooribound.domain.interestjob.InterestJob;
 import com.wooribound.domain.knowhow.Knowhow;
+import com.wooribound.domain.knowhowreported.KnowhowReported;
 import com.wooribound.domain.resume.Resume;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.global.constant.Gender;
@@ -114,4 +115,7 @@ public class WbUser {
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Knowhow> knowhows;
+
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
+  private List<KnowhowReported> knowhowReportedList;
 }
