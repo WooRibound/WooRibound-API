@@ -63,6 +63,9 @@ public class Enterprise {
   @Column(name = "updated_at")
   private Date updatedAt;
 
+  @Column(name = "delete_requested_at")
+  private Date deleteRequestedAt;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
   private YNP isDeleted = YNP.N; // entity 필드 기본값 설정 (jpa 함수 사용을 통한 쿼리 생성 대비)

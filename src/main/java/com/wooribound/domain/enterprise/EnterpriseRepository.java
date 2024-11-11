@@ -10,9 +10,11 @@ import java.util.List;
 
 @Repository
 public interface EnterpriseRepository extends JpaRepository<Enterprise, String> {
+    // 기업회원 가입 반려
     @Modifying
     int deleteByEntId(String entId);
 
+    // 기업회원 탈퇴 승인
     @Modifying
     @Query("UPDATE Enterprise e SET e.isDeleted = 'Y', e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
     int updateIsDeleted(@Param("entId") String entId);
@@ -23,13 +25,16 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
             "AND (:addrCity IS NULL OR e.entAddr1 = :addrCity)")
     List<Enterprise> findEnterprises(@Param("entName") String entName, @Param("entField") String entField, @Param("addrCity") String addrCity);
 
+    // 기업회원 상세 정보 조회
     Enterprise findByEntId(String entId);
 
+    // 가입 승인 대기 중인 기업회원 목록 조회
     @Query("SELECT e FROM Enterprise e " +
             "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
             "AND e.updatedAt IS NULL")
     List<Enterprise> findRegistPending(@Param("entName") String entName);
 
+    // 기업회원 회원 가입 승인
     @Modifying
     @Query("UPDATE Enterprise e SET e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
     int updateUpdatedAt(@Param("entId") String entId);

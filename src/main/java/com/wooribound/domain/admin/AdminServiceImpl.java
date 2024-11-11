@@ -45,7 +45,6 @@ public class AdminServiceImpl implements AdminService {
     public String deleteApprove(AdminApproveReqDTO adminApproveReqDTO) {
         // 기업 회원탈퇴를 승인할 때
         if (adminApproveReqDTO.getApprove() == YN.Y) {
-            System.out.println("========집입!!!!======");
             if (enterpriseRepository.updateIsDeleted(adminApproveReqDTO.getEntId()) == 1)
                 return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원탈퇴가 승인되었습니다.";
             else
