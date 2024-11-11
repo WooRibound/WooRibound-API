@@ -3,7 +3,7 @@ package com.wooribound.domain.enterprise;
 import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
-import com.wooribound.global.constant.YN;
+import com.wooribound.global.constant.YNP;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +36,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             .entField(enterpriseDTO.getEntField())
             .ceoName(enterpriseDTO.getCeoName())
             .createdAt(enterpriseDTO.getCreatedAt())
-            .isDeleted(YN.N)
+            .isDeleted(YNP.N)
             .build();
         enterpriseRepository.save(ent);
       }

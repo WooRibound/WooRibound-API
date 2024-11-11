@@ -23,6 +23,10 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
             "AND (:addrCity IS NULL OR e.entAddr1 = :addrCity)")
     List<Enterprise> findEnterprises(@Param("entName") String entName, @Param("entField") String entField, @Param("addrCity") String addrCity);
 
-
     Enterprise findByEntId(String entId);
+
+    @Query("SELECT e FROM Enterprise e " +
+            "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
+            "AND e.updatedAt IS NULL")
+    List<Enterprise> findRegistPending(String entName);
 }

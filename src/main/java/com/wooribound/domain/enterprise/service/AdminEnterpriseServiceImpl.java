@@ -5,6 +5,7 @@ import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
+import com.wooribound.domain.enterprise.dto.AdminPendingEnterpriseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,19 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                 .entField(enterprise.getEntField())
                 .revenue(enterprise.getRevenue())
                 .build();
+    }
+
+    @Override
+    public List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(String entName) {
+        List<Enterprise> enterprises = enterpriseRepository.findRegistPending(entName);
+
+        return enterprises.stream()
+                .map(enterprise -> AdminPendingEnterpriseDTO.builder()
+                        .entId(enterprise.getEntId())
+                        .entName(enterprise.getEntName())
+                        .entField(enterprise.getEntField())
+                        .createdAt(enterprise.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
