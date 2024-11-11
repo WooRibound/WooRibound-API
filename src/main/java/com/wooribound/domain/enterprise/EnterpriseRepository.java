@@ -28,5 +28,9 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
     @Query("SELECT e FROM Enterprise e " +
             "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
             "AND e.updatedAt IS NULL")
-    List<Enterprise> findRegistPending(String entName);
+    List<Enterprise> findRegistPending(@Param("entName") String entName);
+
+    @Modifying
+    @Query("UPDATE Enterprise e SET e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
+    int updateUpdatedAt(@Param("entId") String entId);
 }

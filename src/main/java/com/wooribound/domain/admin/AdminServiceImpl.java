@@ -34,7 +34,10 @@ public class AdminServiceImpl implements AdminService {
         }
         // 기업 회원가입을 승인할 때
         else {
-            return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원가입이 승인되었습니다.";
+            if (enterpriseRepository.updateUpdatedAt(adminApproveReqDTO.getEntId()) == 1)
+                return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원가입이 승인되었습니다.";
+            else
+                return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원가입 승인이 정상적으로 수행되지 않았습니다.";
         }
     }
 
