@@ -90,6 +90,10 @@ public class WbUser {
   @Column(name = "first_login", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
   private YN isInfoRegistered = YN.N;
 
+  @Enumerated(value = EnumType.STRING)
+  @Column(name = "data_sharing_consent", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
+  private YN dataSharingConsent = YN.N;
+
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private Resume resume;
 

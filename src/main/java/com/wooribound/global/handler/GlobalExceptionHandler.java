@@ -59,5 +59,15 @@ public class GlobalExceptionHandler {
   public  ResponseEntity<String> handleNoUserApplyException(NoUserApplyException e){
     return ResponseEntity.status(500).body(e.getMessage());
   }
+
+  @ExceptionHandler(DuplicatedIdException.class)
+  public  ResponseEntity<String> handleDuplicatedIdException(DuplicatedIdException e){
+    return ResponseEntity.status(409).body(e.getMessage());
+  }
+
+  @ExceptionHandler(JoinWbUserException.class)
+  public  ResponseEntity<String> handleJoinWbUserException(JoinWbUserException e){
+    return ResponseEntity.status(500).body(e.getMessage());
+  }
 }
 

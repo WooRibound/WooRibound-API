@@ -1,9 +1,11 @@
 package com.wooribound.domain.wbuser;
 
 import com.wooribound.api.individual.dto.WbUserDTO;
+import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.JoinWbUserException;
 import com.wooribound.global.exception.NoWbUserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +92,32 @@ public class WbUserServiceImpl implements WbUserService {
         } catch (Exception e) {
             logger.error("사용자 정보 수정 중 오류 발생: {}", e.getMessage());
             return "사용자 정보 수정 중 오류가 발생했습니다.";
+        }
+    }
+
+    @Override
+    public String craeteWbUser(WbUserJoinDTO wbUserJoinDTO) {
+        try {
+            WbUser user = wbUserRepository.findByUserId(wbUserJoinDTO.getUserId())
+                .orElseThrow(NoWbUserException::new);
+
+            // WbUserUpdateDTO의 필드만 업데이트
+            user.setName(wbUserJoinDTO.getName());
+            user.setBirth(wbUserJoinDTO.getBirth());
+            user.setPhone(wbUserJoinDTO.getPhone());
+            user.setGender(wbUserJoinDTO.getGender());
+            user.setExjobChk(wbUserJoinDTO.getExjobChk());
+            user.setJobInterest(wbUserJoinDTO.getJobInterest());
+            user.setAddrCity(wbUserJoinDTO.getAddrCity());
+            user.setAddrProvince(wbUserJoinDTO.getAddrProvince());
+            user.setUpdatedAt(new Date());
+            user.setDataSharingConsent(wbUserJoinDTO.getDataSharingConsent());
+            wbUserRepository.save(user);
+            return "사용자 정보가 성공적으로 수정되었습니다.";
+        }catch (NoWbUserException e){
+            throw e;
+        } catch (Exception e) {
+            throw new JoinWbUserException();
         }
     }
 

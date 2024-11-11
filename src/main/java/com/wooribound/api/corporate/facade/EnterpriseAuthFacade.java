@@ -30,7 +30,13 @@ public class EnterpriseAuthFacade {
         .ceoName(enterpiseJoinDTO.getCeoName())
         .revenue(enterpiseJoinDTO.getRevenue())
         .entAddr1(enterpiseJoinDTO.getEntAddr1())
+        .entAddr2(enterpiseJoinDTO.getEntAddr2())
         .createdAt(new Date())
         .build();
   }
+
+  public String duplicateIdCheck(String id) {
+    return enterpriseService.duplicateIdCheck(id);
+  }
+
 }
