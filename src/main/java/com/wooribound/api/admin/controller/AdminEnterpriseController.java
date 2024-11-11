@@ -4,11 +4,9 @@ import com.wooribound.api.admin.dto.AdminEnterpriseReqDTO;
 import com.wooribound.api.admin.facade.AdminEnterpriseFacade;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
+import com.wooribound.domain.enterprise.dto.AdminPendingEnterpriseDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,4 +27,8 @@ public class AdminEnterpriseController {
         return adminEnterpriseFacade.getEnterpriseInfo(entId);
     }
 
+    @GetMapping("/join-request")
+    public List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(@RequestParam(required = false) String entName) {
+        return adminEnterpriseFacade.getPendingEnterpriseRegist(entName);
+    }
 }
