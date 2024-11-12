@@ -14,7 +14,7 @@ public interface EntJobPostingService {
     String createJobPosting(JobPostingReqDTO jobPostingReqDTO);
 
     // 2. 내 기업 공고 목록 조회
-    List<JobPostingDetailProjection> getJobPostingList(String entId);
+    List<JobPostingDetailDTO> getJobPostingList(String entId);
 
     // 3. 공고 상세 조회
     JobPostingDetailDTO getJobPostingDetail(Long postId);

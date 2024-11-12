@@ -90,8 +90,21 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
     // 3. 내 기업 공고 목록 조회
     @Override
-    public List<JobPostingDetailProjection> getJobPostingList(String entId) {
-        return jobPostingRepository.getMyJobPostings(entId);
+    public List<JobPostingDetailDTO> getJobPostingList(String entId) {
+        List<JobPostingDetailProjection> jobPostings = jobPostingRepository.getMyJobPostings(entId);
+        return jobPostings.stream().map(jp -> JobPostingDetailDTO.builder()
+                        .entAddr1(jp.getEntAddr1())
+                        .entAddr2(jp.getEntAddr2())
+                        .entName(jp.getEntName())
+                        .jobName(jp.getJobName())
+                        .postImg(jp.getPostImg())
+                        .postTitle(jp.getPostTitle())
+                        .startDate(jp.getStartDate())
+                        .endDate(jp.getEndDate())
+                        .applicantCount(jp.getApplicantCount())
+                        .build()
+                        )
+                .collect(Collectors.toList());
     }
 
     // 4. 공고 지원자 전체 조회
