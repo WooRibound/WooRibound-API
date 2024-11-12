@@ -2,8 +2,8 @@ package com.wooribound.api.admin.facade;
 
 import com.wooribound.api.admin.dto.AdminKnowhowReqDTO;
 import com.wooribound.domain.knowhow.service.AdminKnowhowService;
-import com.wooribound.domain.knowhow.dto.KnowhowDTO;
-import com.wooribound.domain.knowhow.dto.KnowhowDetailDTO;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowDTO;
+import com.wooribound.domain.knowhow.dto.AdminKnowhowDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +17,12 @@ public class AdminKnowhowFacade {
     private final AdminKnowhowService adminKnowhowService;
 
     @Transactional(readOnly = true)
-    public List<KnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
+    public List<AdminKnowhowDTO> getAllKnowhows(AdminKnowhowReqDTO adminKnowhowReqDTO) {
         return adminKnowhowService.getAllKnowhows(adminKnowhowReqDTO);
     }
 
     @Transactional(readOnly = true)
-    public KnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
+    public AdminKnowhowDetailDTO getKnowhowDetail(Long knowhowId) {
         return adminKnowhowService.getKnowhowDetail(knowhowId);
     }
 
