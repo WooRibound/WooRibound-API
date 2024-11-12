@@ -32,6 +32,15 @@ public class EnterpriseUserDetailService implements UserDetailsService {
           new DeletedUserException("탈퇴한 기업 회원입니다. 회원가입을 새로 진행해 주세요"));
     }
 
+    if (enterpriseUser.getIsDeleted() == YNP.P) {
+      return new EnterpriseUserDetail(
+          enterpriseUser.getEntId(),
+          enterpriseUser.getEntName(),
+          enterpriseUser.getEntPwd(),
+          List.of(() -> "ROLE_ENTERPRISE_DELETE_PENDING")
+      );
+    }
+
     return new EnterpriseUserDetail(
         enterpriseUser.getEntId(),
         enterpriseUser.getEntName(),

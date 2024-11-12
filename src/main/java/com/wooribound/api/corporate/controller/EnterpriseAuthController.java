@@ -36,5 +36,10 @@ public class EnterpriseAuthController {
   public ResponseEntity<String> duplicateIdCheck(@RequestParam String id) {
     return ResponseEntity.ok(enterpriseAuthFacade.duplicateIdCheck(id));
   }
+
+  @PostMapping("/withdraw")
+  public ResponseEntity<String> withdraw(Authentication authentication, @RequestBody String pw) {
+    return ResponseEntity.ok(enterpriseAuthFacade.withdraw(authentication, pw));
+  }
 }
 
