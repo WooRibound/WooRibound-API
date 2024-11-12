@@ -1,6 +1,11 @@
 package com.wooribound.global.security;
 
 import com.wooribound.api.individual.dto.OAuthDTO;
+import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
+import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.DeletedUserException;
+import com.wooribound.global.exception.NoWbUserException;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;
 import com.wooribound.global.util.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -14,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +30,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
+@RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
 
   // @RequiredArgsConstructor 통해 생성자 주입
@@ -97,6 +104,8 @@ public class JWTFilter extends OncePerRequestFilter {
       // 토큰 만료
       System.out.println("필터 만료 응답 처리");
       sendErrorResponse(response, 419, "TOKEN_EXPIRED");
+    } catch (DeletedUserException e) {
+      throw e;
     } catch (Exception e) {
       // 기타 예외
       System.out.println("토큰 에러");

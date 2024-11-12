@@ -96,6 +96,11 @@ public class WbUserServiceImpl implements WbUserService {
     }
 
     @Override
+    public void saveWbUser(WbUser wbUser) {
+        wbUserRepository.save(wbUser);
+    }
+
+    @Override
     public String craeteWbUser(WbUserJoinDTO wbUserJoinDTO) {
         try {
             WbUser user = wbUserRepository.findByUserId(wbUserJoinDTO.getUserId())
@@ -112,6 +117,7 @@ public class WbUserServiceImpl implements WbUserService {
             user.setAddrProvince(wbUserJoinDTO.getAddrProvince());
             user.setUpdatedAt(new Date());
             user.setDataSharingConsent(wbUserJoinDTO.getDataSharingConsent());
+            user.setInterestChk(wbUserJoinDTO.getInterestChk());
             wbUserRepository.save(user);
             return "사용자 정보가 성공적으로 수정되었습니다.";
         }catch (NoWbUserException e){
@@ -156,7 +162,7 @@ public class WbUserServiceImpl implements WbUserService {
 
     @Override
     public WbUser getWbUser(String userId) {
-        return wbUserRepository.findByUserId(userId).orElseThrow();
+        return wbUserRepository.findByUserId(userId).orElseThrow(NoWbUserException::new);
     }
 
     @Override

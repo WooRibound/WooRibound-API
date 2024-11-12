@@ -6,13 +6,16 @@ import com.wooribound.api.individual.dto.WbUserJoinInfoResDTO;
 import com.wooribound.api.individual.dto.WbUserJoinReqDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.domain.interestjob.InterestJobService;
+import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserService;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.domain.workhistory.WorkHistoryService;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoWbUserException;
 import com.wooribound.global.exception.SaveInterestingJobException;
 import com.wooribound.global.exception.SaveWorkHistoryException;
 import com.wooribound.global.exception.UpdateUserInfoException;
+import com.wooribound.global.exception.WithdrawException;
 import com.wooribound.global.util.AuthenticateUtil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -77,6 +80,7 @@ public class WbUserAuthFacade {
           .birth(wbUserJoinReqDTO.getBirth())
           .gender(wbUserJoinReqDTO.getGender())
           .dataSharingConsent(wbUserJoinReqDTO.getDataSharingConsent())
+          .interestChk(isSelectInterested==YN.Y?YN.Y:YN.N)
           .build();
 
       wbUserService.craeteWbUser(wbUserJoinDTO);
@@ -108,4 +112,18 @@ public class WbUserAuthFacade {
     return "회원가입이 완료되었습니다.";
   }
 
+  @Transactional
+  public String withdraw(Authentication authentication) {
+    try {
+      String id = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+      WbUser wbuser = wbUserService.getWbUser(id);
+      wbuser.setIsDeleted(YN.Y);
+      wbUserService.saveWbUser(wbuser);
+      return "회원가입이 완료되었습니다.";
+    } catch (NoWbUserException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new WithdrawException();
+    }
+  }
 }
