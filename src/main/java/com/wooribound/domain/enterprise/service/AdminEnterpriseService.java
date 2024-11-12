@@ -12,5 +12,7 @@ public interface AdminEnterpriseService {
 
     AdminEnterpriseDetailDTO getEnterpriseInfo(String entId);
 
-    List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(String entName);
+    List<AdminPendingEnterpriseDTO> getPendingRegist(String entName);
+
+    List<AdminPendingEnterpriseDTO> getPendingDeletion(String entName);
 }

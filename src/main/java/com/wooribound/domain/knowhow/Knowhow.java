@@ -1,11 +1,13 @@
 package com.wooribound.domain.knowhow;
 
+import com.wooribound.domain.knowhowreported.KnowhowReported;
 import com.wooribound.domain.wbuser.WbUser;
 import jakarta.persistence.*;
 
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -15,11 +17,12 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @SequenceGenerator(
-    name = "knowhow_seq_generator",
-    sequenceName = "knowhow_SEQ",
-    allocationSize = 1
+        name = "knowhow_seq_generator",
+        sequenceName = "knowhow_SEQ",
+        allocationSize = 1
 )
 public class Knowhow {
+
   @Id
   @Column(name = "knowhow_id")
   private Long knowhowId;
@@ -40,5 +43,8 @@ public class Knowhow {
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private WbUser wbUser;
-}
+  
+  @OneToMany(mappedBy = "knowhow", fetch = FetchType.LAZY, cascade = CascadeType.ALL)  // cascade 추가
+  private List<KnowhowReported> knowhowReportedList;
 
+}

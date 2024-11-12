@@ -6,7 +6,9 @@ import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.userapply.Service.UserApplyService;
 import com.wooribound.domain.wbuser.WbUserService;
+import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class WbUserInfoFacade {
 
     private final UserApplyService userApplyService;
     private final WbUserService wbUserService;
+    private final AuthenticateUtil authenticateUtil;
 
     // 1. 지원 공고 조회
     @Transactional(readOnly = true)
@@ -33,7 +36,8 @@ public class WbUserInfoFacade {
 
     // 3. 사용자 정보 조회
     @Transactional(readOnly = true)
-    public List<WbUserDTO> getUserInfo(String userId) {
+    public List<WbUserDTO> getUserInfo(Authentication authentication) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserService.getUserInfo(userId);
     }
 

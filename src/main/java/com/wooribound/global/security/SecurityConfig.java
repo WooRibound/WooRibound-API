@@ -1,5 +1,7 @@
 package com.wooribound.global.security;
 
+import com.wooribound.domain.wbuser.WbUserRepository;
+import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.security.successhandler.AdminSuccessHandler;
 import com.wooribound.global.security.successhandler.EnterpriseSuccessHandler;
 import com.wooribound.global.security.successhandler.WbUserSuccessHandler;
@@ -25,6 +27,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -111,6 +114,18 @@ public class SecurityConfig {
         .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
         .oauth2Login(oauth2 -> oauth2
             .successHandler(wbUserSuccessHandler)
+            .failureHandler((request, response, exception) -> {
+              if (exception instanceof OAuth2AuthenticationException) {
+                Throwable authException = ((OAuth2AuthenticationException) exception).getCause();
+                if (authException instanceof DeletedUserException) {
+                  System.out.println("config에서 잡아냄");
+                  response.sendRedirect("http://localhost:8080/deleted/user");
+                  return;
+                }
+              }
+              // 다른 예외의 경우 기본 처리
+              throw exception;
+            })
             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                 .userService(wbUserDetailService)))
         .authorizeHttpRequests(auth -> auth

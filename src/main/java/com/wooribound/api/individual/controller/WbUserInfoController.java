@@ -6,6 +6,7 @@ import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.api.individual.facade.WbUserInfoFacade;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,8 @@ public class WbUserInfoController {
 
     // 3. 사용자 정보 조회
     @GetMapping("")
-    public List<WbUserDTO> getUserInfo(@RequestParam("user_id") String userId) {
-        return wbUserInfoFacade.getUserInfo(userId);
+    public List<WbUserDTO> getUserInfo(Authentication authentication) {
+        return wbUserInfoFacade.getUserInfo(authentication);
     }
 
     // 4. 사용자 정보 수정

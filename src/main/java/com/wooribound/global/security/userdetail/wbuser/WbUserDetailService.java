@@ -5,6 +5,7 @@ import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.security.dto.NaverResponse;
 import com.wooribound.global.security.dto.OAuth2Response;
 import org.slf4j.Logger;
@@ -13,9 +14,11 @@ import java.util.Date;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -99,6 +102,14 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 
       return new WbUserDetail(userDTO);
     } else {		// 회원정보가 존재한다면 조회된 데이터로 반환한다.
+
+      if(existWbUser.get().getIsDeleted() == YN.Y){
+        // OAuth2Error와 함께 OAuth2AuthenticationException을 throw
+        throw new OAuth2AuthenticationException(
+            new OAuth2Error("deleted_user", "탈퇴한 유저입니다. 회원가입을 새로 진행해 주세요", null),
+            new DeletedUserException("탈퇴한 유저입니다. 회원가입을 새로 진행해 주세요")
+        );
+      }
       System.out.println("기존 유저 반환");
       OAuthDTO userDTO = new OAuthDTO();
       userDTO.setId(userId);

@@ -1,6 +1,7 @@
 package com.wooribound.domain.wbuser;
 
 import com.wooribound.api.individual.dto.WbUserDTO;
+import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 
 import java.util.List;
@@ -10,6 +11,10 @@ public interface WbUserService {
     List<WbUserDTO> getUserInfo(String userId);
 
     String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
+
+    void saveWbUser(WbUser wbUser);
+
+    String craeteWbUser(WbUserJoinDTO wbUserJoinDTO);
 
     WbUserDTO getOneUserInfo(String userId);
 

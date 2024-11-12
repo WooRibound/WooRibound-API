@@ -52,7 +52,10 @@ public class AdminServiceImpl implements AdminService {
         }
         // 기업 회원탈퇴를 반려할 때
         else {
-            return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원탈퇴가 반려되었습니다.";
+            if (enterpriseRepository.updateDeleteRequestedAt(adminApproveReqDTO.getEntId()) == 1)
+                return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원탈퇴가 반려되었습니다.";
+            else
+                return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원탈퇴 반려가 정상적으로 수행되지 않았습니다.";
         }
     }
 }

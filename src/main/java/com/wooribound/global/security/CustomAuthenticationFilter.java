@@ -1,6 +1,7 @@
 package com.wooribound.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wooribound.global.exception.DeletedUserException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -27,11 +30,30 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     setFilterProcessesUrl(loginUrl);
     setAuthenticationSuccessHandler(successHandler);
 
-    // 기본 실패 핸들러 설정
+    // 실패 핸들러 수정
     setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
       @Override
       public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
           AuthenticationException exception) throws IOException, ServletException {
+
+        // InternalAuthenticationServiceException과 AuthenticationServiceException 모두 체크
+        Throwable cause = exception.getCause();
+        if (exception instanceof InternalAuthenticationServiceException ||
+            exception instanceof AuthenticationServiceException) {
+
+          // cause의 cause도 체크 (더 깊이 들어가서 체크)
+          Throwable rootCause = cause;
+          while (rootCause != null) {
+            if (rootCause instanceof DeletedUserException) {
+              System.out.println("CustomAuthenticationFilter에서 DeletedUserException 잡음");
+              response.setStatus(HttpServletResponse.SC_GONE);
+              return;
+            }
+            rootCause = rootCause.getCause();
+          }
+        }
+
+        // 다른 인증 실패의 경우 기존 처리
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
         System.out.println("인증실패");
@@ -81,11 +103,21 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
       // Allow subclasses to set the "details" property
       setDetails(request, authRequest);
 
-      // 실제 인증 수행
-      return this.getAuthenticationManager().authenticate(authRequest);
+      try {
+        // 실제 인증 수행
+        return this.getAuthenticationManager().authenticate(authRequest);
+      } catch (AuthenticationServiceException e) {
+        if (e.getCause() instanceof DeletedUserException) {
+          throw e; // 그대로 위로 전파하여 failureHandler에서 처리되도록 함
+        }
+        throw e;
+      }
 
     } catch (Exception e) {
       System.err.println("Authentication error: " + e.getMessage());
+      if (e instanceof AuthenticationServiceException) {
+        throw (AuthenticationServiceException) e;
+      }
       throw new IllegalArgumentException("Failed to parse authentication request body", e);
     }
   }

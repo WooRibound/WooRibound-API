@@ -9,6 +9,7 @@ import com.wooribound.domain.enterprise.dto.AdminPendingEnterpriseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,8 +54,8 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
     }
 
     @Override
-    public List<AdminPendingEnterpriseDTO> getPendingEnterpriseRegist(String entName) {
-        List<Enterprise> enterprises = enterpriseRepository.findRegistPending(entName);
+    public List<AdminPendingEnterpriseDTO> getPendingRegist(String entName) {
+        List<Enterprise> enterprises = enterpriseRepository.findPendingRegist(entName);
 
         return enterprises.stream()
                 .map(enterprise -> AdminPendingEnterpriseDTO.builder()
@@ -62,6 +63,19 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .entName(enterprise.getEntName())
                         .entField(enterprise.getEntField())
                         .createdAt(enterprise.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdminPendingEnterpriseDTO> getPendingDeletion(String entName) {
+        List<Enterprise> enterprises = enterpriseRepository.findPendingDeletion(entName);
+
+        return enterprises.stream().map(enterprise -> AdminPendingEnterpriseDTO.builder()
+                        .entId(enterprise.getEntId())
+                        .entName(enterprise.getEntName())
+                        .entField(enterprise.getEntField())
+                        .deleteRequestedAt(enterprise.getDeleteRequestedAt())
                         .build())
                 .collect(Collectors.toList());
     }
