@@ -81,3 +81,18 @@ INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed)
 VALUES (2, 'USER002', 2, '지원하신 공고가 삭제되었습니다.', 'N');
 
 
+INSERT INTO admin (admin_id, admin_name, admin_pw, admin_type)
+VALUES (
+           'admin1',  -- ID는 20자 이내
+           '김철수',     -- 이름은 10자 이내
+           '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6',  -- 60자 비밀번호 (1234)
+           'ROLE_SERVICE_ADMIN'     -- AdminType enum 값
+       );
+
+INSERT INTO admin (admin_id, admin_name, admin_pw, admin_type)
+VALUES (
+           'admin2',  -- ID는 20자 이내
+           '김영희',     -- 이름은 10자 이내
+           '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6',  -- 60자 비밀번호 (1234)
+           'ROLE_INFRA_ADMIN'     -- AdminType enum 값
+       );
