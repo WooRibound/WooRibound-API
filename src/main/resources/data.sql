@@ -47,6 +47,13 @@ VALUES (1, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '30' DAY, 1, 'Backend Developer
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img)
 VALUES (2, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg');
 
+-- 지원현황
+INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date)
+VALUES (1, '1', 'USER001', 'PENDING', TO_DATE('2024-11-01', 'YYYY-MM-DD'));
+
+INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date)
+VALUES (2, '2', 'USER002', 'PENDING', TO_DATE('2024-11-01', 'YYYY-MM-DD'));
+
 -- 노하우
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
 VALUES (1, 'Software Developer', 'Effective Debugging Techniques', 'Learn how to debug effectively to save time and increase productivity.', TO_DATE('2024-11-05', 'YYYY-MM-DD'), 'USER001');
@@ -65,3 +72,12 @@ VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and tech
 
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
     (1, 'USER001', 'https://example.com/image1.jpg', 'user1@example.com', 'Experienced software developer with a strong background in Java and Spring.');
+
+-- 알림
+INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed)
+VALUES (1, 'USER001', 1, '축하합니다. 지원하신 공고에 합격하셨습니다.', 'N');
+
+INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed)
+VALUES (2, 'USER002', 2, '지원하신 공고가 삭제되었습니다.', 'N');
+
+

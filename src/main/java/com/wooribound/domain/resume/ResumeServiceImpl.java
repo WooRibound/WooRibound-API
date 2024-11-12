@@ -81,6 +81,7 @@ public class ResumeServiceImpl implements ResumeService {
                 .phone(resume.getWbUser().getPhone())
                 .addrCity(resume.getWbUser().getAddrCity())
                 .addrProvince(resume.getWbUser().getAddrProvince())
+                .userIntro(resume.getUserIntro())
                 .userImg(resume.getUserImg())
                 .resumeEmail(resume.getResumeEmail())
                 .jobList(jobs)

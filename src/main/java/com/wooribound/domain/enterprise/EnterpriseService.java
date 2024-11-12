@@ -18,4 +18,5 @@ public interface EnterpriseService {
     // 2. 기업회원 정보 수정
     String updateEnterpriseInfo(EnterpriseInfoReqDTO enterpriseInfoReqDTO);
 
+    String duplicateIdCheck(String id);
 }

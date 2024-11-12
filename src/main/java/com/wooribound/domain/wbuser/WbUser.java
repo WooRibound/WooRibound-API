@@ -2,6 +2,7 @@ package com.wooribound.domain.wbuser;
 
 import com.wooribound.domain.interestjob.InterestJob;
 import com.wooribound.domain.knowhow.Knowhow;
+import com.wooribound.domain.knowhowreported.KnowhowReported;
 import com.wooribound.domain.resume.Resume;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.global.constant.Gender;
@@ -90,6 +91,10 @@ public class WbUser {
   @Column(name = "first_login", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
   private YN isInfoRegistered = YN.N;
 
+  @Enumerated(value = EnumType.STRING)
+  @Column(name = "data_sharing_consent", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
+  private YN dataSharingConsent = YN.N;
+
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private Resume resume;
 
@@ -110,4 +115,7 @@ public class WbUser {
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<Knowhow> knowhows;
+
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
+  private List<KnowhowReported> knowhowReportedList;
 }

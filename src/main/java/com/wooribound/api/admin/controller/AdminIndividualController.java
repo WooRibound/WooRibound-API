@@ -5,10 +5,7 @@ import com.wooribound.api.admin.facade.AdminIndividualFacade;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.wbuser.dto.AdminIndividualDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class AdminIndividualController {
     }
 
     @GetMapping("/detail")
-    public ResumeDetailDTO getWbUserResume(String userId) {
+    public ResumeDetailDTO getWbUserResume(@RequestParam String userId) {
         return adminIndividualFacade.getWbUserResume(userId);
     }
 }
