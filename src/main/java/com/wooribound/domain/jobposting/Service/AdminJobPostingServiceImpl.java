@@ -1,6 +1,7 @@
 package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
+import com.wooribound.api.individual.dto.JobPostingProjection;
 import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
@@ -28,16 +29,16 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
 
     @Override
     public List<JobPostingDTO> getAllJobPostings(AdminJobPostingReqDTO adminJobPostingReqDTO) {
-        List<JobPosting> jobPostings = jobPostingRepository.findJobPostings(adminJobPostingReqDTO.getEntName(), adminJobPostingReqDTO.getJobName(), adminJobPostingReqDTO.getAddrCity());
+        List<JobPostingProjection> jobPostings = jobPostingRepository.findJobPostings(adminJobPostingReqDTO.getEntName(), adminJobPostingReqDTO.getJobName(), adminJobPostingReqDTO.getAddrCity());
 
-        return jobPostings.stream().map(job -> JobPostingDTO.builder().jobPostingId(job.getPostId()).entName(job.getEnterprise().getEntName()).postTitle(job.getPostTitle()).endDate(job.getEndDate()).postState(job.getPostState()).entAddr1(job.getEnterprise().getEntAddr1()).build()).collect(Collectors.toList());
+        return jobPostings.stream().map(job -> JobPostingDTO.builder().jobPostingId(job.getPostId()).entName(job.getEnterprise().getEntName()).postTitle(job.getPostTitle()).startDate(job.getStartDate()).endDate(job.getEndDate()).entAddr1(job.getEnterprise().getEntAddr1()).postState(job.getPostState()).build()).collect(Collectors.toList());
     }
 
     @Override
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         JobPosting jobPosting = jobPostingRepository.findJobPostingByPostId(postId);
 
-        return JobPostingDetailDTO.builder().postTitle(jobPosting.getPostTitle()).entName(jobPosting.getEnterprise().getEntName()).postImg(jobPosting.getPostImg()).startDate(jobPosting.getStartDate()).endDate(jobPosting.getEndDate()).postState(jobPosting.getPostState()).jobName(jobPosting.getJob().getJobName()).entAddr1(jobPosting.getEnterprise().getEntAddr1()).build();
+        return JobPostingDetailDTO.builder().postTitle(jobPosting.getPostTitle()).entName(jobPosting.getEnterprise().getEntName()).postImg(jobPosting.getPostImg()).startDate(jobPosting.getStartDate()).endDate(jobPosting.getEndDate()).jobName(jobPosting.getJob().getJobName()).entAddr1(jobPosting.getEnterprise().getEntAddr1()).build();
     }
 
     @Override

@@ -1,28 +1,14 @@
 package com.wooribound.domain.jobposting;
 
 import com.wooribound.domain.enterprise.Enterprise;
-import com.wooribound.domain.userapply.UserApply;
-import com.wooribound.global.constant.PostState;
 import com.wooribound.domain.job.Job;
-
+import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.global.constant.YN;
 import jakarta.persistence.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-import java.util.List;
-
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -60,10 +46,6 @@ public class JobPosting {
 
     @Column(name = "end_date", nullable = false)
     private Date endDate;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "post_state", nullable = false, columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
-    private PostState postState = PostState.PENDING;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")

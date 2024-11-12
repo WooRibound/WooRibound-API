@@ -14,7 +14,6 @@ import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.constant.ApplyResult;
-import com.wooribound.global.constant.PostState;
 import com.wooribound.global.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +51,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                 .postImg(jobPostingReqDTO.getPostImg())
                 .startDate(jobPostingReqDTO.getStartDate())
                 .endDate(jobPostingReqDTO.getEndDate())
-                .postState(PostState.PENDING)
                 .build();
         
         jobPostingRepository.save(jobPosting);
@@ -77,7 +75,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                                 .postImg(jobPosting.getPostImg())
                                 .startDate(jobPosting.getStartDate())
                                 .endDate(jobPosting.getEndDate())
-                                .postState(jobPosting.getPostState())
+                             //   .postState(jobPosting.getPostState())
                                 .jobName(jobPosting.getJob().getJobName())
                                 .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                                 .entAddr2(jobPosting.getEnterprise().getEntAddr2())
