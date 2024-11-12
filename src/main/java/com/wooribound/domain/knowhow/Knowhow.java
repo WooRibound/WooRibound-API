@@ -21,10 +21,6 @@ import java.util.Date;
 )
 public class Knowhow {
   @Id
-  @GeneratedValue(
-      strategy = GenerationType.AUTO,
-      generator = "knowhow_seq_generator"
-  )
   @Column(name = "knowhow_id")
   private Long knowhowId;
 
