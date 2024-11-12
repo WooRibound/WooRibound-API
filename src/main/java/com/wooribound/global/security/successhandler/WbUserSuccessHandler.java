@@ -68,7 +68,6 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
       response.sendRedirect(redirectUrl_oldUser);
     }
 
-
   }
 
   private Cookie createCookie(String key, String value) {

@@ -19,4 +19,5 @@ public class WbUserJoinDTO {
   private String addrCity;
   private String addrProvince;
   private YN dataSharingConsent;
+  private YN interestChk;
 }

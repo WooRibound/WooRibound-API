@@ -12,6 +12,8 @@ public interface WbUserService {
 
     String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
 
+    void saveWbUser(WbUser wbUser);
+
     String craeteWbUser(WbUserJoinDTO wbUserJoinDTO);
 
     WbUserDTO getOneUserInfo(String userId);

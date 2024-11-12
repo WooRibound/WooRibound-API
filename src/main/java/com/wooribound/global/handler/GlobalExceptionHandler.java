@@ -1,7 +1,15 @@
 package com.wooribound.global.handler;
 
 import com.wooribound.global.exception.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -69,5 +77,17 @@ public class GlobalExceptionHandler {
   public  ResponseEntity<String> handleJoinWbUserException(JoinWbUserException e){
     return ResponseEntity.status(500).body(e.getMessage());
   }
-}
+
+  @ExceptionHandler(WithdrawException.class)
+  public  ResponseEntity<String> handleWithdrawException(WithdrawException e){
+    return ResponseEntity.status(500).body(e.getMessage());
+  }
+
+  @ExceptionHandler(DeletedUserException.class)
+  public ResponseEntity<Object> handleDeletedUserException(DeletedUserException e, HttpServletRequest request) {
+      Map<String, String> responseBody = new HashMap<>();
+      responseBody.put("message", "deleted_user");
+      return new ResponseEntity<>(responseBody, HttpStatus.GONE); // 410 Gone
+    }
+  }
 

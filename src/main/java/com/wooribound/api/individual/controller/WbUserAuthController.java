@@ -29,5 +29,8 @@ public class WbUserAuthController {
     return ResponseEntity.ok(wbUserAuthFacade.join(authentication, wbUserJoinReqDTO));
   }
 
-
+  @PostMapping("/withdraw")
+  public ResponseEntity<String> withdraw(Authentication authentication){
+    return ResponseEntity.ok(wbUserAuthFacade.withdraw(authentication));
+  }
 }
