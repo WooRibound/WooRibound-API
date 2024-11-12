@@ -23,7 +23,7 @@ public class AdminEnterpriseController {
     }
 
     @GetMapping("/detail")
-    public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
+    public AdminEnterpriseDetailDTO getEnterpriseInfo(@RequestParam String entId) {
         return adminEnterpriseFacade.getEnterpriseInfo(entId);
     }
 
