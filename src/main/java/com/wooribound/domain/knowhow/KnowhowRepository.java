@@ -53,10 +53,10 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
     @Query("SELECT k.knowhowId AS knowhowId, k.knowhowJob AS knowhowJob, " +
             "k.knowhowTitle AS knowhowTitle, k.uploadDate AS uploadDate, " +
             "k.knowhowContent AS knowhowContent, COUNT(k_report) AS reportedCnt, " +
-            "k.wbUser.userId AS userId FROM Knowhow k " +
+            "k.wbUser.userId AS userId, k.wbUser.name AS userName FROM Knowhow k " +
             "LEFT JOIN KnowhowReported k_report ON k_report.knowhow = k " +
             "WHERE k.knowhowId = :knowhowId " +
-            "GROUP BY k.knowhowId, k.knowhowJob, k.knowhowTitle, k.uploadDate, k.knowhowContent, k.wbUser.userId")
+            "GROUP BY k.knowhowId, k.knowhowJob, k.knowhowTitle, k.uploadDate, k.knowhowContent, k.wbUser.userId, k.wbUser.name")
     Optional<AdminKnowhowDetailProjection> findByKnowhowId(@Param("knowhowId") Long knowhowId);
 
     @Modifying

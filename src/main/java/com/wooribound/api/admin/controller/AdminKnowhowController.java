@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/knowhow/")
+@RequestMapping("/admin/knowhow")
 public class AdminKnowhowController {
     private final AdminKnowhowFacade adminKnowhowFacade;
 
