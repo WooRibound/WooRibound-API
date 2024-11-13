@@ -140,7 +140,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         }).collect(Collectors.toList());
     }
 
-    // TODO: 지원자 알림
     // 5. 지원자 결과 설정
     @Override
     public String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO) {
@@ -168,6 +167,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .userApply(userApply)
                     .notice(entName+" 지원결과 : "+ applyResultKorean)
                     .isConfirmed(YN.N)
+                    .createdAt(new Date())
                     .build();
 
             notificationRepository.save(notification);
