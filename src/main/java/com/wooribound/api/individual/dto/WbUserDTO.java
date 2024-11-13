@@ -6,6 +6,7 @@ import com.wooribound.global.constant.YN;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -25,4 +26,6 @@ public class WbUserDTO {
     private Date createdAt;
     private Date updatedAt;
     private YN isDeleted;
+    private List<String> workHistoryJobs;
+    private List<String> interestJobs;
 }

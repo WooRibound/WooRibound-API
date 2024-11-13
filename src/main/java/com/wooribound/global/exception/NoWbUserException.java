@@ -6,6 +6,6 @@ import lombok.experimental.StandardException;
 public class NoWbUserException extends RuntimeException{
 
   public NoWbUserException() {
-    super("해당 ID의 회원이 존재하지 않습니다");
+    super("회원이 존재하지 않습니다");
   }
 }
