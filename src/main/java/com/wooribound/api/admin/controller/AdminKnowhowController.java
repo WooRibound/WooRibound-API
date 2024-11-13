@@ -27,7 +27,6 @@ public class AdminKnowhowController {
 
     @PostMapping("/delete")
     public String deleteKnowhow(@RequestParam Long knowhowId) {
-        System.out.println("==========" + knowhowId +"==========");
         return adminKnowhowFacade.deleteKnowhow(knowhowId);
     }
 }
