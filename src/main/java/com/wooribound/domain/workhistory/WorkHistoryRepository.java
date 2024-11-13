@@ -1,5 +1,6 @@
 package com.wooribound.domain.workhistory;
 
+import com.wooribound.api.individual.dto.JobPostingProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,8 +21,12 @@ public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> 
     )""", nativeQuery = true)
   void saveByJobName(@Param("userId") String userId, @Param("jobName") String jobName);
 
-  @Modifying
   @Query("SELECT wh FROM WorkHistory wh WHERE wh.wbUser.userId = :userId")
   List<WorkHistory> findByUserId(@Param("userId") String userId);
+
+  // 경력직종 조회
+  @Query("SELECT wh.job.jobName FROM WorkHistory wh WHERE wh.wbUser.userId = :loginUser")
+  List<String> findJobNamesByUserId(String loginUser);
+
 
 }

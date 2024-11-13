@@ -1,9 +1,9 @@
 package com.wooribound.api.individual.dto;
 
-import com.wooribound.global.constant.PostState;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Getter
@@ -13,10 +13,14 @@ import java.util.Date;
 public class UserJobPostingReqDTO {
     private String entName;
     private String postTitle;
+    private Date startDate;
     private Date endDate;
-    private PostState postState;
-    private String entAddr;
     private String jobName;
-    private String AddrCity;
-
+    private String entAddr1;
+    private String entAddr2;
+    private List<String> interestJobs;
+    private List<String> exJobs;
+    private String viewType;
+    // TODO: Temp -> Authentication 으로 변경 필요
+    private String userId;
 }

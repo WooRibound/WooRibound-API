@@ -1,7 +1,11 @@
 package com.wooribound.domain.interestjob;
 
 import com.wooribound.domain.interestjob.InterestJob;
+
+import java.util.List;
 import java.util.Optional;
+
+import com.wooribound.domain.job.JobDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +24,6 @@ public interface InterestJobRepository extends JpaRepository<InterestJob, Long> 
     )""", nativeQuery = true)
   void saveInterestJob(@Param("userId") String userId, @Param("jobName") String jobName);
 
+  @Query("SELECT ij.job.jobName FROM InterestJob ij WHERE ij.wbUser.userId = :userId")
+  List<String> findJobNamesByUserId(@Param("userId") String userId);
 }

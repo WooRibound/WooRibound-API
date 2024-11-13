@@ -1,10 +1,18 @@
 package com.wooribound.domain.jobposting.Service;
 
-import com.wooribound.api.individual.dto.UserJobPostingDTO;
+import com.wooribound.api.individual.dto.JobPostingProjection;
+import com.wooribound.api.individual.dto.UserJobPostingReqDTO;
+import com.wooribound.domain.interestjob.InterestJobRepository;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
+import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
+import com.wooribound.domain.workhistory.WorkHistoryRepository;
+import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoWbUserException;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -13,47 +21,103 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
     private static final Logger logger = LogManager.getLogger(WbUserJobPostingServiceImpl.class);
     private final JobPostingRepository jobPostingRepository;
+    private final WbUserRepository wbUserRepository;
+    private final InterestJobRepository interestJobRepository;
+    private final WorkHistoryRepository workHistoryRepository;
 
-    public WbUserJobPostingServiceImpl(JobPostingRepository jobPostingRepository) {
-        this.jobPostingRepository = jobPostingRepository;
+    // 1. 공고 조회 - 검색 (회사명, 직무, 지역)
+    public List<JobPostingDTO> getJobPostings(UserJobPostingReqDTO userJobPostingReqDTO) {
+        String entName = userJobPostingReqDTO.getEntName();
+        String jobName = userJobPostingReqDTO.getJobName();
+        String entAddr1 = userJobPostingReqDTO.getEntAddr1();
+
+        logger.info("검색 START : entName - " + entName + " , jobName - " + jobName + " , entAddr1 - " + entAddr1);
+        List<JobPostingProjection> jobPostings = jobPostingRepository.findJobPostings(entName, jobName, entAddr1);
+        return mapJobPostingsToDTOs(jobPostings);
     }
 
-    // 1. 공고 조회 - 전체, 회사명, 직무, 지역
-    @Override
-    public List<JobPostingDTO> getJobPostings(UserJobPostingDTO userJobPostingDTO) {
-        // 검색 조건
-        String entName = userJobPostingDTO.getEntName();
-        String jobName = userJobPostingDTO.getJobName();
-        String addrCity = userJobPostingDTO.getAddrCity();
+    // 2. 공고 조회 - 새로운 일 구하기
+    public List<JobPostingDTO> getJobPostingsForNew(UserJobPostingReqDTO userJobPostingReqDTO) {
+        String userId = userJobPostingReqDTO.getUserId();
+        List<JobPostingProjection> jobPostingsProjections;
+        List<String> interestJobs;
+        List<String> exJobs;
 
-        // log4j - 검색 조건 로그 기록
-        logger.info("공고 조건 검색 시작 - Company: {}, Job: {}, Location: {}", entName, jobName, addrCity);
+        logger.info("새로운 일 구하기 START");
+        if (userId == null) {
+            jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
+        } else {
+            WbUser user = wbUserRepository.findById(userId)
+                    .orElseThrow(() -> new NoWbUserException());
 
-        List<JobPosting> jobPostings = jobPostingRepository.findJobPostings(entName, jobName, addrCity);
+            logger.info(userId + ", 관심직종 등록 여부 : " + user.getInterestChk() + " 경력직종 등록 여부 : " + user.getExjobChk());
+            interestJobs = user.getInterestChk() == YN.Y ? interestJobRepository.findJobNamesByUserId(userId) : List.of();
+            exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(userId) : List.of();
+            logger.info(userId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
 
-        // log4j - 검색된 결과 수 & 공고 ID 로그 기록
-        logger.info("공고 검색 결과 - Found {} postings", jobPostings.size());
-        jobPostings.forEach(job -> logger.info("검색된 공고명 - ID: {}, Title: {}", job.getPostId(), job.getPostTitle()));
+            if (interestJobs.isEmpty() && exJobs.isEmpty()) {
+                jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
+            } else {
+                logger.info("findJobPostingsNew START :" + userId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
+                jobPostingsProjections = jobPostingRepository.findJobPostingsNew(exJobs.isEmpty() ? null : exJobs,
+                        interestJobs.isEmpty() ? null : interestJobs);
+                logger.info(userId + " 새로운 일 공고 : " + jobPostingsProjections);
+            }
+        }
+        return mapJobPostingsToDTOs(jobPostingsProjections);
+    }
 
+
+    // 3. 공고 조회 - 경력 살리기
+    public List<JobPostingDTO> getJobPostingsForCareer(UserJobPostingReqDTO userJobPostingReqDTO) {
+        String userId = userJobPostingReqDTO.getUserId();
+        List<JobPostingProjection> jobPostingsProjections = List.of();
+
+        logger.info("경력 살리기 START");
+        if (userId == null) {
+            jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
+        } else {
+            WbUser user = wbUserRepository.findById(userId)
+                    .orElseThrow(() -> new NoWbUserException());
+
+            logger.info(userId + " 경력직종 등록 여부 : " + user.getExjobChk());
+            List<String> exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(userId) : List.of();
+            logger.info(userId + " 경력직종 목록 : " + exJobs);
+
+            if (exJobs.isEmpty()) {
+                jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
+            } else {
+                jobPostingsProjections = jobPostingRepository.findJobPostingsCareer(exJobs);
+                logger.info(userId + " 경력공고 : " + jobPostingsProjections);
+            }
+        }
+        return mapJobPostingsToDTOs(jobPostingsProjections);
+    }
+
+    // 4. JobPosting -> DTO 변환 공통 메소드
+    public List<JobPostingDTO> mapJobPostingsToDTOs(List<JobPostingProjection> jobPostings) {
         return jobPostings.stream()
                 .map(job -> JobPostingDTO.builder()
                         .jobPostingId(job.getPostId())
-                        .entName(job.getEnterprise().getEntName())
+                        .entName(job.getEntName())
                         .postTitle(job.getPostTitle())
                         .startDate(job.getStartDate())
                         .endDate(job.getEndDate())
-                        .postState(job.getPostState())
                         .entAddr1(job.getEnterprise().getEntAddr1())
+                        .entAddr2(job.getEnterprise().getEntAddr2())
+                        .postState(job.getPostState())
                         .build())
                 .collect(Collectors.toList());
     }
 
-    // 2. 공고 상세 조회
+
+    // 5. 공고 상세 조회
     @Override
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         // log4j - 공고 상세 조회 시작 로그
@@ -66,16 +130,15 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
             // log4j - 조회된 공고 상세 로그
             logger.info("공고 상세 조회 결과 - ID: {}, Title: {}", jobPosting.getPostId(), jobPosting.getPostTitle());
             return JobPostingDetailDTO.builder()
-                                .postTitle(jobPosting.getPostTitle())
-                                .entName(jobPosting.getEnterprise().getEntName())
-                                .postImg(jobPosting.getPostImg())
-                                .startDate(jobPosting.getStartDate())
-                                .endDate(jobPosting.getEndDate())
-                                .postState(jobPosting.getPostState())
-                                .jobName(jobPosting.getJob().getJobName())
-                                .entAddr1(jobPosting.getEnterprise().getEntAddr1())
-                                .entAddr2(jobPosting.getEnterprise().getEntAddr2())
-                                .build();
+                    .postTitle(jobPosting.getPostTitle())
+                    .entName(jobPosting.getEnterprise().getEntName())
+                    .postImg(jobPosting.getPostImg())
+                    .startDate(jobPosting.getStartDate())
+                    .endDate(jobPosting.getEndDate())
+                    .jobName(jobPosting.getJob().getJobName())
+                    .entAddr1(jobPosting.getEnterprise().getEntAddr1())
+                    .entAddr2(jobPosting.getEnterprise().getEntAddr2())
+                    .build();
         } else {
             // 공고가 존재하지 않는 경우 예외 로그
             logger.error("공고가 존재하지 않습니다 - ID: {}", postId);
@@ -83,7 +146,6 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
             throw new RuntimeException("해당 공고 없음: " + postId);
         }
     }
-
 
 
 }
