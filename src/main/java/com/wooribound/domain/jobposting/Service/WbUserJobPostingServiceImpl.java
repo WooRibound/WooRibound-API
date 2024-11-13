@@ -32,7 +32,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
     private final WorkHistoryRepository workHistoryRepository;
 
     // 1. 공고 조회 - 검색 (회사명, 직무, 지역)
-    public List<JobPostingDTO> getJobPostings(UserJobPostingReqDTO userJobPostingReqDTO) {
+    public List<JobPostingDTO> getJobPostings(String loginId, UserJobPostingReqDTO userJobPostingReqDTO) {
         String entName = userJobPostingReqDTO.getEntName();
         String jobName = userJobPostingReqDTO.getJobName();
         String entAddr1 = userJobPostingReqDTO.getEntAddr1();
@@ -43,31 +43,31 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
     }
 
     // 2. 공고 조회 - 새로운 일 구하기
-    public List<JobPostingDTO> getJobPostingsForNew(UserJobPostingReqDTO userJobPostingReqDTO) {
-        String userId = userJobPostingReqDTO.getUserId();
+    public List<JobPostingDTO> getJobPostingsForNew(String loginId, UserJobPostingReqDTO userJobPostingReqDTO) {
+//        String loginId = userJobPostingReqDTO.getloginId();
         List<JobPostingProjection> jobPostingsProjections;
         List<String> interestJobs;
         List<String> exJobs;
 
         logger.info("새로운 일 구하기 START");
-        if (userId == null) {
+        if (loginId == null) {
             jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
         } else {
-            WbUser user = wbUserRepository.findById(userId)
+            WbUser user = wbUserRepository.findById(loginId)
                     .orElseThrow(() -> new NoWbUserException());
 
-            logger.info(userId + ", 관심직종 등록 여부 : " + user.getInterestChk() + " 경력직종 등록 여부 : " + user.getExjobChk());
-            interestJobs = user.getInterestChk() == YN.Y ? interestJobRepository.findJobNamesByUserId(userId) : List.of();
-            exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(userId) : List.of();
-            logger.info(userId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
+            logger.info(loginId + ", 관심직종 등록 여부 : " + user.getInterestChk() + " 경력직종 등록 여부 : " + user.getExjobChk());
+            interestJobs = user.getInterestChk() == YN.Y ? interestJobRepository.findJobNamesByUserId(loginId) : List.of();
+            exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(loginId) : List.of();
+            logger.info(loginId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
 
             if (interestJobs.isEmpty() && exJobs.isEmpty()) {
                 jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
             } else {
-                logger.info("findJobPostingsNew START :" + userId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
+                logger.info("findJobPostingsNew START :" + loginId + " 관심직종 목록 : " + interestJobs + ", 경력직종 목록 : " + exJobs);
                 jobPostingsProjections = jobPostingRepository.findJobPostingsNew(exJobs.isEmpty() ? null : exJobs,
                         interestJobs.isEmpty() ? null : interestJobs);
-                logger.info(userId + " 새로운 일 공고 : " + jobPostingsProjections);
+                logger.info(loginId + " 새로운 일 공고 : " + jobPostingsProjections);
             }
         }
         return mapJobPostingsToDTOs(jobPostingsProjections);
@@ -75,26 +75,26 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
 
     // 3. 공고 조회 - 경력 살리기
-    public List<JobPostingDTO> getJobPostingsForCareer(UserJobPostingReqDTO userJobPostingReqDTO) {
-        String userId = userJobPostingReqDTO.getUserId();
+    public List<JobPostingDTO> getJobPostingsForCareer(String loginId, UserJobPostingReqDTO userJobPostingReqDTO) {
+       // String loginId = userJobPostingReqDTO.getloginId();
         List<JobPostingProjection> jobPostingsProjections = List.of();
 
         logger.info("경력 살리기 START");
-        if (userId == null) {
+        if (loginId == null) {
             jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
         } else {
-            WbUser user = wbUserRepository.findById(userId)
+            WbUser user = wbUserRepository.findById(loginId)
                     .orElseThrow(() -> new NoWbUserException());
 
-            logger.info(userId + " 경력직종 등록 여부 : " + user.getExjobChk());
-            List<String> exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(userId) : List.of();
-            logger.info(userId + " 경력직종 목록 : " + exJobs);
+            logger.info(loginId + " 경력직종 등록 여부 : " + user.getExjobChk());
+            List<String> exJobs = user.getExjobChk() == YN.Y ? workHistoryRepository.findJobNamesByUserId(loginId) : List.of();
+            logger.info(loginId + " 경력직종 목록 : " + exJobs);
 
             if (exJobs.isEmpty()) {
                 jobPostingsProjections = jobPostingRepository.findAllJobPostingProjections();
             } else {
                 jobPostingsProjections = jobPostingRepository.findJobPostingsCareer(exJobs);
-                logger.info(userId + " 경력공고 : " + jobPostingsProjections);
+                logger.info(loginId + " 경력공고 : " + jobPostingsProjections);
             }
         }
         return mapJobPostingsToDTOs(jobPostingsProjections);

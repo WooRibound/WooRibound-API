@@ -7,10 +7,10 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import java.util.List;
 
 public interface WbUserJobPostingService {
-    // 1. 공고 조회 - 전체, 회사명, 직무, 지역
-    List<JobPostingDTO> getJobPostings(/*String loginUser,*/ UserJobPostingReqDTO userJobPostingReqDTO);
-    List<JobPostingDTO> getJobPostingsForNew(UserJobPostingReqDTO userJobPostingReqDTO);
-    List<JobPostingDTO> getJobPostingsForCareer(UserJobPostingReqDTO userJobPostingReqDTO);
+    // 1. 공고 조회 - 검색, 새로운 일 구하기, 경력 살리기
+    List<JobPostingDTO> getJobPostings(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
+    List<JobPostingDTO> getJobPostingsForNew(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
+    List<JobPostingDTO> getJobPostingsForCareer(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
 
     // 2. 공고 상세 조회
     JobPostingDetailDTO getJobPostingDetail(Long postId);
