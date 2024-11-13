@@ -28,6 +28,7 @@ public class AuthController {
   @GetMapping("/check")
   public String checkLogin(Authentication authentication) {
     System.out.println("로그인 확인 메서드 호출");
+    authentication.getAuthorities();
 
     // Authentication 객체가 null인지 확인
     if (authentication == null || !authentication.isAuthenticated()) {
@@ -41,10 +42,7 @@ public class AuthController {
       return "로그인 되어 있지 않습니다.";
     }
 
-    // WbUserDetail로 캐스팅
-    WbUserDetail userDetail = (WbUserDetail) data;
-
-    return userDetail.getName();
+    return "로그인되어있습니다.";
   }
 
 

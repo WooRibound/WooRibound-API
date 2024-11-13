@@ -5,6 +5,7 @@ import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
 import com.wooribound.global.exception.DuplicatedIdException;
 import com.wooribound.global.constant.YNP;
+import com.wooribound.global.exception.NotValidPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -114,5 +115,14 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
   }
 
-
+  @Override
+  public void withdraw(String id, String pw) {
+    System.out.println("들어온 비밀번호:" +pw);
+    Enterprise enterprise = enterpriseRepository.findByEntId(id);
+    if (!passwordEncoder.matches(pw, enterprise.getEntPwd())) {
+      throw new NotValidPasswordException();
+    }
+    enterprise.setIsDeleted(YNP.P);
+    enterpriseRepository.save(enterprise);
+  }
 }

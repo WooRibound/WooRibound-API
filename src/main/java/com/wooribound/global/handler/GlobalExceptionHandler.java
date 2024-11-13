@@ -89,5 +89,15 @@ public class GlobalExceptionHandler {
       responseBody.put("message", "deleted_user");
       return new ResponseEntity<>(responseBody, HttpStatus.GONE); // 410 Gone
     }
+  @ExceptionHandler(NotValidPasswordException.class)
+  public ResponseEntity<String> handleNotValidPasswordException(NotValidPasswordException e) {
+    return ResponseEntity.status(400).body(e.getMessage());
   }
+
+
+}
+
+
+
+
 

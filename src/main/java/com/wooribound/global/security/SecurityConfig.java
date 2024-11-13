@@ -118,7 +118,6 @@ public class SecurityConfig {
               if (exception instanceof OAuth2AuthenticationException) {
                 Throwable authException = ((OAuth2AuthenticationException) exception).getCause();
                 if (authException instanceof DeletedUserException) {
-                  System.out.println("config에서 잡아냄");
                   response.sendRedirect("http://localhost:8080/deleted/user");
                   return;
                 }

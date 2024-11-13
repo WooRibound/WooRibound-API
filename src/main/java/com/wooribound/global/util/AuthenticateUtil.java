@@ -24,6 +24,7 @@ public class AuthenticateUtil {
       EnterpriseUserDetail enterpriseUserDetail = (EnterpriseUserDetail) authentication.getPrincipal();
       return enterpriseUserDetail.getUserId();
     } catch (Exception e) {
+      e.printStackTrace();
       throw new AuthenticationException();
     }
   }

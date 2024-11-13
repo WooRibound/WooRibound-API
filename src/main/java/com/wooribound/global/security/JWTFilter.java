@@ -6,6 +6,8 @@ import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.exception.NoWbUserException;
+import com.wooribound.global.security.userdetail.admin.AdminUserDetail;
+import com.wooribound.global.security.userdetail.enterprise.EnterpriseUserDetail;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;
 import com.wooribound.global.util.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -88,14 +90,10 @@ public class JWTFilter extends OncePerRequestFilter {
       // 인증 객체 생성
       String userName = jwtUtil.getUserName(originToken);
       String userId = jwtUtil.getUserId(originToken);
+      String role = jwtUtil.getRole(originToken);
 
-      OAuthDTO userDTO = new OAuthDTO();
-      userDTO.setId(userId);
-      userDTO.setName(userName);
-
-      WbUserDetail wbUserDetail = new WbUserDetail(userDTO);
-      Authentication authentication = new UsernamePasswordAuthenticationToken(
-          wbUserDetail, null, wbUserDetail.getAuthorities());
+      Authentication authentication = getAuthentication(role, userId,
+          userName);
       SecurityContextHolder.getContext().setAuthentication(authentication);
 
       filterChain.doFilter(request, response);
@@ -113,6 +111,50 @@ public class JWTFilter extends OncePerRequestFilter {
       System.out.println("Exception during token processing: " + e.getMessage());
       sendErrorResponse(response, HttpStatus.UNAUTHORIZED.value(), "TOKEN_ERROR");
     }
+  }
+
+  private static Authentication getAuthentication(String role, String userId, String userName) {
+    if (role.equals("ROLE_ENTERPRISE_USER")) {
+      EnterpriseUserDetail enterpriseUserDetail = new EnterpriseUserDetail(
+          userId,
+          userName,
+          null,
+          List.of(() -> "ROLE_ENTERPRISE_USER")
+      );
+      return new UsernamePasswordAuthenticationToken(
+          enterpriseUserDetail,
+          null,
+          enterpriseUserDetail.getAuthorities()
+      );
+    }
+
+    if (role.equals("ROLE_SERVICE_ADMIN") || role.equals("ROLE_INFRA_ADMIN")) {
+      AdminUserDetail adminUserDetail = new AdminUserDetail(
+          userId,
+          userName,
+          null,
+          List.of(() -> "ROLE_ADMIN_USER")
+      );
+      return new UsernamePasswordAuthenticationToken(
+          adminUserDetail,
+          null,
+          adminUserDetail.getAuthorities()
+      );
+    }
+
+    if (role.equals("ROLE_WbUser")) {
+      OAuthDTO userDTO = new OAuthDTO();
+      userDTO.setId(userId);
+      userDTO.setName(userName);
+      WbUserDetail wbUserDetail = new WbUserDetail(userDTO);
+      return new UsernamePasswordAuthenticationToken(
+          wbUserDetail,
+          null,
+          wbUserDetail.getAuthorities()
+      );
+    }
+
+    throw new IllegalArgumentException("Invalid role: " + role);
   }
 
   private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
