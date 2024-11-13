@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/knowhow/")
+@RequestMapping("/admin/knowhow")
 public class AdminKnowhowController {
     private final AdminKnowhowFacade adminKnowhowFacade;
 
@@ -22,6 +22,7 @@ public class AdminKnowhowController {
 
     @GetMapping("/detail")
     public AdminKnowhowDetailDTO getKnowhowDetail(@RequestParam Long knowhowId) {
+        System.out.println("=========" + knowhowId+"=========");
         return adminKnowhowFacade.getKnowhowDetail(knowhowId);
     }
 

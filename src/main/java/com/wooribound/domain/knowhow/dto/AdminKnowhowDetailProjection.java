@@ -9,6 +9,8 @@ public interface AdminKnowhowDetailProjection {
 
     String getUserId();
 
+    String getUserName();
+
     String getKnowhowTitle();
 
     String getKnowhowContent();
