@@ -2,6 +2,7 @@ package com.wooribound.domain.jobposting;
 
 import com.wooribound.api.individual.dto.JobPostingProjection;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.wbuser.WbUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -81,4 +82,11 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     @Modifying
     @Query("UPDATE JobPosting jp SET jp.isDeleted = 'Y' WHERE jp.postId = :postId")
     int updateIsDeletedByPostId(@Param("postId") Long postId);
+
+    // 6. 공고별 지원자 추천 (헤드헌팅기능)
+    @Query("SELECT w FROM WbUser w " +
+            "JOIN w.workHistories wh " +
+            "WHERE wh.job.jobId = :jobId " +
+            "ORDER BY w.jobPoint DESC")
+    List<WbUser> findApplicantRecommendation(@Param("jobId") int jobId);
 }

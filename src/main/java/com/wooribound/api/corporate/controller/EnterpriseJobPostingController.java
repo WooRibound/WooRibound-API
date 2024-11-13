@@ -4,8 +4,8 @@ package com.wooribound.api.corporate.controller;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
+import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +57,11 @@ public class EnterpriseJobPostingController {
         return enterpriseJobPostingFacade.setApplicantResult(applicantResultReqDTO);
     }
 
+    // 7. 공고별 지원자 추천 (헤드헌팅기능)
+    @GetMapping("/applicant-recommend")
+    public List<ApplicantsDTO> getApplicantRecommendation(@RequestParam int jobId) {
+        return enterpriseJobPostingFacade.getApplicantRecommendation(jobId);
+    }
 
     
 }

@@ -177,4 +177,31 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
             return "지원자 결과 설정에 실패했습니다.";
         }
     }
+
+    // 6. 공고 직무별 지원자 추천 (헤드헌팅기능)
+    @Override
+    public List<ApplicantsDTO> getApplicantRecommendation(int jobId) {
+
+        List<WbUser> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
+
+        return recommendedUsers.stream().map(user -> {
+            // 생일 계산
+            Date birthDate = user.getBirth();
+            Calendar today = Calendar.getInstance();
+            Calendar birthCalendar = Calendar.getInstance();
+            birthCalendar.setTime(birthDate);
+
+            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            return ApplicantsDTO.builder()
+                    .applicantName(user.getName())
+                    .applicantGender(user.getGender())
+                    .applicantAge(age)
+                    .build();
+        }).collect(Collectors.toList());
+
+    }
 }

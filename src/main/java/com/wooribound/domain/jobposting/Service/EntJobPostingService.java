@@ -24,4 +24,7 @@ public interface EntJobPostingService {
 
     // 5. 지원자 결과 설정
     String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO);
+
+    // 6. 공고별 지원자 추천 (헤드헌팅기능)
+    List<ApplicantsDTO> getApplicantRecommendation(int jobId);
 }
