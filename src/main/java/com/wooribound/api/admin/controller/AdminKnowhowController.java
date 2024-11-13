@@ -22,12 +22,12 @@ public class AdminKnowhowController {
 
     @GetMapping("/detail")
     public AdminKnowhowDetailDTO getKnowhowDetail(@RequestParam Long knowhowId) {
-        System.out.println("=========" + knowhowId+"=========");
         return adminKnowhowFacade.getKnowhowDetail(knowhowId);
     }
 
     @PostMapping("/delete")
     public String deleteKnowhow(@RequestParam Long knowhowId) {
+        System.out.println("==========" + knowhowId +"==========");
         return adminKnowhowFacade.deleteKnowhow(knowhowId);
     }
 }
