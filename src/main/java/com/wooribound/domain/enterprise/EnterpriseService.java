@@ -19,4 +19,6 @@ public interface EnterpriseService {
     String updateEnterpriseInfo(EnterpriseInfoReqDTO enterpriseInfoReqDTO);
 
     String duplicateIdCheck(String id);
+
+    void withdraw(String id, String pw);
 }
