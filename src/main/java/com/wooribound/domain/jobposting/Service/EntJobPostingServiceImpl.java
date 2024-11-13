@@ -14,7 +14,6 @@ import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.constant.ApplyResult;
-import com.wooribound.global.constant.PostState;
 import com.wooribound.global.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +51,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                 .postImg(jobPostingReqDTO.getPostImg())
                 .startDate(jobPostingReqDTO.getStartDate())
                 .endDate(jobPostingReqDTO.getEndDate())
-                .postState(PostState.PENDING)
                 .build();
         
         jobPostingRepository.save(jobPosting);
@@ -77,7 +75,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                                 .postImg(jobPosting.getPostImg())
                                 .startDate(jobPosting.getStartDate())
                                 .endDate(jobPosting.getEndDate())
-                                .postState(jobPosting.getPostState())
+                             //   .postState(jobPosting.getPostState())
                                 .jobName(jobPosting.getJob().getJobName())
                                 .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                                 .entAddr2(jobPosting.getEnterprise().getEntAddr2())
@@ -92,8 +90,21 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
     // 3. 내 기업 공고 목록 조회
     @Override
-    public List<JobPostingDetailProjection> getJobPostingList(String entId) {
-        return jobPostingRepository.getMyJobPostings(entId);
+    public List<JobPostingDetailDTO> getJobPostingList(String entId) {
+        List<JobPostingDetailProjection> jobPostings = jobPostingRepository.getMyJobPostings(entId);
+        return jobPostings.stream().map(jp -> JobPostingDetailDTO.builder()
+                        .entAddr1(jp.getEntAddr1())
+                        .entAddr2(jp.getEntAddr2())
+                        .entName(jp.getEntName())
+                        .jobName(jp.getJobName())
+                        .postImg(jp.getPostImg())
+                        .postTitle(jp.getPostTitle())
+                        .startDate(jp.getStartDate())
+                        .endDate(jp.getEndDate())
+                        .applicantCount(jp.getApplicantCount())
+                        .build()
+                        )
+                .collect(Collectors.toList());
     }
 
     // 4. 공고 지원자 전체 조회

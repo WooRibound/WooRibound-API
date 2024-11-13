@@ -28,7 +28,7 @@ public class EnterpriseJobPostingFacade {
 
     // 2. 내 기업 공고 목록 조회
     @Transactional(readOnly = true)
-    public List<JobPostingDetailProjection> getJobPostingList(String entId) {
+    public List<JobPostingDetailDTO> getJobPostingList(String entId) {
         return entJobPostingService.getJobPostingList(entId);
     }
 

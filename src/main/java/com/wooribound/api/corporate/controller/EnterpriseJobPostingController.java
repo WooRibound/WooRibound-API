@@ -28,7 +28,7 @@ public class EnterpriseJobPostingController {
 
     // 2. 내 기업 공고 목록 조회
     @GetMapping()
-    public List<JobPostingDetailProjection> getJobPostingList(@RequestParam String entId) {
+    public List<JobPostingDetailDTO> getJobPostingList(@RequestParam String entId) {
         return enterpriseJobPostingFacade.getJobPostingList(entId);
     }
 
