@@ -4,6 +4,7 @@ import com.wooribound.api.admin.dto.AdminApproveReqDTO;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoApproveStatusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String joinApprove(AdminApproveReqDTO adminApproveReqDTO) {
+        if (adminApproveReqDTO.getApprove() == null)
+            throw new NoApproveStatusException();
         // 기업 회원가입을 반려할 때
         if (adminApproveReqDTO.getApprove() == YN.N) {
             if (enterpriseRepository.deleteByEntId(adminApproveReqDTO.getEntId()) == 1)
