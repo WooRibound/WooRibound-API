@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
@@ -43,6 +45,9 @@ public class Notification {
     @Column(name = "is_confirmed", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private YN isConfirmed;
+
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
 
     @OneToOne
     @JoinColumn(name = "apply_id")

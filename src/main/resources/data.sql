@@ -74,12 +74,11 @@ INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALU
     (1, 'USER001', 'https://example.com/image1.jpg', 'user1@example.com', 'Experienced software developer with a strong background in Java and Spring.');
 
 -- 알림
-INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed)
-VALUES (1, 'USER001', 1, '축하합니다. 지원하신 공고에 합격하셨습니다.', 'N');
+INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed, created_at)
+VALUES (1, 'USER001', 1, '축하합니다. 지원하신 공고에 합격하셨습니다.', 'N', CURRENT_DATE);
 
-INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed)
-VALUES (2, 'USER002', 2, '지원하신 공고가 삭제되었습니다.', 'N');
-
+INSERT INTO notification (noti_id, user_id, apply_id, notice, is_confirmed, created_at)
+VALUES (2, 'USER002', 2, '지원하신 공고가 삭제되었습니다.', 'N', CURRENT_DATE);
 
 INSERT INTO admin (admin_id, admin_name, admin_pw, admin_type)
 VALUES (

@@ -16,6 +16,7 @@ import com.wooribound.global.exception.NoUserApplyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                                     jobPosting.getPostTitle() + " 채용공고가 삭제되어 지원 취소 처리 되었습니다." +
                                     "\n 불편을 드려 죄송합니다.")
                             .isConfirmed(YN.N)
+                            .createdAt(new Date())
                             .build();
 
                     notificationRepository.save(notification);
