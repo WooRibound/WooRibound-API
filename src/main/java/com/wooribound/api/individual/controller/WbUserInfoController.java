@@ -32,7 +32,7 @@ public class WbUserInfoController {
 
     // 3. 사용자 정보 조회
     @GetMapping("")
-    public List<WbUserDTO> getUserInfo(Authentication authentication) {
+    public WbUserDTO getUserInfo(Authentication authentication) {
         return wbUserInfoFacade.getUserInfo(authentication);
     }
 
@@ -44,7 +44,7 @@ public class WbUserInfoController {
 
     // 5. 우바 점수 조회
     @GetMapping("/wbpoint")
-    public int getJobPoint(@RequestParam("user_id") String userId) {
-        return wbUserInfoFacade.getJobPoint(userId);
+    public int getJobPoint(Authentication authentication) {
+        return wbUserInfoFacade.getJobPoint(authentication);
     }
 }

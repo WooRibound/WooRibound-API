@@ -36,7 +36,7 @@ public class WbUserInfoFacade {
 
     // 3. 사용자 정보 조회
     @Transactional(readOnly = true)
-    public List<WbUserDTO> getUserInfo(Authentication authentication) {
+    public WbUserDTO getUserInfo(Authentication authentication) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserService.getUserInfo(userId);
     }
@@ -47,7 +47,8 @@ public class WbUserInfoFacade {
         return wbUserService.updateUserInfo(wbUserUpdateDTO);
     }
 
-    public int getJobPoint(String userId) {
+    public int getJobPoint(Authentication authentication) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserService.getJobPoint(userId);
     }
 }
