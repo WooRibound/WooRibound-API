@@ -70,9 +70,9 @@ public class WbUserServiceImpl implements WbUserService {
                     .interestJobs(interestJobNames)
                     .build();
 
-        } catch (Exception e) {
-            logger.error("사용자 정보 조회 중 오류 발생: {}", e.getMessage());
-            return null;
+        } catch (NoWbUserException e) {
+            logger.error("사용자 조회 실패: userId - {}", userId);
+            throw e;
         }
     }
 
