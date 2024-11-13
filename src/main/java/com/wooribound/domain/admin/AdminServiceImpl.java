@@ -28,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
     public String joinApprove(AdminApproveReqDTO adminApproveReqDTO) {
         if (adminApproveReqDTO.getApprove() == null)
             throw new NoApproveStatusException();
+
         // 기업 회원가입을 반려할 때
         if (adminApproveReqDTO.getApprove() == YN.N) {
             if (enterpriseRepository.deleteByEntId(adminApproveReqDTO.getEntId()) == 1)
@@ -46,6 +47,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String deleteApprove(AdminApproveReqDTO adminApproveReqDTO) {
+        if (adminApproveReqDTO.getApprove() == null)
+            throw new NoApproveStatusException();
+
         // 기업 회원탈퇴를 승인할 때
         if (adminApproveReqDTO.getApprove() == YN.Y) {
             if (enterpriseRepository.updateIsDeleted(adminApproveReqDTO.getEntId()) == 1)
