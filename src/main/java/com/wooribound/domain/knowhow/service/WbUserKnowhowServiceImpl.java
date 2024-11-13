@@ -45,7 +45,7 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
 
     @Override
     public Long deleteShareKnowhow(String userId, Long knowhowId) {
-        Optional<Knowhow> byKnowhowId = knowhowRepository.findByKnowhowId(knowhowId);
+        Optional<Knowhow> byKnowhowId = knowhowRepository.findById(knowhowId);
 
         if (byKnowhowId.isEmpty()) {
             throw new IllegalArgumentException("없는 지혜 나눔 게시물입니다.");
