@@ -22,7 +22,6 @@ public class AdminKnowhowController {
 
     @GetMapping("/detail")
     public AdminKnowhowDetailDTO getKnowhowDetail(@RequestParam Long knowhowId) {
-        System.out.println("=========" + knowhowId+"=========");
         return adminKnowhowFacade.getKnowhowDetail(knowhowId);
     }
 
