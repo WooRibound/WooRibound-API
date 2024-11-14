@@ -4,32 +4,34 @@ package com.wooribound.api.corporate.controller;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
-import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
+import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("coporate/jobposting")
+@RequestMapping("corporate/jobposting")
 public class EnterpriseJobPostingController {
 
     private final EnterpriseJobPostingFacade enterpriseJobPostingFacade;
+    private final AuthenticateUtil authenticateUtil;
 
     // 1. 공고 등록
     @PostMapping("/register")
-    public String createJobPosting(@RequestBody JobPostingReqDTO jobPostingReqDTO) {
-        return enterpriseJobPostingFacade.createJobPosting(jobPostingReqDTO);
+    public String createJobPosting(Authentication authentication, @RequestBody JobPostingReqDTO jobPostingReqDTO) {
+        return enterpriseJobPostingFacade.createJobPosting(authentication, jobPostingReqDTO);
     }
 
     // 2. 내 기업 공고 목록 조회
     @GetMapping()
-    public List<JobPostingDetailDTO> getJobPostingList(@RequestParam String entId) {
-        return enterpriseJobPostingFacade.getJobPostingList(entId);
+    public List<JobPostingDetailDTO> getJobPostingList(Authentication authentication) {
+        return enterpriseJobPostingFacade.getJobPostingList(authentication);
     }
 
     // 3. 공고 조회 - 상세

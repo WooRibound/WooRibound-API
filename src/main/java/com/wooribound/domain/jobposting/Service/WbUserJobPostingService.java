@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface WbUserJobPostingService {
     // 1. 공고 조회 - 검색, 새로운 일 구하기, 경력 살리기
-    List<JobPostingDTO> getJobPostings(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
+    List<JobPostingDTO> getJobPostings(UserJobPostingReqDTO userJobPostingReqDTO);
     List<JobPostingDTO> getJobPostingsForNew(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
     List<JobPostingDTO> getJobPostingsForCareer(String loginId, UserJobPostingReqDTO userJobPostingReqDTO);
 

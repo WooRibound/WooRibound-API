@@ -1,7 +1,6 @@
 package com.wooribound.global.util;
 
-import com.wooribound.domain.enterprise.Enterprise;
-import com.wooribound.global.exception.AuthenticationException;
+import com.wooribound.global.exception.AuthenticationException
 import com.wooribound.global.security.userdetail.admin.AdminUserDetail;
 import com.wooribound.global.security.userdetail.enterprise.EnterpriseUserDetail;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetail;

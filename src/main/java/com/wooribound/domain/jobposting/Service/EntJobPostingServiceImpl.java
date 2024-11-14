@@ -44,9 +44,9 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
     // 1. 공고 등록
     @Override
-    public String createJobPosting(JobPostingReqDTO jobPostingReqDTO) {
+    public String createJobPosting(String entId, JobPostingReqDTO jobPostingReqDTO) {
 
-        Enterprise enterprise = enterpriseRepository.findById(jobPostingReqDTO.getEntId()).orElse(null);
+        Enterprise enterprise = enterpriseRepository.findById(entId).orElse(null);
         Job job = jobRepository.findByJobName(jobPostingReqDTO.getJobName());
 
         JobPosting jobPosting = JobPosting.builder()

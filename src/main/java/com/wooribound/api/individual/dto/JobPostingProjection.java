@@ -1,7 +1,6 @@
 package com.wooribound.api.individual.dto;
 
 import com.wooribound.domain.enterprise.Enterprise;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 
 import java.util.Date;
 
