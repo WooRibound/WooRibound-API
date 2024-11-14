@@ -63,7 +63,7 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
     @Override
     public Long createShareKnowhow(String userId, WbUserKnowhowDTO wbUserKnowhowDTO) {
 
-        Long knowhowId = 1L;
+        long knowhowId = 1L;
 
         Optional<WbUser> byUserId = wbUserRepository.findById(userId);
         Optional<Long> maxKnowhowId = knowhowRepository.getMaxKnowhowId();
