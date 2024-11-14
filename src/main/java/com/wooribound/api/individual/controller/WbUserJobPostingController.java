@@ -32,8 +32,7 @@ public class WbUserJobPostingController {
 
     // 2. 공고 조회 - 검색 (회사명, 직무, 지역)
     @PostMapping()
-    public List<JobPostingDTO> getJobPostings(Authentication authentication,
-                                              @RequestBody(required = false) UserJobPostingReqDTO userJobPostingReqDTO) {
+    public List<JobPostingDTO> getJobPostings(@RequestBody(required = false) UserJobPostingReqDTO userJobPostingReqDTO) {
 
         // RequestBody를 null로 받는 경우 빈 객체 생성
         if (userJobPostingReqDTO != null) {
@@ -42,12 +41,17 @@ public class WbUserJobPostingController {
         } else {
             logger.info("UserJobPostingDTO is null");
         }
-        return wbUserJobPostingFacade.getJobPostings(authentication, userJobPostingReqDTO);
+        return wbUserJobPostingFacade.getJobPostings(userJobPostingReqDTO);
     }
 
     // 2-1. 공고 조회 - 새로운 일 구하기
     @PostMapping("/new")
     public List<JobPostingDTO> getJobPostingsForNew(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
+        // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
+        if (authentication == null) {
+            logger.info("Authentication is null. Processing as guest user.");
+        }
+
         userJobPostingReqDTO.setViewType("new");
         return wbUserJobPostingFacade.getJobPostingsForNew(authentication, userJobPostingReqDTO);
     }
@@ -55,6 +59,11 @@ public class WbUserJobPostingController {
     // 2-2. 공고 조회 - 경력 살리기
     @PostMapping("/career")
     public List<JobPostingDTO> getJobPostingsForCareer(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
+        // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
+        if (authentication == null) {
+            logger.info("Authentication is null. Processing as guest user.");
+        }
+
         userJobPostingReqDTO.setViewType("career");
         return wbUserJobPostingFacade.getJobPostingsForCareer(authentication, userJobPostingReqDTO);
     }

@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class JobPostingReqDTO {
-    private String entId;
+//    private String entId;
     private String postImg;
     private String postTitle;
     private Date startDate;
