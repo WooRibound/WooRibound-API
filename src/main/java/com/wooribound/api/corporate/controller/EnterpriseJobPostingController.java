@@ -9,6 +9,7 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,8 +47,8 @@ public class EnterpriseJobPostingController {
 
     // 5. 공고 지원자 이력서 조회
     @GetMapping("/applicant/detail")
-    public ResumeDTO getApplicantResume(@RequestParam String userId) {
-        return enterpriseJobPostingFacade.getApplicantResume(userId);
+    public ResumeDTO getApplicantResume(Authentication authentication) {
+        return enterpriseJobPostingFacade.getApplicantResume(authentication);
     }
 
     // TODO: 합격여부 설정 시 버튼 컴포넌트 비활성화

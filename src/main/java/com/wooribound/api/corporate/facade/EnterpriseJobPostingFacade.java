@@ -9,6 +9,7 @@ import com.wooribound.domain.resume.ResumeService;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +47,8 @@ public class EnterpriseJobPostingFacade {
 
     // 4. 공고 지원자 이력서 조회
     @Transactional(readOnly = true)
-    public ResumeDTO getApplicantResume(String userId) {
-        return resumeService.getResume(userId);
+    public ResumeDTO getApplicantResume(Authentication authentication) {
+        return resumeService.getResume(authentication);
     }
 
     // 5. 지원자 결과 설정

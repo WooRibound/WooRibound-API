@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
     @Query("SELECT r FROM Resume r WHERE r.wbUser.userId = :userId")
     Optional<Resume> findByUserId(@Param("userId") String userId);
+
+    @Query("SELECT MAX(r.resumeId) FROM Resume r")
+    Optional<Long> getMaxResumeId();
 }
