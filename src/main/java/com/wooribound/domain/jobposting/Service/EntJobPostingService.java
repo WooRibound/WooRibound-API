@@ -3,7 +3,6 @@ package com.wooribound.domain.jobposting.Service;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public interface EntJobPostingService {
 
     // 1. 공고 등록
-    String createJobPosting(JobPostingReqDTO jobPostingReqDTO);
+    String createJobPosting(String entId, JobPostingReqDTO jobPostingReqDTO);
 
     // 2. 내 기업 공고 목록 조회
     List<JobPostingDetailDTO> getJobPostingList(String entId);

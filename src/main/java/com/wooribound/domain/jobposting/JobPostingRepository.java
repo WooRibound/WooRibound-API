@@ -14,12 +14,13 @@ import java.util.List;
 @Repository
 public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
 
-    @Query("SELECT jp, " +
-            "CASE " +
+    @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
+            "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +
+            "(CASE " +
             "WHEN jp.startDate > CURRENT_DATE THEN 'PENDING' " +
             "WHEN jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'ACTIVE' " +
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
-            "END AS postState " +
+            "END) AS postState " +
             "FROM JobPosting jp")
     List<JobPostingProjection> findAllJobPostingProjections();
 
