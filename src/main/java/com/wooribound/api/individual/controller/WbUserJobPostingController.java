@@ -70,8 +70,8 @@ public class WbUserJobPostingController {
 
     // 3. 공고 상세 조회
     @GetMapping("/detail")
-    public JobPostingDetailDTO getJobPostingDetail(@RequestParam Long post_id) {
-        return wbUserJobPostingFacade.getJobPostingDetail(post_id);
+    public JobPostingDetailDTO getJobPostingDetail(@RequestParam Long postId) {
+        return wbUserJobPostingFacade.getJobPostingDetail(postId);
     }
 
 

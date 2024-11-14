@@ -3,6 +3,8 @@ package com.wooribound.domain.wbuser;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
+import com.wooribound.domain.workhistory.WorkHistory;
+import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.JoinWbUserException;
@@ -16,6 +18,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WbUserServiceImpl implements WbUserService {
@@ -23,45 +26,53 @@ public class WbUserServiceImpl implements WbUserService {
     private static final Logger logger = LoggerFactory.getLogger(WbUserServiceImpl.class);
 
     private final WbUserRepository wbUserRepository;
+    private final WorkHistoryRepository workHistoryRepository;
 
     @Autowired
-    public WbUserServiceImpl(WbUserRepository wbUserRepository) {
+    public WbUserServiceImpl(WbUserRepository wbUserRepository, WorkHistoryRepository workHistoryRepository) {
         this.wbUserRepository = wbUserRepository;
+        this.workHistoryRepository = workHistoryRepository;
     }
 
     // 1. 사용자 정보 조회
     @Override
-    public List<WbUserDTO> getUserInfo(String userId) {
+    public WbUserDTO getUserInfo(String userId) {
         try {
-            Optional<WbUser> optionalUser = wbUserRepository.findByUserId(userId);
-            if (optionalUser.isEmpty()) {
-                logger.warn("사용자 ID가 존재하지 않습니다: {}", userId);
-                return Collections.emptyList();
-            }
+            WbUser user = wbUserRepository.findByUserId(userId).orElseThrow(NoWbUserException::new);
+            List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
 
-            WbUser user = optionalUser.get();
-            return Collections.singletonList(
-                    WbUserDTO.builder()
-                            .userId(user.getUserId())
-                            .name(user.getName())
-                            .birth(user.getBirth())
-                            .email(user.getEmail())
-                            .phone(user.getPhone())
-                            .gender(user.getGender())
-                            .exjobChk(user.getExjobChk())
-                            .interestChk(user.getInterestChk())
-                            .addrCity(user.getAddrCity())
-                            .addrProvince(user.getAddrProvince())
-                            .jobPoint(user.getJobPoint())
-                            .jobInterest(user.getJobInterest())
-                            .createdAt(user.getCreatedAt())
-                            .updatedAt(user.getUpdatedAt())
-                            .isDeleted(user.getIsDeleted())
-                            .build()
-            );
-        } catch (Exception e) {
-            logger.error("사용자 정보 조회 중 오류 발생: {}", e.getMessage());
-            return Collections.emptyList();
+            List<String> workHistoryNames = user.getWorkHistories().stream()
+                    .map(workHistory -> workHistory.getJob().getJobName())
+                    .collect(Collectors.toList());
+
+            // 관심 직종 이름 리스트 생성
+            List<String> interestJobNames = user.getInterestJobs().stream()
+                    .map(interestJob -> interestJob.getJob().getJobName())
+                    .collect(Collectors.toList());
+
+            return WbUserDTO.builder()
+                    .userId(user.getUserId())
+                    .name(user.getName())
+                    .birth(user.getBirth())
+                    .email(user.getEmail())
+                    .phone(user.getPhone())
+                    .gender(user.getGender())
+                    .exjobChk(user.getExjobChk())
+                    .interestChk(user.getInterestChk())
+                    .addrCity(user.getAddrCity())
+                    .addrProvince(user.getAddrProvince())
+                    .jobPoint(user.getJobPoint())
+                    .jobInterest(user.getJobInterest())
+                    .createdAt(user.getCreatedAt())
+                    .updatedAt(user.getUpdatedAt())
+                    .isDeleted(user.getIsDeleted())
+                    .workHistoryJobs(workHistoryNames)
+                    .interestJobs(interestJobNames)
+                    .build();
+
+        } catch (NoWbUserException e) {
+            logger.error("사용자 조회 실패: userId - {}", userId);
+            throw e;
         }
     }
 

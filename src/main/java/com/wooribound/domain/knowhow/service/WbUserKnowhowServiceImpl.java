@@ -65,7 +65,7 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
 
         Long knowhowId = 1L;
 
-        Optional<WbUser> byUserId = wbUserRepository.findByUserId(userId);
+        Optional<WbUser> byUserId = wbUserRepository.findById(userId);
         Optional<Long> maxKnowhowId = knowhowRepository.getMaxKnowhowId();
         if (maxKnowhowId.isPresent()) {
             knowhowId = maxKnowhowId.get() + 1;

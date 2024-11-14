@@ -54,6 +54,7 @@ public class AdminKnowhowServiceImpl implements AdminKnowhowService {
         return AdminKnowhowDetailDTO.builder()
                 .knowhowId(knowhow.getKnowhowId())
                 .userId(knowhow.getUserId())
+                .userName(knowhow.getUserName())
                 .knowhowJob(knowhow.getKnowhowJob())
                 .knowhowTitle(knowhow.getKnowhowTitle())
                 .knowhowContent(knowhow.getKnowhowContent())
