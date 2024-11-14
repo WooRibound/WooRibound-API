@@ -33,9 +33,10 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
             "END) AS postState " +
             "FROM JobPosting jp WHERE " +
-            "(:entName IS NULL OR jp.enterprise.entName = :entName) AND " +
+            "(:entName IS NULL OR jp.enterprise.entName LIKE %:entName%) AND " +
             "(:jobName IS NULL OR jp.job.jobName = :jobName) AND " +
-            "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 = :entAddr1)")
+            "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 = :entAddr1) AND " +
+            "(jp.isDeleted = 'N')")
     List<JobPostingProjection> findJobPostings(@Param("entName") String entName,
                                                @Param("jobName") String jobName,
                                                @Param("entAddr1") String entAddr1);
@@ -65,7 +66,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "(:interestJobs IS NULL OR jp.job.jobName IN :interestJobs)")
     List<JobPostingProjection> findJobPostingsNew(@Param("exJobs") List<String> exJobs,
                                                   @Param("interestJobs") List<String> interestJobs);
-
 
     // 2. 공고 상세 조회
     JobPosting findJobPostingByPostId(@Param("postId") Long postId);
