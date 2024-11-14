@@ -22,5 +22,5 @@ public class UserJobPostingReqDTO {
     private List<String> exJobs;
     private String viewType;
     // TODO: Temp -> Authentication 으로 변경 필요
-    private String userId;
+//    private String userId;
 }

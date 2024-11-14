@@ -23,6 +23,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "FROM JobPosting jp")
     List<JobPostingProjection> findAllJobPostingProjections();
 
+    // TODO: 공고 지역 시~도만 출력되게 변경 필요, 첫번쨰 공백 전까지 문자열 자르기?
     // 1. 공고 조회 (검색)
     @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +

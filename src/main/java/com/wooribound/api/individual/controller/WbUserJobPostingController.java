@@ -30,7 +30,7 @@ public class WbUserJobPostingController {
         return wbUserJobPostingFacade.applyForJob(userApplyDTO);
     }
 
-    // 2. 공고 조회 - 전체, 회사명, 직무, 지역
+    // 2. 공고 조회 - 검색 (회사명, 직무, 지역)
     @PostMapping()
     public List<JobPostingDTO> getJobPostings(Authentication authentication,
                                               @RequestBody(required = false) UserJobPostingReqDTO userJobPostingReqDTO) {
@@ -42,19 +42,21 @@ public class WbUserJobPostingController {
         } else {
             logger.info("UserJobPostingDTO is null");
         }
-        return wbUserJobPostingFacade.getJobPostings(/*authentication, */userJobPostingReqDTO);
+        return wbUserJobPostingFacade.getJobPostings(authentication, userJobPostingReqDTO);
     }
 
-    @GetMapping("/new")
-    public List<JobPostingDTO> getJobPostingsForNew(UserJobPostingReqDTO userJobPostingReqDTO) {
+    // 2-1. 공고 조회 - 새로운 일 구하기
+    @PostMapping("/new")
+    public List<JobPostingDTO> getJobPostingsForNew(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         userJobPostingReqDTO.setViewType("new");
-        return wbUserJobPostingFacade.getJobPostingsForNew(userJobPostingReqDTO);
+        return wbUserJobPostingFacade.getJobPostingsForNew(authentication, userJobPostingReqDTO);
     }
 
-    @GetMapping("/career")
-    public List<JobPostingDTO> getJobPostingsForCareer(UserJobPostingReqDTO userJobPostingReqDTO) {
+    // 2-2. 공고 조회 - 경력 살리기
+    @PostMapping("/career")
+    public List<JobPostingDTO> getJobPostingsForCareer(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         userJobPostingReqDTO.setViewType("career");
-        return wbUserJobPostingFacade.getJobPostingsForCareer(userJobPostingReqDTO);
+        return wbUserJobPostingFacade.getJobPostingsForCareer(authentication, userJobPostingReqDTO);
     }
 
     // 3. 공고 상세 조회
