@@ -28,7 +28,6 @@ public class EnterpriseInfoFacade {
     @Transactional(readOnly = true)
     public EnterpriseInfoDTO getEnterpriseInfo(Authentication authentication) {
         String entId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
-        System.out.println(entId);
         return enterpriseService.getEnterpriseInfo(entId);
     }
 
