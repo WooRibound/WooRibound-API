@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "서비스 관리자 기업회원 관리 관련 API", description = "서비스 관리자 기능 중 기업회원 정보 조회 기능 입니다.")
+@Tag(name = "기업회원 관리 관련 API", description = "서비스 관리자 기능 중 기업회원 정보 조회 기능 입니다.")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/enterprise")
