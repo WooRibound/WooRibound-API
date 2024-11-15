@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
 
@@ -31,5 +32,8 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
     @Modifying
     @Query("UPDATE UserApply ua SET ua.result = 'CANCELED' WHERE ua.jobPosting.postId = :postId AND ua.result = 'PENDING'")
     int cancelUserApplyByPostId(@Param("postId") Long postId);
+
+    @Query("SELECT MAX(u.applyId) FROM UserApply u")
+    Optional<Long> getMaxUserApplyId();
 
 }

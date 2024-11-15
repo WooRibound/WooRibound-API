@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface UserApplyService {
     // 1. 공고 지원
-    String createUserApply(UserApplyDTO userApplyDTO);
+    String createUserApply(String userId, Long postId);
 
     // 2. 지원 공고 조회
-    List<WbUserApplyDTO> getUserApplyList(UserApplyDTO userApplyDTO);
+    List<WbUserApplyDTO> getUserApplyList(String userId);
 
     // 3. 지원 공고 취소
-    String cancelUserApply(UserApplyDTO userApplyDTO);
+    String cancelUserApply(String userId, Long applyId);
 }

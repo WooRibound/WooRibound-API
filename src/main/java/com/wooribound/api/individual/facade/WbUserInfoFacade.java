@@ -18,20 +18,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WbUserInfoFacade {
 
+    private final AuthenticateUtil authenticateUtil;
     private final UserApplyService userApplyService;
     private final WbUserService wbUserService;
-    private final AuthenticateUtil authenticateUtil;
 
     // 1. 지원 공고 조회
     @Transactional(readOnly = true)
-    public List<WbUserApplyDTO> getUserApplyList(UserApplyDTO userApplyDTO) {
-        return userApplyService.getUserApplyList(userApplyDTO);
+    public List<WbUserApplyDTO> getUserApplyList(Authentication authentication) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        return userApplyService.getUserApplyList(userId);
     }
 
     // 2. 지원 공고 취소
     @Transactional
-    public String cancelUserApply(UserApplyDTO userApplyDTO) {
-        return userApplyService.cancelUserApply(userApplyDTO);
+    public String cancelUserApply(Authentication authentication, Long applyId) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        return userApplyService.cancelUserApply(userId, applyId);
     }
 
     // 3. 사용자 정보 조회

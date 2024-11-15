@@ -39,10 +39,6 @@ import lombok.Setter;
 )
 public class UserApply {
   @Id
-  @GeneratedValue(
-      strategy=GenerationType.AUTO,
-      generator = "user_apply_seq_generator"
-  )
   @Column(name = "apply_id")
   private Long applyId;
 
