@@ -13,10 +13,12 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class WbUserApplyDTO {
+    private Long applyId;
     private ApplyResult result;
     private String entName;
     private String postTitle;
-    private Date endDate;
+    private Date startDate;
+    private Date  endDate;
     private String entAddr1;
     private String entAddr2;
 }

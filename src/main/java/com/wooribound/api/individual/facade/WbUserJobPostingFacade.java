@@ -22,14 +22,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WbUserJobPostingFacade {
 
+    private final AuthenticateUtil authenticateUtil;
     private final UserApplyService userApplyService;
     private final WbUserJobPostingService wbUserJobPostingService;
-    private final AuthenticateUtil authenticateUtil;
 
     // 1. 공고 지원
     @Transactional
-    public String applyForJob(UserApplyDTO userApplyDTO) {
-        return userApplyService.createUserApply(userApplyDTO);
+    public String applyForJob(Authentication authentication, Long postId) {
+        String userId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
+        return userApplyService.createUserApply(userId, postId);
     }
 
 

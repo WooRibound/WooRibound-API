@@ -5,12 +5,14 @@ import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.api.individual.facade.WbUserInfoFacade;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name = "지원 현황 / 개인 정보 / 우바 고도 API", description = "개인회원 서비스 중 지원 현황 / 개인 정보 / 우바 고도 입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/individualuser/info")
@@ -18,16 +20,16 @@ public class WbUserInfoController {
 
     private final WbUserInfoFacade wbUserInfoFacade;
 
-    // 1. 지원 공고 조회
+    @Operation(summary = "지원 현황 조회", description = "지원 현황 조회")
     @GetMapping("/jobposting/myapply")
-    public List<WbUserApplyDTO> getUserApplyList(@ModelAttribute UserApplyDTO userApplyDTO) {
-        return wbUserInfoFacade.getUserApplyList(userApplyDTO);
+    public List<WbUserApplyDTO> getUserApplyList(Authentication authentication) {
+        return wbUserInfoFacade.getUserApplyList(authentication);
     }
 
-    // 2. 지원 공고 취소
+    @Operation(summary = "공고 지원 취소", description = "공고 지원 취소")
     @PostMapping("/apply/cancel")
-    public String cancelUserApply(@RequestBody UserApplyDTO userApplyDTO) {
-        return wbUserInfoFacade.cancelUserApply(userApplyDTO);
+    public String cancelUserApply(Authentication authentication, @RequestParam("applyId") Long applyId) {
+        return wbUserInfoFacade.cancelUserApply(authentication, applyId);
     }
 
     // 3. 사용자 정보 조회
