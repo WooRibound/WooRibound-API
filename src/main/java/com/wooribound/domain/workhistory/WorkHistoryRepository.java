@@ -1,6 +1,6 @@
 package com.wooribound.domain.workhistory;
 
-import com.wooribound.api.individual.dto.JobPostingProjection;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +29,8 @@ public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> 
   List<String> findJobNamesByUserId(String loginUser);
 
 
+  @Modifying
+  @Transactional
+  @Query("DELETE FROM WorkHistory w WHERE w.wbUser.userId = :userId")
+  int deleteByUserId(@Param("userId") String userId);
 }

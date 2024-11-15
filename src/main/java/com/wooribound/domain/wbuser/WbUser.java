@@ -10,15 +10,8 @@ import com.wooribound.global.constant.YN;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.userapply.UserApply;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 import lombok.AccessLevel;
@@ -107,7 +100,7 @@ public class WbUser {
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<InterestJob> interestJobs;
 
-  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private List<WorkHistory> workHistories;
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)

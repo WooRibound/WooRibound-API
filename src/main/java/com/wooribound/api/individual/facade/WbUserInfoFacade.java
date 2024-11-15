@@ -43,7 +43,9 @@ public class WbUserInfoFacade {
 
     // 4. 사용자 정보 변경
     @Transactional
-    public String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
+    public WbUserUpdateDTO updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO, Authentication authentication) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        wbUserUpdateDTO.setUserId(userId);
         return wbUserService.updateUserInfo(wbUserUpdateDTO);
     }
 

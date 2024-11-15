@@ -38,8 +38,8 @@ public class WbUserInfoController {
 
     // 4. 사용자 정보 수정
     @PostMapping("/update")
-    public String updateUserInfo(@RequestBody WbUserUpdateDTO wbUserUpdateDTO) {
-        return wbUserInfoFacade.updateUserInfo(wbUserUpdateDTO);
+    public WbUserUpdateDTO updateUserInfo(@RequestBody WbUserUpdateDTO wbUserUpdateDTO, Authentication authentication) {
+        return wbUserInfoFacade.updateUserInfo(wbUserUpdateDTO, authentication);
     }
 
     // 5. 우바 점수 조회

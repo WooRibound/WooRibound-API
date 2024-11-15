@@ -3,12 +3,18 @@ package com.wooribound.domain.wbuser;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
+import com.wooribound.domain.interestjob.InterestJob;
+import com.wooribound.domain.interestjob.InterestJobRepository;
+import com.wooribound.domain.job.Job;
+import com.wooribound.domain.job.JobRepository;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.JoinWbUserException;
 import com.wooribound.global.exception.NoWbUserException;
+import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +33,15 @@ public class WbUserServiceImpl implements WbUserService {
 
     private final WbUserRepository wbUserRepository;
     private final WorkHistoryRepository workHistoryRepository;
+    private final InterestJobRepository interestJobRepository;
+    private final JobRepository jobRepository;
 
     @Autowired
-    public WbUserServiceImpl(WbUserRepository wbUserRepository, WorkHistoryRepository workHistoryRepository) {
+    public WbUserServiceImpl(WbUserRepository wbUserRepository, WorkHistoryRepository workHistoryRepository, InterestJobRepository interestJobRepository, JobRepository jobRepository) {
         this.wbUserRepository = wbUserRepository;
         this.workHistoryRepository = workHistoryRepository;
+        this.interestJobRepository = interestJobRepository;
+        this.jobRepository = jobRepository;
     }
 
     // 1. 사용자 정보 조회
@@ -78,31 +88,125 @@ public class WbUserServiceImpl implements WbUserService {
 
     // 2. 사용자 정보 수정
     @Override
-    public String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
-        try {
-            Optional<WbUser> optionalUser = wbUserRepository.findByUserId(wbUserUpdateDTO.getUserId());
-            if (optionalUser.isEmpty()) {
-                return "사용자 정보를 찾을 수 없습니다.";
-            }
+    public WbUserUpdateDTO updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
 
-            WbUser user = optionalUser.get();
+        WbUser user = wbUserRepository.findByUserId(wbUserUpdateDTO.getUserId())
+                .orElseThrow(() -> new NoWbUserException("사용자를 찾을 수 없습니다. ID: " + wbUserUpdateDTO.getUserId()));
 
-            // WbUserUpdateDTO의 필드만 업데이트
+        // 사용자 정보 업데이트
+        if (wbUserUpdateDTO.getName() != null) {
             user.setName(wbUserUpdateDTO.getName());
-            user.setBirth(wbUserUpdateDTO.getBirth());
+        }
+        if (wbUserUpdateDTO.getPhone() != null) {
             user.setPhone(wbUserUpdateDTO.getPhone());
+        }
+        if (wbUserUpdateDTO.getGender() != null) {
             user.setGender(wbUserUpdateDTO.getGender());
-            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
-            user.setJobInterest(wbUserUpdateDTO.getJobInterest());
+        }
+        if (wbUserUpdateDTO.getAddrCity() != null) {
             user.setAddrCity(wbUserUpdateDTO.getAddrCity());
+        }
+        if (wbUserUpdateDTO.getAddrProvince() != null) {
             user.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
-            user.setUpdatedAt(new Date());
+        }
+        if (wbUserUpdateDTO.getExjobChk() != null) {
+            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
+        }
 
-            wbUserRepository.save(user);
-            return "사용자 정보가 성공적으로 수정되었습니다.";
-        } catch (Exception e) {
-            logger.error("사용자 정보 수정 중 오류 발생: {}", e.getMessage());
-            return "사용자 정보 수정 중 오류가 발생했습니다.";
+        // 관심 직종 업데이트
+        if (wbUserUpdateDTO.getInterestJobs() != null) {
+            updateInterestJobs(user, wbUserUpdateDTO.getInterestJobs());
+        }
+
+        if (wbUserUpdateDTO.getExjobChk() != null) {
+            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
+            // 경력 직종 업데이트
+            updateWorkHistories(user, wbUserUpdateDTO.getWorkHistoryJobs());
+        }
+
+        // 최종 저장
+        wbUserRepository.save(user);
+
+        // 최신 데이터 조회
+        WbUser updatedUser = wbUserRepository.findByUserId(user.getUserId())
+                .orElseThrow(() -> new NoWbUserException("업데이트 후 사용자 조회 실패: ID: " + user.getUserId()));
+
+        Hibernate.initialize(user.getWorkHistories());
+        Hibernate.initialize(user.getInterestJobs());
+
+
+        return WbUserUpdateDTO.builder()
+                .userId(updatedUser.getUserId())
+                .name(updatedUser.getName())
+                .birth(updatedUser.getBirth())
+                .phone(updatedUser.getPhone())
+                .gender(updatedUser.getGender())
+                .exjobChk(updatedUser.getExjobChk())
+                .addrCity(updatedUser.getAddrCity())
+                .addrProvince(updatedUser.getAddrProvince())
+                .jobInterest(updatedUser.getJobInterest())
+                .workHistoryJobs(updatedUser.getWorkHistories().stream()
+                        .map(workHistory -> workHistory.getJob().getJobName())
+                        .collect(Collectors.toList()))
+                .interestJobs(updatedUser.getInterestJobs().stream()
+                        .map(interestJob -> interestJob.getJob().getJobName())
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    private void updateInterestJobs(WbUser user, List<String> interestJobs) {
+        // 기존 관심 직종 삭제
+        interestJobRepository.deleteByUserId(user.getUserId());
+
+        // 새로운 관심 직종 추가
+        if (interestJobs != null && !interestJobs.isEmpty()) {
+            List<InterestJob> newInterestJobs = interestJobs.stream()
+                    .map(jobName -> {
+                        Job job = jobRepository.findByJobName(jobName);
+                        if (job == null) {
+                            logger.warn("존재하지 않는 관심 직종: {}", jobName);
+                            return null;
+                        }
+                        return InterestJob.builder()
+                                .job(job)
+                                .wbUser(user)
+                                .build();
+                    })
+                    .filter(interestJob -> interestJob != null)
+                    .collect(Collectors.toList());
+            interestJobRepository.saveAll(newInterestJobs);
+        }
+    }
+
+    private void updateWorkHistories(WbUser user, List<String> workHistoryJobs) {
+        // 경력 여부 확인
+        logger.info("ExjobChk 상태: {}", user.getExjobChk());
+        if ("N".equals(user.getExjobChk())) {
+            // 경력이 없음으로 설정된 경우 WorkHistory 테이블에서 모든 관련 데이터 삭제
+            workHistoryRepository.deleteByUserId(user.getUserId()); // 명시적으로 삭제
+            return; // 더 이상 작업 없음
+        }
+
+        // 기존 경력 직종 삭제
+        workHistoryRepository.deleteByUserId(user.getUserId());
+
+        // 새로운 경력 직종 추가
+        if (workHistoryJobs != null && !workHistoryJobs.isEmpty()) {
+            List<WorkHistory> newWorkHistories = workHistoryJobs.stream()
+                    .map(jobName -> {
+                        Job job = jobRepository.findByJobName(jobName);
+                        if (job == null) {
+                            logger.warn("존재하지 않는 경력 직종: {}", jobName);
+                            return null;
+                        }
+                        return WorkHistory.builder()
+                                .job(job)
+                                .wbUser(user)
+                                .build();
+                    })
+                    .filter(workHistory -> workHistory != null)
+                    .collect(Collectors.toList());
+            workHistoryRepository.saveAll(newWorkHistories);
         }
     }
 
