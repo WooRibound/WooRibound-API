@@ -7,7 +7,9 @@ import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.employment.EmploymentService;
 import com.wooribound.domain.enterprise.EnterpriseService;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
+import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +22,13 @@ import java.util.List;
 public class EnterpriseInfoFacade {
     private final EnterpriseService enterpriseService;
     private final EmploymentService employmentService;
+    private final AuthenticateUtil authenticateUtil;
 
     // 1. 기업회원 정보 조회
     @Transactional(readOnly = true)
-    public EnterpriseInfoDTO getEnterpriseInfo(String entId) {
+    public EnterpriseInfoDTO getEnterpriseInfo(Authentication authentication) {
+        String entId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
+        System.out.println(entId);
         return enterpriseService.getEnterpriseInfo(entId);
     }
 

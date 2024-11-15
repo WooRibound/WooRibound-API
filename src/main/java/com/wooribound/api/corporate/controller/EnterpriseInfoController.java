@@ -6,6 +6,7 @@ import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.api.corporate.facade.EnterpriseInfoFacade;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class EnterpriseInfoController {
 
     // 1. 기업회원 정보 조회
     @GetMapping()
-    public EnterpriseInfoDTO getEnterpriseInfo(@RequestParam String entId) {
-        return enterpriseInfoFacade.getEnterpriseInfo(entId);
+    public EnterpriseInfoDTO getEnterpriseInfo(Authentication authentication) {
+        return enterpriseInfoFacade.getEnterpriseInfo(authentication);
     }
 
     // 2. 기업회원 정보 수정
