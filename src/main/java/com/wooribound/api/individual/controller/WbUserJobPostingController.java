@@ -22,12 +22,11 @@ public class WbUserJobPostingController {
     Logger logger = org.slf4j.LoggerFactory.getLogger(UserApplyServiceImpl.class);
 
     private final WbUserJobPostingFacade wbUserJobPostingFacade;
-    private final AuthenticateUtil authenticateUtil;
 
     // 1. 공고 지원
     @PostMapping("/apply")
-    public String updateUserApply(UserApplyDTO userApplyDTO) {
-        return wbUserJobPostingFacade.applyForJob(userApplyDTO);
+    public String updateUserApply(Authentication authentication, @RequestParam("postId") Long postId) {
+        return wbUserJobPostingFacade.applyForJob(authentication, postId);
     }
 
     // 2. 공고 조회 - 검색 (회사명, 직무, 지역)

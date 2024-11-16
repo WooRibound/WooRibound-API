@@ -8,6 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ResumeDTO {
     private String userId;
+    private String userName;
+    private String userPhone;
     private String userImg;
     private String resumeEmail;
     private String userIntro;

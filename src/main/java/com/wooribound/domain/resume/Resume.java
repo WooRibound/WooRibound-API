@@ -26,10 +26,6 @@ import lombok.*;
 )
 public class Resume {
     @Id
-    @GeneratedValue(
-        strategy= GenerationType.AUTO,
-        generator = "resume_seq_generator"
-    )
     @Column(name = "resume_id")
     private Long resumeId;
 

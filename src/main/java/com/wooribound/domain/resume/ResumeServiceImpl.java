@@ -1,68 +1,169 @@
 package com.wooribound.domain.resume;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
-import com.wooribound.global.exception.NoWbUserException;
+import com.wooribound.global.exception.NotEntityException;
+import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ResumeServiceImpl implements ResumeService {
 
+    @Value("${cloud.aws.s3.bucketName}")
+    private String bucket;
+
+    private final AmazonS3Client amazonS3Client;
+    private final AuthenticateUtil authenticateUtil;
     private final ResumeRepository resumeRepository;
     private final WbUserRepository wbUserRepository;
     private final WorkHistoryRepository workHistoryRepository;
 
     @Override
-    public ResumeDTO getResume(String userId) {
-        Resume resume = resumeRepository.findByUserId(userId).orElseThrow();
+    public ResumeDTO getResume(Authentication authentication) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
-        return ResumeDTO.builder()
-                .userId(resume.getWbUser().getUserId())
-                .userImg(resume.getUserImg())
-                .resumeEmail(resume.getResumeEmail())
-                .userIntro(resume.getUserIntro())
-                .build();
+        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
+        if (byIdWbUser.isEmpty()) {
+            throw new NotEntityException();
+        }
+
+        Optional<Resume> byUserIdResume = resumeRepository.findByUserId(byIdWbUser.get().getUserId());
+
+        ResumeDTO.ResumeDTOBuilder dtoBuilder = ResumeDTO.builder()
+                .userId(byIdWbUser.get().getUserId())
+                .userName(byIdWbUser.get().getName())
+                .userPhone(byIdWbUser.get().getPhone());
+
+        if (byUserIdResume.isPresent()) {
+            Resume resume = byUserIdResume.get();
+            dtoBuilder
+                    .userImg(resume.getUserImg())
+                    .resumeEmail(resume.getResumeEmail())
+                    .userIntro(resume.getUserIntro());
+        } else {
+            // 이력서가 없을 때 빈 값 설정
+            dtoBuilder
+                    .userImg("")
+                    .resumeEmail("")
+                    .userIntro("");
+        }
+
+        return dtoBuilder.build();
     }
 
     @Override
-    public String registerResume(ResumeDTO resumeDTO) {
-        WbUser wbUser = wbUserRepository.findById(resumeDTO.getUserId())
-                .orElseThrow((NoWbUserException::new));
+    public ResumeDTO registerResume(Authentication authentication, MultipartFile userImg, String resumeEmail, String userIntro) throws IOException {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
+        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
+
+        if (byIdWbUser.isEmpty()) {
+            throw new NotEntityException();
+        }
+
+        long resumeId = 1L;
+        Optional<Long> maxResumeId = resumeRepository.getMaxResumeId();
+
+        if (maxResumeId.isPresent()) {
+            resumeId = maxResumeId.get() + 1;
+        }
+
+        String uploadFileName = createFileName(userImg.getOriginalFilename());
+
+        ObjectMetadata metadata= new ObjectMetadata();
+        metadata.setContentType(userImg.getContentType());
+        metadata.setContentLength(userImg.getSize());
+        amazonS3Client.putObject(bucket,uploadFileName,userImg.getInputStream(),metadata);
 
         Resume resume = Resume.builder()
-                .wbUser(wbUser)
-                .userImg(resumeDTO.getUserImg())
-                .resumeEmail(resumeDTO.getResumeEmail())
-                .userIntro(resumeDTO.getUserIntro())
+                .resumeId(resumeId)
+                .wbUser(byIdWbUser.get())
+                .userImg(amazonS3Client.getUrl(bucket, uploadFileName).toString())
+                .resumeEmail(resumeEmail)
+                .userIntro(userIntro)
                 .build();
 
-        resumeRepository.save(resume);
+        Resume savedResume = resumeRepository.save(resume);
 
-        return "이력서가 성공적으로 등록되었습니다.";
+
+        return ResumeDTO.builder()
+                .userId(savedResume.getWbUser().getUserId())
+                .userName(savedResume.getWbUser().getName())
+                .userPhone(savedResume.getWbUser().getPhone())
+                .userImg(savedResume.getUserImg())
+                .resumeEmail(savedResume.getResumeEmail())
+                .userIntro(savedResume.getUserIntro())
+                .build();
     }
 
     @Override
-    public String updateResume(ResumeDTO resumeDTO) {
-        Resume resume = resumeRepository.findByUserId(resumeDTO.getUserId())
-                .stream().findFirst().orElse(null);
-        if (resume == null) {
-            return "이력서를 찾을 수 없습니다.";
+    public ResumeDTO updateResume(Authentication authentication, MultipartFile userImg, String resumeEmail, String userIntro) throws IOException {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+
+        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
+        if (byIdWbUser.isEmpty()) {
+            throw new NotEntityException();
         }
-        resume.setUserImg(resumeDTO.getUserImg());
-        resume.setResumeEmail(resumeDTO.getResumeEmail());
-        resume.setUserIntro(resumeDTO.getUserIntro());
-        resumeRepository.save(resume);
-        return "이력서가 성공적으로 수정되었습니다.";
+
+        Optional<Resume> byIdResume = resumeRepository.findByUserId(byIdWbUser.get().getUserId());
+        if (byIdResume.isEmpty()) {
+            throw new NotEntityException();
+        }
+
+        Resume resume = byIdResume.get();
+
+        if (userImg != null) {
+            // s3에서 파일 삭제
+            String url = byIdResume.get().getUserImg();
+            String encodedFileName = url.substring(url.lastIndexOf("/") + 1);
+            String deleteFileName = URLDecoder.decode(encodedFileName, StandardCharsets.UTF_8);
+
+            amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, deleteFileName));
+
+            // s3에 새로운 파일 업로드
+            String uploadFileName = createFileName(userImg.getOriginalFilename());
+            ObjectMetadata metadata= new ObjectMetadata();
+            metadata.setContentType(userImg.getContentType());
+            metadata.setContentLength(userImg.getSize());
+
+            amazonS3Client.putObject(bucket,uploadFileName,userImg.getInputStream(),metadata);
+
+            resume.setUserImg(amazonS3Client.getUrl(bucket, uploadFileName).toString());
+        }
+
+        resume.setResumeEmail(resumeEmail);
+        resume.setUserIntro(userIntro);
+        Resume savedResume = resumeRepository.save(resume);
+
+        return ResumeDTO.builder()
+                .userId(savedResume.getWbUser().getUserId())
+                .userName(savedResume.getWbUser().getName())
+                .userPhone(savedResume.getWbUser().getPhone())
+                .userImg(savedResume.getUserImg())
+                .resumeEmail(savedResume.getResumeEmail())
+                .userIntro(savedResume.getUserIntro())
+                .build();
     }
 
     @Override
@@ -86,5 +187,9 @@ public class ResumeServiceImpl implements ResumeService {
                 .resumeEmail(resume.getResumeEmail())
                 .jobList(jobs)
                 .build();
+    }
+
+    private String createFileName(String fileName){
+        return UUID.randomUUID().toString().concat(fileName);
     }
 }
