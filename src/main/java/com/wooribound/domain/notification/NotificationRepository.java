@@ -11,4 +11,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     @Query("SELECT n FROM Notification n WHERE n.wbUser.userId = :userId")
     List<Notification> findByUserId(@Param("userId") String userId);
 
+    @Query("SELECT COALESCE(MAX(n.notiId), 0) FROM Notification n")
+    Long findMaxId();
+
 }

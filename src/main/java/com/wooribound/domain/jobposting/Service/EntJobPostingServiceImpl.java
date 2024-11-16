@@ -73,14 +73,14 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
             JobPosting jobPosting = jobPostingOptional.get();
 
             // log4j - 조회된 공고 상세 로그
-            logger.info("공고 상세 조회 결과 - ID: {}, Title: {}", jobPosting.getPostId(), jobPosting.getPostTitle());
+            logger.info("공고 상세 조회 결과 - ID: {}, Title: {}, entName: {}, postImg: {}, startDate: {}, endDate: {}, jobName: {}, entAddr1: {}, entAddr2: {}",
+                    jobPosting.getPostId(), jobPosting.getPostTitle(), jobPosting.getEnterprise().getEntName(), jobPosting.getPostImg(), jobPosting.getStartDate(), jobPosting.getEndDate(), jobPosting.getJob().getJobName(), jobPosting.getEnterprise().getEntAddr1(), jobPosting.getEnterprise().getEntAddr2());
             return JobPostingDetailDTO.builder()
                     .postTitle(jobPosting.getPostTitle())
                     .entName(jobPosting.getEnterprise().getEntName())
                     .postImg(jobPosting.getPostImg())
                     .startDate(jobPosting.getStartDate())
                     .endDate(jobPosting.getEndDate())
-                    //   .postState(jobPosting.getPostState())
                     .jobName(jobPosting.getJob().getJobName())
                     .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                     .entAddr2(jobPosting.getEnterprise().getEntAddr2())
@@ -96,8 +96,10 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     // 3. 내 기업 공고 목록 조회
     @Override
     public List<JobPostingDetailDTO> getJobPostingList(String entId) {
+        logger.info(entId + "  - 내 기업 공고 목록 조회 시작");
         List<JobPostingDetailProjection> jobPostings = jobPostingRepository.getMyJobPostings(entId);
-        return jobPostings.stream().map(jp -> JobPostingDetailDTO.builder()
+        List<JobPostingDetailDTO> response = jobPostings.stream().map(jp -> JobPostingDetailDTO.builder()
+                        .postId(jp.getPostId())
                         .entAddr1(jp.getEntAddr1())
                         .entAddr2(jp.getEntAddr2())
                         .entName(jp.getEntName())
@@ -107,9 +109,12 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                         .startDate(jp.getStartDate())
                         .endDate(jp.getEndDate())
                         .applicantCount(jp.getApplicantCount())
+                        .postState(jp.getPostState())
                         .build()
                 )
                 .collect(Collectors.toList());
+        logger.info(response.toString());
+        return response;
     }
 
     // 4. 공고 지원자 전체 조회
@@ -133,9 +138,12 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
             // DTO 생성
             return ApplicantsDTO.builder()
+                    .userId(applicant.getWbUser().getUserId())
                     .applicantName(applicant.getWbUser().getName())
                     .applicantGender(applicant.getWbUser().getGender())
                     .applicantAge(age)
+                    .applyId(applicant.getApplyId())
+                    .result(applicant.getResult())
                     .build();
         }).collect(Collectors.toList());
     }
@@ -143,9 +151,10 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     // 5. 지원자 결과 설정
     @Override
     public String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO) {
-        int applyId = applicantResultReqDTO.getApplyId();
+        Long applyId = applicantResultReqDTO.getApplyId();
         ApplyResult applyResult = applicantResultReqDTO.getApplyResult();
 
+        logger.info("지원자 결과 설정 START, applyId: {}, applyResult: {}", applyId, applyResult);
         if (userApplyRepository.setApplicantResult(applyId, applyResult) == 1) {
 
             UserApply userApply = userApplyRepository.findById((long)applyId)
@@ -156,13 +165,19 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
             String applyResultKorean = switch (applyResult.name()) {
                 case "PENDING" -> "발표 전";
                 case "ACCEPTED" -> "합격";
-                case "FAILED" -> "탈락";
+                case "REJECTED" -> "탈락";
                 case "CANCELED" -> "지원취소됨";
                 default -> "";
             };
 
+            Long maxId = notificationRepository.findMaxId();
+            Long nextId = maxId + 1;
+            logger.info("nextId: {}", nextId.toString());
+
             // 알림 생성
+            logger.info("알림 생성 시작");
             Notification notification = Notification.builder()
+                    .notiId(nextId)
                     .wbUser(wbUser)
                     .userApply(userApply)
                     .notice(entName+" 지원결과 : "+ applyResultKorean)

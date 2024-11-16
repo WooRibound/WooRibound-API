@@ -7,6 +7,7 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.resume.ResumeService;
 import com.wooribound.domain.resume.dto.ResumeDTO;
+import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
@@ -52,8 +53,8 @@ public class EnterpriseJobPostingFacade {
 
     // 4. 공고 지원자 이력서 조회
     @Transactional(readOnly = true)
-    public ResumeDTO getApplicantResume(String userId) {
-        return resumeService.getResume(userId);
+    public ResumeDetailDTO getApplicantResume(String userId) {
+        return resumeService.getWbUserResume(userId);
     }
 
     // 5. 지원자 결과 설정

@@ -6,6 +6,7 @@ import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.resume.dto.ResumeDTO;
+import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class EnterpriseJobPostingController {
 
     // 5. 공고 지원자 이력서 조회
     @GetMapping("/applicant/detail")
-    public ResumeDTO getApplicantResume(@RequestParam String userId) {
+    public ResumeDetailDTO getApplicantResume(@RequestParam String userId) {
         return enterpriseJobPostingFacade.getApplicantResume(userId);
     }
 
