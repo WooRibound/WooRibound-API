@@ -24,10 +24,6 @@ import java.util.List;
 )
 public class JobPosting {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "job_posting_seq_generator"
-    )
     @Column(name = "post_id")
     private Long postId;
 
