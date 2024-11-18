@@ -84,6 +84,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .jobName(jobPosting.getJob().getJobName())
                     .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                     .entAddr2(jobPosting.getEnterprise().getEntAddr2())
+                    .jobId(jobPosting.getJob().getJobId())
                     .build();
         } else {
             // 공고가 존재하지 않는 경우 예외 로그
@@ -197,6 +198,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     @Override
     public List<ApplicantsDTO> getApplicantRecommendation(int jobId) {
 
+        logger.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
         List<WbUser> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
 
         return recommendedUsers.stream().map(user -> {
@@ -215,6 +217,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .applicantName(user.getName())
                     .applicantGender(user.getGender())
                     .applicantAge(age)
+                    .userId(user.getUserId())
                     .build();
         }).collect(Collectors.toList());
 

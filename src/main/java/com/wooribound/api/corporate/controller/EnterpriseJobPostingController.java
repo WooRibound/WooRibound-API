@@ -5,7 +5,6 @@ import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;

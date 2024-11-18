@@ -2,7 +2,9 @@ package com.wooribound.domain.employment;
 
 import com.wooribound.api.corporate.dto.EmployeeDTO;
 import com.wooribound.api.corporate.dto.EmploymentReqDTO;
+import com.wooribound.domain.userapply.Service.UserApplyServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +16,14 @@ import java.util.stream.Collectors;
 public class EmploymentServiceImpl implements EmploymentService{
 
     private final EmploymentRepository employmentRepository;
+    Logger logger = org.slf4j.LoggerFactory.getLogger(UserApplyServiceImpl.class);
 
     // 1. 고용 직원 목록 조회
     @Override
     public List<EmployeeDTO> getEmployees(String entId) {
         return employmentRepository.findByEnterprise_EntId(entId).stream()
                 .map(employment -> EmployeeDTO.builder()
+                        .empId(employment.getEmpId())
                         .hireDate(employment.getHireDate())
                         .userName(employment.getWbUser().getName())
                         .jobName(employment.getJob().getJobName())
@@ -31,6 +35,7 @@ public class EmploymentServiceImpl implements EmploymentService{
     // 2. 고용 직원 평가
     @Override
     public String evaluateEmployee(EmploymentReqDTO employmentReqDTO) {
+        logger.info("고용 직원 평가 시작, empId: {}, empRecomm: {}", employmentReqDTO.getEmpId(), employmentReqDTO.getEmpRecomm());
         Long empId = employmentReqDTO.getEmpId();
         Optional<Employment> employee = employmentRepository.findById(empId);
         if (employee.isEmpty()) {

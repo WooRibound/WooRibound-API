@@ -15,5 +15,6 @@ public class EmployeeDTO {
     private String userName;
     private String jobName;
     private YN empRecomm;
+    private Long empId;
     
 }
