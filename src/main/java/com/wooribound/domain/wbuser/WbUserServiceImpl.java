@@ -109,25 +109,7 @@ public class WbUserServiceImpl implements WbUserService {
                         .build())
                 .orElseThrow(() -> new NoWbUserException("사용자를 찾을 수 없습니다. ID: " + wbUserUpdateDTO.getUserId()));
 
-        // 사용자 정보 업데이트
-        if (wbUserUpdateDTO.getName() != null) {
-            user.setName(wbUserUpdateDTO.getName());
-        }
-        if (wbUserUpdateDTO.getPhone() != null) {
-            user.setPhone(wbUserUpdateDTO.getPhone());
-        }
-        if (wbUserUpdateDTO.getGender() != null) {
-            user.setGender(wbUserUpdateDTO.getGender());
-        }
-        if (wbUserUpdateDTO.getAddrCity() != null) {
-            user.setAddrCity(wbUserUpdateDTO.getAddrCity());
-        }
-        if (wbUserUpdateDTO.getAddrProvince() != null) {
-            user.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
-        }
-        if (wbUserUpdateDTO.getExjobChk() != null) {
-            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
-        }
+        user.setExjobChk(wbUserUpdateDTO.getExjobChk());
 
         // 관심 직종 업데이트
         if (wbUserUpdateDTO.getInterestJobs() != null) {
@@ -143,6 +125,25 @@ public class WbUserServiceImpl implements WbUserService {
         // 최신 데이터 조회
         WbUser updatedUser = wbUserRepository.findByUserId(user.getUserId())
                 .orElseThrow(() -> new NoWbUserException("업데이트 후 사용자 조회 실패: ID: " + user.getUserId()));
+
+        // 사용자 정보 업데이트
+        if (wbUserUpdateDTO.getName() != null) {
+            updatedUser.setName(wbUserUpdateDTO.getName());
+        }
+        if (wbUserUpdateDTO.getPhone() != null) {
+            updatedUser.setPhone(wbUserUpdateDTO.getPhone());
+        }
+        if (wbUserUpdateDTO.getGender() != null) {
+            updatedUser.setGender(wbUserUpdateDTO.getGender());
+        }
+        if (wbUserUpdateDTO.getAddrCity() != null) {
+            updatedUser.setAddrCity(wbUserUpdateDTO.getAddrCity());
+        }
+        if (wbUserUpdateDTO.getAddrProvince() != null) {
+            updatedUser.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
+        }
+        if (wbUserUpdateDTO.getExjobChk() != null) {
+        }
 
         // 최종 저장
         wbUserRepository.save(updatedUser);
