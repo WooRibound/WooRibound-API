@@ -26,4 +26,8 @@ public interface InterestJobRepository extends JpaRepository<InterestJob, Long> 
 
   @Query("SELECT ij.job.jobName FROM InterestJob ij WHERE ij.wbUser.userId = :userId")
   List<String> findJobNamesByUserId(@Param("userId") String userId);
+
+  @Modifying
+  @Query("DELETE FROM InterestJob ij WHERE ij.wbUser.userId = :userId")
+  void deleteByUserId(@Param("userId") String userId);
 }
