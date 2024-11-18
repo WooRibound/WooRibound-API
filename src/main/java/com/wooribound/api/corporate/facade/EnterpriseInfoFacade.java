@@ -39,7 +39,8 @@ public class EnterpriseInfoFacade {
 
     // 3. 고용 직원 목록 조회
     @Transactional(readOnly = true)
-    public List<EmployeeDTO> getEmployees(String entId) {
+    public List<EmployeeDTO> getEmployees(Authentication authentication) {
+        String entId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
         return employmentService.getEmployees(entId);
     }
 

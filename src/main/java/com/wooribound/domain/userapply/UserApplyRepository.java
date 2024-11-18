@@ -21,7 +21,7 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
     // 3. 지원자 결과 설정
     @Modifying
     @Query("UPDATE UserApply ua SET ua.result = :applyResult WHERE ua.applyId = :applyId")
-    int setApplicantResult(@Param("applyId") int applyId,
+    int setApplicantResult(@Param("applyId") Long applyId,
                            @Param("applyResult") ApplyResult applyResult);
 
     // 4. 지원 결과 대기 중인 지원현황 조회

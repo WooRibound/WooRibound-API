@@ -35,8 +35,8 @@ public class EnterpriseInfoController {
 
     @Operation(summary = "고용 직원 목록 조회", description = "고용 직원 목록 조회")
     @GetMapping("/employee")
-    public List<EmployeeDTO> getJobEmployees(@RequestParam String entId) {
-        return enterpriseInfoFacade.getEmployees(entId);
+    public List<EmployeeDTO> getJobEmployees(Authentication authentication) {
+        return enterpriseInfoFacade.getEmployees(authentication);
     }
 
     @Operation(summary = "고용 직원 평가", description = "고용 직원 평가")

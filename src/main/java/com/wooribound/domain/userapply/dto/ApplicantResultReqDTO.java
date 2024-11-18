@@ -12,6 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ApplicantResultReqDTO {
 
-    private int applyId;
+    private Long applyId;
     private ApplyResult applyResult;
 }

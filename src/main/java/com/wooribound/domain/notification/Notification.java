@@ -28,10 +28,10 @@ import java.util.Date;
 )
 public class Notification {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "notification_seq_generator"
-    )
+//    @GeneratedValue(
+//            strategy = GenerationType.AUTO,
+//            generator = "notification_seq_generator"
+//    )
     @Column(name = "noti_id")
     private Long notiId;
 
