@@ -16,15 +16,10 @@ import java.util.List;
 @Table(name = "knowhow")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-        name = "knowhow_seq_generator",
-        sequenceName = "knowhow_SEQ",
-        allocationSize = 1
-)
 public class Knowhow {
-
     @Id
     @Column(name = "knowhow_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long knowhowId;
 
     @Column(name = "knowhow_job", length = 30, nullable = false)

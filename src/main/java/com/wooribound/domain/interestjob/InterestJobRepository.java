@@ -16,12 +16,11 @@ import org.springframework.stereotype.Repository;
 public interface InterestJobRepository extends JpaRepository<InterestJob, Long> {
   @Modifying
   @Query(value = """
-    INSERT INTO interest_job (interest_id, job_id, user_id) 
-    VALUES (
-        interest_job_SEQ.NEXTVAL,
-        (SELECT job_id FROM job WHERE CONVERT(job_name, 'UTF8') = CONVERT(:jobName, 'UTF8')), 
-        :userId
-    )""", nativeQuery = true)
+       INSERT INTO interest_job (job_id, user_id) 
+       VALUES (
+           (SELECT job_id FROM job WHERE job_name = :jobName), 
+           :userId
+       )""", nativeQuery = true)
   void saveInterestJob(@Param("userId") String userId, @Param("jobName") String jobName);
 
   @Query("SELECT ij.job.jobName FROM InterestJob ij WHERE ij.wbUser.userId = :userId")

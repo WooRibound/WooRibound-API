@@ -32,13 +32,9 @@ import lombok.Setter;
 @Table(name = "user_apply")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-    name = "user_apply_seq_generator",
-    sequenceName = "user_apply_SEQ",
-    allocationSize = 1
-)
 public class UserApply {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "apply_id")
   private Long applyId;
 
@@ -51,7 +47,7 @@ public class UserApply {
   private WbUser wbUser;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "result", nullable = false, length = 40 , columnDefinition = "VARCHAR2(20) DEFAULT 'PENDING'")
+  @Column(name = "result", nullable = false, length = 40 , columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'")
   private ApplyResult result;
 
   @Column(name = "apply_date", nullable = false)

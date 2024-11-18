@@ -21,17 +21,9 @@ import java.util.Date;
 @Table(name = "notification")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-        name = "notification_seq_generator",
-        sequenceName = "notification_SEQ",
-        allocationSize = 1
-)
 public class Notification {
     @Id
-//    @GeneratedValue(
-//            strategy = GenerationType.AUTO,
-//            generator = "notification_seq_generator"
-//    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "noti_id")
     private Long notiId;
 
@@ -42,7 +34,7 @@ public class Notification {
     @Column(name = "notice", nullable = false, length = 200)
     private String notice;
 
-    @Column(name = "is_confirmed", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+    @Column(name = "is_confirmed", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private YN isConfirmed;
 
