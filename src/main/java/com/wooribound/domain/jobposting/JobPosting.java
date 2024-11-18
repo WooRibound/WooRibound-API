@@ -17,13 +17,9 @@ import java.util.List;
 @Table(name = "job_posting")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-        name = "job_posting_seq_generator",
-        sequenceName = "job_posting_SEQ",
-        allocationSize = 1
-)
 public class JobPosting {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long postId;
 
@@ -44,7 +40,7 @@ public class JobPosting {
     private Date endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
     private YN isDeleted = YN.N;
 
     @ManyToOne(fetch = FetchType.LAZY)

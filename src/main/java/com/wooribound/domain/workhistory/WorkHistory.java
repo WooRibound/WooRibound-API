@@ -18,17 +18,9 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "work_history")
-@SequenceGenerator(
-    name = "work_history_seq_generator",
-    sequenceName = "work_history_SEQ",
-    allocationSize = 1
-)
 public class WorkHistory {
     @Id
-    @GeneratedValue(
-        strategy=GenerationType.AUTO,
-        generator = "work_history_seq_generator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exjob_id")
     private Long exjobId;
 

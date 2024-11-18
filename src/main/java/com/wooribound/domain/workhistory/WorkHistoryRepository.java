@@ -13,12 +13,11 @@ import java.util.List;
 public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> {
   @Modifying
   @Query(value = """
-    INSERT INTO work_history (exjob_id, job_id, user_id) 
-    VALUES (
-        work_history_SEQ.NEXTVAL,
-        (SELECT job_id FROM job WHERE CONVERT(job_name, 'UTF8') = CONVERT(:jobName, 'UTF8')), 
-        :userId
-    )""", nativeQuery = true)
+       INSERT INTO work_history (job_id, user_id) 
+       VALUES (
+           (SELECT job_id FROM job WHERE job_name = :jobName), 
+           :userId
+       )""", nativeQuery = true)
   void saveByJobName(@Param("userId") String userId, @Param("jobName") String jobName);
 
   @Query("SELECT wh FROM WorkHistory wh WHERE wh.wbUser.userId = :userId")

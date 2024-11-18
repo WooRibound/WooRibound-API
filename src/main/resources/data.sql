@@ -25,50 +25,69 @@ INSERT INTO job (job_id, job_name) VALUES (21, '공공-복지');
 
 -- Enterprise 데이터
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT001', 'CEO Kim', 'IT', 'MEDIUM', '1234567890', '100000000', 'Tech Corp', 'password123', 'Seoul, Korea', 'IT Tower', SYSTIMESTAMP, 'N');
+VALUES ('ENT001', 'CEO Kim', 'IT', 'MEDIUM', '1234567890', '100000000', 'Tech Corp', 'password123', 'Seoul, Korea', 'IT Tower', NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT002', 'CEO Lee', 'Finance', 'LARGE', '0987654321', '500000000', 'Finance Inc', 'securepwd', 'Busan, Korea', 'Blue Square',SYSTIMESTAMP, 'N');
+VALUES ('ENT002', 'CEO Lee', 'Finance', 'LARGE', '0987654321', '500000000', 'Finance Inc', 'securepwd', 'Busan, Korea', 'Blue Square',NOW(), 'N');
 
 -- Wb_User 데이터
-INSERT INTO wb_user (user_id, gender, job_point, birth, created_at, addr_city, addr_province, name, phone, email, exjob_chk, interest_chk, job_interest, is_deleted)
-VALUES ('USER001', 'M', 10, TO_TIMESTAMP('1985-05-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), SYSTIMESTAMP, 'Seoul', 'Seoul', 'John Doe', '010-1234-5678', 'johndoe@example.com', 'N', 'Y', 'N', 'N');
-INSERT INTO wb_user (user_id, gender, job_point, birth, created_at, addr_city, addr_province, name, phone, email, exjob_chk, interest_chk, job_interest, is_deleted)
-VALUES ('USER002', 'F', 20, TO_TIMESTAMP('1990-08-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), SYSTIMESTAMP, 'Busan', 'Busan', 'Jane Doe', '010-8765-4321', 'janedoe@example.com', 'Y', 'N', 'Y', 'N');
+INSERT INTO wb_user (
+    user_id, gender, job_point, birth, created_at,
+    addr_city, addr_province, name, phone, email,
+    exjob_chk, interest_chk, job_interest, is_deleted
+) VALUES (
+             'USER001', 'M', 10,
+             STR_TO_DATE('1985-05-20 00:00:00', '%Y-%m-%d %H:%i:%s'),
+             NOW(),
+             'Seoul', 'Seoul', 'John Doe', '010-1234-5678', 'johndoe@example.com',
+             'N', 'Y', 'N', 'N'
+         );
 
+-- 먼저 USER002 데이터 삽입
+INSERT INTO wb_user (
+    user_id, gender, job_point, birth, created_at,
+    addr_city, addr_province, name, phone, email,
+    exjob_chk, interest_chk, job_interest, is_deleted
+) VALUES (
+             'USER002', 'F', 5,
+             STR_TO_DATE('1990-03-15 00:00:00', '%Y-%m-%d %H:%i:%s'),
+             NOW(),
+             'Busan', 'Busan', 'Jane Doe', '010-9876-5432', 'janedoe@example.com',
+             'N', 'Y', 'N', 'N'
+         );
 -- Employment 데이터 (외래 키로 wb_user와 enterprise 필요)
 INSERT INTO employment (emp_id, hire_date, emp_recomm, emp_state, ent_id, user_id, job_id)
-VALUES (1, SYSTIMESTAMP, 'Y', 'Y', 'ENT001', 'USER001', 1);
+VALUES (1, NOW(), 'Y', 'Y', 'ENT001', 'USER001', 1);
 INSERT INTO employment (emp_id, hire_date, emp_recomm, emp_state, ent_id, user_id, job_id)
-VALUES (2, SYSTIMESTAMP, 'N', 'N', 'ENT002', 'USER002', 2);
+VALUES (2, NOW(), 'N', 'N', 'ENT002', 'USER002', 2);
 
 -- Job_Posting 데이터 (외래 키로 job과 enterprise 필요)
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img)
-VALUES (1, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '30' DAY, 1, 'Backend Developer', 'ENT001', 'img/backend.jpg');
+VALUES (1, NOW(), NOW() + INTERVAL '30' DAY, 1, 'Backend Developer', 'ENT001', 'img/backend.jpg');
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img)
-VALUES (2, SYSTIMESTAMP, SYSTIMESTAMP + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg');
+VALUES (2, NOW(), NOW() + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg');
 
 -- 지원현황
 INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date)
-VALUES (1, '1', 'USER001', 'PENDING', TO_DATE('2024-11-01', 'YYYY-MM-DD'));
+VALUES (1, '1', 'USER001', 'PENDING', STR_TO_DATE('2024-11-01', '%Y-%m-%d'));
 
 INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date)
-VALUES (2, '2', 'USER002', 'PENDING', TO_DATE('2024-11-01', 'YYYY-MM-DD'));
+VALUES (2, '2', 'USER002', 'PENDING', STR_TO_DATE('2024-11-01', '%Y-%m-%d'));
 
 -- 노하우
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (1, 'Software Developer', 'Effective Debugging Techniques', 'Learn how to debug effectively to save time and increase productivity.', TO_DATE('2024-11-05', 'YYYY-MM-DD'), 'USER001');
+VALUES (1, 'Software Developer', 'Effective Debugging Techniques', 'Learn how to debug effectively to save time and increase productivity.', STR_TO_DATE('2024-11-05', '%Y-%m-%d'), 'USER001');
 
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (2, 'Data Scientist', 'Building a Predictive Model', 'Step-by-step guide to building a predictive model using machine learning.', TO_DATE('2024-11-04', 'YYYY-MM-DD'), 'USER001');
+VALUES (2, 'Data Scientist', 'Building a Predictive Model', 'Step-by-step guide to building a predictive model using machine learning.', STR_TO_DATE('2024-11-04', '%Y-%m-%d'), 'USER001');
 
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (3, 'Product Manager', 'Effective Communication with Stakeholders', 'Strategies for effective communication with project stakeholders.', TO_DATE('2024-11-03', 'YYYY-MM-DD'), 'USER001');
+VALUES (3, 'Product Manager', 'Effective Communication with Stakeholders', 'Strategies for effective communication with project stakeholders.', STR_TO_DATE('2024-11-03', '%Y-%m-%d'), 'USER001');
 
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (4, 'UI/UX Designer', 'User-Centered Design Principles', 'Introduction to user-centered design principles for better user experiences.', TO_DATE('2024-11-02', 'YYYY-MM-DD'), 'USER002');
+VALUES (4, 'UI/UX Designer', 'User-Centered Design Principles', 'Introduction to user-centered design principles for better user experiences.', STR_TO_DATE('2024-11-02', '%Y-%m-%d'), 'USER002');
 
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and techniques for optimizing server performance and ensuring stability.', TO_DATE('2024-11-01', 'YYYY-MM-DD'), 'USER002');
+VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and techniques for optimizing server performance and ensuring stability.', STR_TO_DATE('2024-11-01', '%Y-%m-%d'), 'USER002');
 
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
     (1, 'USER001', 'https://example.com/image1.jpg', 'user1@example.com', 'Experienced software developer with a strong background in Java and Spring.');

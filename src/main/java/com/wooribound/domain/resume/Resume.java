@@ -19,14 +19,10 @@ import lombok.*;
 @Table(name = "resume")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-    name = "resume_seq_generator",
-    sequenceName = "resume_SEQ",
-    allocationSize = 1
-)
 public class Resume {
     @Id
     @Column(name = "resume_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long resumeId;
 
     @OneToOne

@@ -21,17 +21,9 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "interest_job")
-@SequenceGenerator(
-    name = "interest_job_seq_generator",
-    sequenceName = "interest_job_SEQ",
-    allocationSize = 1
-)
 public class InterestJob {
     @Id
-    @GeneratedValue(
-        strategy = GenerationType.AUTO,
-        generator = "interest_job_seq_generator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "interest_id")
     private Long interestId;
 

@@ -56,11 +56,11 @@ public class WbUser {
   @Enumerated(value = EnumType.STRING)
   private Gender gender;
 
-  @Column(name = "exjob_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  @Column(name = "exjob_chk", columnDefinition = "CHAR(1) DEFAULT 'N'")
   @Enumerated(value = EnumType.STRING)
   private YN exjobChk = YN.N;
 
-  @Column(name = "interest_chk", columnDefinition = "VARCHAR2(1) DEFAULT 'N'", nullable = false)
+  @Column(name = "interest_chk", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
   @Enumerated(value = EnumType.STRING)
   private YN interestChk = YN.N;
 
@@ -70,11 +70,11 @@ public class WbUser {
   @Column(name = "addr_province", length = 20)
   private String addrProvince;
 
-  @Column(name = "job_point", nullable = false, columnDefinition = "NUMBER DEFAULT 0")
+  @Column(name = "job_point", nullable = false, columnDefinition = "INT DEFAULT 0")
   private int jobPoint = 0;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "job_interest", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+  @Column(name = "job_interest", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
   private YN jobInterest = YN.N;
 
   @Column(name = "created_at", nullable = false)  // NOT NULL 제약 조건
@@ -84,15 +84,15 @@ public class WbUser {
   private Date updatedAt;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "is_deleted", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
+  @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
   private YN isDeleted = YN.N;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "first_login", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
+  @Column(name = "first_login", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'", length = 1)
   private YN isInfoRegistered = YN.N;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "data_sharing_consent", nullable = false, columnDefinition = "VARCHAR2(1) DEFAULT 'N'", length = 1)
+  @Column(name = "data_sharing_consent", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'", length = 1)
   private YN dataSharingConsent = YN.N;
 
   @OneToOne(mappedBy = "wbUser", fetch = FetchType.LAZY)

@@ -14,17 +14,9 @@ import java.util.Date;
 @Table(name = "knowhow_reported")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-        name = "knowhow_reported_seq_generator",
-        sequenceName = "knowhow_reported_SEQ",
-        allocationSize = 1
-)
 public class KnowhowReported {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "knowhow_reported_seq_generator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reported_id")
     private Long reportedId;
 

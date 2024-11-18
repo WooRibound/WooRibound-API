@@ -16,17 +16,9 @@ import lombok.*;
 @Table(name = "job")
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(
-    name = "job_seq_generator",
-    sequenceName = "job_SEQ",
-    allocationSize = 1
-)
 public class Job {
   @Id
-  @GeneratedValue(
-      strategy=GenerationType.AUTO,
-      generator = "job_seq_generator"
-  )
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "job_id")
   private Long jobId;
 
