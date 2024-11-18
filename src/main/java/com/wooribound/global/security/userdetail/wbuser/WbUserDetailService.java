@@ -8,13 +8,8 @@ import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.security.dto.NaverResponse;
 import com.wooribound.global.security.dto.OAuth2Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Date;
-import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -22,12 +17,15 @@ import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.Optional;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WbUserDetailService extends DefaultOAuth2UserService {
 
   private final WbUserRepository wbUserRepository;
-  private static final Logger logger = LoggerFactory.getLogger(WbUserDetailService.class); // Logger 선언
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -40,7 +38,7 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
 
     if (oAuth2Response == null) {
-      logger.warn("NaverResponse is null.");// 또는 예외를 던질 수 있습니다.
+      log.warn("NaverResponse is null.");// 또는 예외를 던질 수 있습니다.
     }
     System.out.println("네이버로부터 정보 받아오기");
     
@@ -64,21 +62,21 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 
   // userId에 대한 null 체크
       if (userId == null) {
-        logger.warn("User ID is null.");
+        log.warn("User ID is null.");
         throw new IllegalArgumentException("User ID cannot be null.");
       }
       newWbUser.setUserId(userId);
 
 // name에 대한 null 체크
       if (userName == null) {
-        logger.warn("User Name is null.");
+        log.warn("User Name is null.");
         throw new IllegalArgumentException("User Name cannot be null.");
       }
       newWbUser.setName(userName);
 
 // email에 대한 null 체크
       if (userEmail == null) {
-        logger.warn("User Email is null.");
+        log.warn("User Email is null.");
       } else{
         newWbUser.setEmail(userEmail);
       }

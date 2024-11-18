@@ -1,6 +1,5 @@
 package com.wooribound.domain.userapply.Service;
 
-import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.domain.userapply.UserApply;
@@ -9,7 +8,7 @@ import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,11 +17,10 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserApplyServiceImpl implements UserApplyService {
-
-    Logger logger = org.slf4j.LoggerFactory.getLogger(UserApplyServiceImpl.class);
 
     private final UserApplyRepository userApplyRepository;
     private final JobPostingRepository jobPostingRepository;
@@ -61,7 +59,7 @@ public class UserApplyServiceImpl implements UserApplyService {
             }
 
         } catch (Exception e) {
-            logger.error("지원 생성 중 예상치 못한 오류 발생: {}", e.getMessage());
+            log.error("지원 생성 중 예상치 못한 오류 발생: {}", e.getMessage());
             return "지원 중 오류가 발생했습니다. 다시 시도해 주세요.";
         }
     }
