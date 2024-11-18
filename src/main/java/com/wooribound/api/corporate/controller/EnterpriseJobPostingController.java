@@ -9,6 +9,7 @@ import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,9 @@ public class EnterpriseJobPostingController {
     private final AuthenticateUtil authenticateUtil;
 
     // 1. 공고 등록
-    @PostMapping("/register")
-    public String createJobPosting(Authentication authentication, @RequestBody JobPostingReqDTO jobPostingReqDTO) {
-        return enterpriseJobPostingFacade.createJobPosting(authentication, jobPostingReqDTO);
+    @PostMapping(value = "/register", consumes = {"multipart/form-data"})
+    public ResponseEntity createJobPosting(Authentication authentication, @ModelAttribute JobPostingReqDTO jobPostingReqDTO) {
+        return ResponseEntity.ok().body(enterpriseJobPostingFacade.createJobPosting(authentication, jobPostingReqDTO));
     }
 
     // 2. 내 기업 공고 목록 조회

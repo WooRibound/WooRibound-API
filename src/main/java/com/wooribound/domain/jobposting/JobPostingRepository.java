@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
@@ -96,4 +97,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHERE wh.job.jobId = :jobId " +
             "ORDER BY w.jobPoint DESC")
     List<WbUser> findApplicantRecommendation(@Param("jobId") int jobId);
+
+
+    @Query("SELECT MAX(jp.postId) FROM JobPosting jp")
+    Optional<Long> getMaxJobPostingId();
 }

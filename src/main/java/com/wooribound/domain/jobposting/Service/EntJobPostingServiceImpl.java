@@ -1,5 +1,6 @@
 package com.wooribound.domain.jobposting.Service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.domain.enterprise.Enterprise;
@@ -19,20 +20,24 @@ import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.util.RedisUtil;
+import com.wooribound.global.util.S3Util;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class EntJobPostingServiceImpl implements EntJobPostingService {
+    @Value("${aws.s3.jobPosting.folder}")
+    String jobPostingFolderName;
+
+    private final S3Util s3Util;
 
     private static final Logger logger = LogManager.getLogger(EntJobPostingServiceImpl.class);
     private final JobPostingRepository jobPostingRepository;
@@ -40,22 +45,35 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     private final EnterpriseRepository enterpriseRepository;
     private final UserApplyRepository userApplyRepository;
     private final NotificationRepository notificationRepository;
-    private final RedisUtil redisUtil;
 
     // 1. 공고 등록
     @Override
     public String createJobPosting(String entId, JobPostingReqDTO jobPostingReqDTO) {
 
         Enterprise enterprise = enterpriseRepository.findById(entId).orElse(null);
-        Job job = jobRepository.findByJobName(jobPostingReqDTO.getJobName());
+
+        Optional<Job> byIdJob = jobRepository.findById(jobPostingReqDTO.getJobId());
+        if (byIdJob.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        Long jobPostingId = 1L;
+        Optional<Long> maxJobPostingId = jobPostingRepository.getMaxJobPostingId();
+        if (maxJobPostingId.isPresent()) {
+            jobPostingId = maxJobPostingId.get() + 1;
+        }
+
+        String imageURL = s3Util.uploadFile(jobPostingReqDTO.getPostImg(), jobPostingFolderName);
 
         JobPosting jobPosting = JobPosting.builder()
+                .postId(jobPostingId)
                 .enterprise(enterprise)
-                .job(job)
+                .job(byIdJob.get())
                 .postTitle(jobPostingReqDTO.getPostTitle())
-                .postImg(jobPostingReqDTO.getPostImg())
+                .postImg(imageURL)
                 .startDate(jobPostingReqDTO.getStartDate())
                 .endDate(jobPostingReqDTO.getEndDate())
+                .isDeleted(YN.N)
                 .build();
 
         jobPostingRepository.save(jobPosting);
@@ -222,4 +240,5 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         }).collect(Collectors.toList());
 
     }
+
 }

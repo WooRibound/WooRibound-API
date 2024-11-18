@@ -1,8 +1,6 @@
 package com.wooribound.domain.resume;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.wbuser.WbUser;
@@ -11,6 +9,7 @@ import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.util.AuthenticateUtil;
+import com.wooribound.global.util.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -18,10 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,10 +26,10 @@ import java.util.stream.Collectors;
 @Service
 public class ResumeServiceImpl implements ResumeService {
 
-    @Value("${cloud.aws.s3.bucketName}")
-    private String bucket;
+    @Value("${aws.s3.wbUser.folder}")
+    String wbUserFolderName;
 
-    private final AmazonS3Client amazonS3Client;
+    private final S3Util s3Util;
     private final AuthenticateUtil authenticateUtil;
     private final ResumeRepository resumeRepository;
     private final WbUserRepository wbUserRepository;
@@ -77,29 +73,22 @@ public class ResumeServiceImpl implements ResumeService {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
         Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
-
         if (byIdWbUser.isEmpty()) {
             throw new NotEntityException();
         }
 
         long resumeId = 1L;
         Optional<Long> maxResumeId = resumeRepository.getMaxResumeId();
-
         if (maxResumeId.isPresent()) {
             resumeId = maxResumeId.get() + 1;
         }
 
-        String uploadFileName = createFileName(userImg.getOriginalFilename());
-
-        ObjectMetadata metadata= new ObjectMetadata();
-        metadata.setContentType(userImg.getContentType());
-        metadata.setContentLength(userImg.getSize());
-        amazonS3Client.putObject(bucket,uploadFileName,userImg.getInputStream(),metadata);
+        String fileURL = s3Util.uploadFile(userImg, wbUserFolderName);
 
         Resume resume = Resume.builder()
                 .resumeId(resumeId)
                 .wbUser(byIdWbUser.get())
-                .userImg(amazonS3Client.getUrl(bucket, uploadFileName).toString())
+                .userImg(fileURL)
                 .resumeEmail(resumeEmail)
                 .userIntro(userIntro)
                 .build();
@@ -135,21 +124,12 @@ public class ResumeServiceImpl implements ResumeService {
 
         if (userImg != null) {
             // s3에서 파일 삭제
-            String url = byIdResume.get().getUserImg();
-            String encodedFileName = url.substring(url.lastIndexOf("/") + 1);
-            String deleteFileName = URLDecoder.decode(encodedFileName, StandardCharsets.UTF_8);
-
-            amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, deleteFileName));
+            s3Util.deleteFile(byIdResume.get().getUserImg(), wbUserFolderName);
 
             // s3에 새로운 파일 업로드
-            String uploadFileName = createFileName(userImg.getOriginalFilename());
-            ObjectMetadata metadata= new ObjectMetadata();
-            metadata.setContentType(userImg.getContentType());
-            metadata.setContentLength(userImg.getSize());
+            String fileURL = s3Util.uploadFile(userImg, wbUserFolderName);
 
-            amazonS3Client.putObject(bucket,uploadFileName,userImg.getInputStream(),metadata);
-
-            resume.setUserImg(amazonS3Client.getUrl(bucket, uploadFileName).toString());
+            resume.setUserImg(fileURL);
         }
 
         resume.setResumeEmail(resumeEmail);
