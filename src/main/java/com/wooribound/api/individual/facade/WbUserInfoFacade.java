@@ -1,6 +1,5 @@
 package com.wooribound.api.individual.facade;
 
-import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
@@ -45,7 +44,9 @@ public class WbUserInfoFacade {
 
     // 4. 사용자 정보 변경
     @Transactional
-    public String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
+    public WbUserUpdateDTO updateUserInfo(Authentication authentication, WbUserUpdateDTO wbUserUpdateDTO) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        wbUserUpdateDTO.setUserId(userId);
         return wbUserService.updateUserInfo(wbUserUpdateDTO);
     }
 

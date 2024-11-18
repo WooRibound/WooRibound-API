@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,4 +21,6 @@ public class WbUserUpdateDTO {
     private YN jobInterest;
     private String addrCity;
     private String addrProvince;
+    private List<String> workHistoryJobs;
+    private List<String> interestJobs;
 }

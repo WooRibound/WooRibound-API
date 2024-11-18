@@ -1,6 +1,5 @@
 package com.wooribound.api.individual.controller;
 
-import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.api.individual.facade.WbUserInfoFacade;
@@ -40,8 +39,8 @@ public class WbUserInfoController {
 
     // 4. 사용자 정보 수정
     @PostMapping("/update")
-    public String updateUserInfo(@RequestBody WbUserUpdateDTO wbUserUpdateDTO) {
-        return wbUserInfoFacade.updateUserInfo(wbUserUpdateDTO);
+    public WbUserUpdateDTO updateUserInfo(Authentication authentication, @RequestBody WbUserUpdateDTO wbUserUpdateDTO) {
+        return wbUserInfoFacade.updateUserInfo(authentication,wbUserUpdateDTO);
     }
 
     // 5. 우바 점수 조회

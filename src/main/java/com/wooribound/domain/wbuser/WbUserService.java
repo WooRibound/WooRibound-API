@@ -10,7 +10,7 @@ public interface WbUserService {
 
     WbUserDTO getUserInfo(String userId);
 
-    String updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
+    WbUserUpdateDTO updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO);
 
     void saveWbUser(WbUser wbUser);
 

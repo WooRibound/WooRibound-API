@@ -28,5 +28,7 @@ public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> 
   @Query("SELECT wh.job.jobName FROM WorkHistory wh WHERE wh.wbUser.userId = :loginUser")
   List<String> findJobNamesByUserId(String loginUser);
 
-
+  @Modifying
+  @Query("DELETE FROM WorkHistory wh WHERE wh.wbUser.userId = :userId")
+  void deleteByUserId(@Param("userId") String userId);
 }
