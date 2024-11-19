@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,6 +46,10 @@ public class SecurityConfig {
   private final WbUserDetailService wbUserDetailService;
   private final AdminUserDetailService adminUserDetailService;
   private final EnterpriseUserDetailService enterpriseUserDetailService;
+  @Value("${targetIp}")
+  private String targetIp;
+  @Value("${targetPort}")
+  private String targetPort;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -95,8 +100,7 @@ public class SecurityConfig {
           public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:8080",
-                "http://127.0.0.1:8080",
+                "http://"+targetIp+":"+targetPort,
                 "https://nid.naver.com",  // 네이버 로그인
                 "https://openapi.naver.com"
             ));
@@ -118,7 +122,7 @@ public class SecurityConfig {
               if (exception instanceof OAuth2AuthenticationException) {
                 Throwable authException = ((OAuth2AuthenticationException) exception).getCause();
                 if (authException instanceof DeletedUserException) {
-                  response.sendRedirect("http://localhost:8080/deleted/user");
+                  response.sendRedirect("http://"+targetIp+":"+targetPort+"/deleted/user");
                   return;
                 }
               }
