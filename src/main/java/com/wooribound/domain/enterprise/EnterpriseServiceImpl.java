@@ -3,25 +3,24 @@ package com.wooribound.domain.enterprise;
 import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
-import com.wooribound.global.exception.DuplicatedIdException;
 import com.wooribound.global.constant.YNP;
+import com.wooribound.global.exception.DuplicatedIdException;
 import com.wooribound.global.exception.NotValidPasswordException;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class EnterpriseServiceImpl implements EnterpriseService {
 
     private final EnterpriseRepository enterpriseRepository;
     private final PasswordEncoder passwordEncoder;
-    private static final Logger logger = LogManager.getLogger(EnterpriseServiceImpl.class);
 
       // 0. 기업회원 생성
       @Override
@@ -63,7 +62,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                       .entAddr2(enterprise1.getEntAddr2())
                       .build();
           } else {
-              logger.error("해당 기업 회원이 존재하지 않습니다 - ID: {}", entId);
+              log.error("해당 기업 회원이 존재하지 않습니다 - ID: {}", entId);
               throw new RuntimeException("해당 기업 회원 없음: " + entId);
           }
 
