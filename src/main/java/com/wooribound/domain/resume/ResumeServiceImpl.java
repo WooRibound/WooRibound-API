@@ -1,12 +1,12 @@
 package com.wooribound.domain.resume;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
+import com.wooribound.global.exception.NoWbUserException;
 import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.util.AuthenticateUtil;
 import com.wooribound.global.util.S3Util;
@@ -148,26 +148,33 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public ResumeDetailDTO getWbUserResume(String userId) {
+        try {
+            WbUser byIdWbUser = wbUserRepository.findById(userId)
+                    .orElseThrow(() -> new NoWbUserException("해당 사용자 ID를 찾을 수 없습니다: " + userId));
 
-        Resume resume = resumeRepository.findByUserId(userId).orElseThrow();
-        List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
+            Resume resume = resumeRepository.findByUserId(userId).orElseThrow();
+            List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
 
-        List<String> jobs = workHistoryList.stream()
-                .map(workHistory -> workHistory.getJob().getJobName())  // jobName만 추출
-                .collect(Collectors.toList());
+            List<String> jobs = workHistoryList.stream()
+                    .map(workHistory -> workHistory.getJob().getJobName()) // jobName만 추출
+                    .collect(Collectors.toList());
 
-        return ResumeDetailDTO.builder()
-                .userName(resume.getWbUser().getName())
-                .jobPoint(resume.getWbUser().getJobPoint())
-                .phone(resume.getWbUser().getPhone())
-                .addrCity(resume.getWbUser().getAddrCity())
-                .addrProvince(resume.getWbUser().getAddrProvince())
-                .userIntro(resume.getUserIntro())
-                .userImg(resume.getUserImg())
-                .resumeEmail(resume.getResumeEmail())
-                .jobList(jobs)
-                .build();
+            return ResumeDetailDTO.builder()
+                    .userName(resume.getWbUser().getName())
+                    .jobPoint(resume.getWbUser().getJobPoint())
+                    .phone(resume.getWbUser().getPhone())
+                    .addrCity(resume.getWbUser().getAddrCity())
+                    .addrProvince(resume.getWbUser().getAddrProvince())
+                    .userIntro(resume.getUserIntro())
+                    .userImg(resume.getUserImg())
+                    .resumeEmail(resume.getResumeEmail())
+                    .jobList(jobs)
+                    .build();
+        } catch (NoWbUserException e) {
+            throw e;
+        }
     }
+
 
     private String createFileName(String fileName){
         return UUID.randomUUID().toString().concat(fileName);
