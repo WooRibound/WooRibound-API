@@ -1,25 +1,21 @@
 package com.wooribound.api.individual.controller;
 
-import com.wooribound.api.individual.dto.UserApplyDTO;
 import com.wooribound.api.individual.dto.UserJobPostingReqDTO;
 import com.wooribound.api.individual.facade.WbUserJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.userapply.Service.UserApplyServiceImpl;
-import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/individualuser/jobposting")
 public class WbUserJobPostingController {
-
-    Logger logger = org.slf4j.LoggerFactory.getLogger(UserApplyServiceImpl.class);
 
     private final WbUserJobPostingFacade wbUserJobPostingFacade;
 
@@ -35,10 +31,10 @@ public class WbUserJobPostingController {
 
         // RequestBody를 null로 받는 경우 빈 객체 생성
         if (userJobPostingReqDTO != null) {
-            logger.info("Received UserJobPostingDTO - entName: {}, jobName: {}, entAddr1: {}",
+            log.info("Received UserJobPostingDTO - entName: {}, jobName: {}, entAddr1: {}",
                     userJobPostingReqDTO.getEntName(), userJobPostingReqDTO.getJobName(), userJobPostingReqDTO.getEntAddr1());
         } else {
-            logger.info("UserJobPostingDTO is null");
+            log.info("UserJobPostingDTO is null");
         }
         return wbUserJobPostingFacade.getJobPostings(userJobPostingReqDTO);
     }
@@ -48,7 +44,7 @@ public class WbUserJobPostingController {
     public List<JobPostingDTO> getJobPostingsForNew(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
         if (authentication == null) {
-            logger.info("Authentication is null. Processing as guest user.");
+            log.info("Authentication is null. Processing as guest user.");
         }
 
         userJobPostingReqDTO.setViewType("new");
@@ -60,7 +56,7 @@ public class WbUserJobPostingController {
     public List<JobPostingDTO> getJobPostingsForCareer(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
         if (authentication == null) {
-            logger.info("Authentication is null. Processing as guest user.");
+            log.info("Authentication is null. Processing as guest user.");
         }
 
         userJobPostingReqDTO.setViewType("career");
