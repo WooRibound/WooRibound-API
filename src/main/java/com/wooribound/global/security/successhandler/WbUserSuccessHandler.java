@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -21,6 +22,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final JWTUtil jwtUtil;
   private final RedisUtil redisUtil;
+  @Value("${targetIp}")
+  private String targetIp;
+  @Value("${targetPort}")
+  private String targetPort;
+
 
 
 
@@ -49,13 +55,13 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     // 응답
     // 응답
     String redirectUrl_oldUser = UriComponentsBuilder
-        .fromUriString("http://localhost:8080")
+        .fromUriString("http://"+targetIp+":"+targetPort)
         .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
         .build()
         .toUriString();
 
     String redirectUrl_newUser = UriComponentsBuilder
-        .fromUriString("http://localhost:8080/individual-user/register")
+        .fromUriString("http://"+targetIp+":"+targetPort+"/individual-user/register")
         .fragment("accessToken=" + accessToken)  // fragment로 accesstoken 전송
         .build()
         .toUriString();
