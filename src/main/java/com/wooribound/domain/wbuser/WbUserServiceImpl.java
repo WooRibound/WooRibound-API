@@ -59,9 +59,8 @@ public class WbUserServiceImpl implements WbUserService {
                     .addrCity(user.getAddrCity())
                     .addrProvince(user.getAddrProvince())
                     .jobPoint(user.getJobPoint())
+                    .dataSharingConsent(user.getDataSharingConsent())
                     .jobInterest(user.getJobInterest())
-                    .createdAt(user.getCreatedAt())
-                    .updatedAt(user.getUpdatedAt())
                     .isDeleted(user.getIsDeleted())
                     .workHistoryJobs(workHistoryNames)
                     .interestJobs(interestJobNames)
@@ -91,8 +90,6 @@ public class WbUserServiceImpl implements WbUserService {
                         .addrProvince(wbUser.getAddrProvince())
                         .jobPoint(wbUser.getJobPoint())
                         .jobInterest(wbUser.getJobInterest())
-                        .createdAt(wbUser.getCreatedAt())
-                        .updatedAt(wbUser.getUpdatedAt())
                         .isDeleted(wbUser.getIsDeleted())
                         .workHistoryJobs(wbUser.getWorkHistories().stream()
                                 .map(workHistory -> workHistory.getJob().getJobName()) // WorkHistory -> Job -> JobName
@@ -237,7 +234,6 @@ public class WbUserServiceImpl implements WbUserService {
             user.setJobInterest(wbUserJoinDTO.getJobInterest());
             user.setAddrCity(wbUserJoinDTO.getAddrCity());
             user.setAddrProvince(wbUserJoinDTO.getAddrProvince());
-            user.setUpdatedAt(new Date());
             user.setDataSharingConsent(wbUserJoinDTO.getDataSharingConsent());
             user.setInterestChk(wbUserJoinDTO.getInterestChk());
             wbUserRepository.save(user);
@@ -266,8 +262,6 @@ public class WbUserServiceImpl implements WbUserService {
                 .addrProvince(user.getAddrProvince())
                 .jobPoint(user.getJobPoint())
                 .jobInterest(user.getJobInterest())
-                .createdAt(user.getCreatedAt())
-                .updatedAt(user.getUpdatedAt())
                 .isDeleted(user.getIsDeleted())
                 .build();
     }
