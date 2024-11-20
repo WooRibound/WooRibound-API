@@ -37,9 +37,25 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
 
     @Override
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
-        JobPosting jobPosting = jobPostingRepository.findJobPostingByPostId(postId);
+        try {
+            JobPosting jobPosting = jobPostingRepository.findJobPostingByPostId(postId);
 
-        return JobPostingDetailDTO.builder().postTitle(jobPosting.getPostTitle()).entName(jobPosting.getEnterprise().getEntName()).postImg(jobPosting.getPostImg()).startDate(jobPosting.getStartDate()).endDate(jobPosting.getEndDate()).jobName(jobPosting.getJob().getJobName()).entAddr1(jobPosting.getEnterprise().getEntAddr1()).build();
+            if (jobPosting == null) {
+                throw new NoJobPostingException("해당 공고 ID를 찾을 수 없습니다: " + postId);
+            }
+
+            return JobPostingDetailDTO.builder()
+                    .postTitle(jobPosting.getPostTitle())
+                    .entName(jobPosting.getEnterprise().getEntName())
+                    .postImg(jobPosting.getPostImg())
+                    .startDate(jobPosting.getStartDate())
+                    .endDate(jobPosting.getEndDate())
+                    .jobName(jobPosting.getJob().getJobName())
+                    .entAddr1(jobPosting.getEnterprise().getEntAddr1())
+                    .build();
+        } catch (Exception e) {
+            throw new NoJobPostingException("채용공고 정보를 가져오는 도중 에러가 발생했습니다: " + postId, e);
+        }
     }
 
     @Override
