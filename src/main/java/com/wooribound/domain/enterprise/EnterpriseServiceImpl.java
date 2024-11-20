@@ -72,12 +72,15 @@ public class EnterpriseServiceImpl implements EnterpriseService {
       // 2. 기업회원 정보 수정
       @Override
       public String updateEnterpriseInfo(EnterpriseInfoReqDTO enterpriseInfoReqDTO) {
-
+          logger.info("기업회원 정보 수정 START, entId: {}", enterpriseInfoReqDTO.getEntName());
           String entId = enterpriseInfoReqDTO.getEntId();
 
           Enterprise enterprise = enterpriseRepository.findById(entId)
                   .orElseThrow(() -> new RuntimeException("해당 기업 회원이 존재하지 않습니다. ID: " + entId));
 
+          if (enterpriseInfoReqDTO.getEntName() != null) {
+              enterprise.setEntName(enterpriseInfoReqDTO.getEntName());
+          }
           if (enterpriseInfoReqDTO.getEntField() != null) {
               enterprise.setEntField(enterpriseInfoReqDTO.getEntField());
           }
@@ -98,6 +101,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           enterpriseRepository.save(enterprise);
 
           return entId + " 기업회원 정보 수정 완료 : " +
+                  "EntName : " + enterprise.getEntName() + ", " +
                   "EntField : " + enterprise.getEntField() + ", " +
                   "EntSize : " + enterprise.getEntSize() + ", " +
                   "CeoName : " + enterprise.getCeoName() + ", " +

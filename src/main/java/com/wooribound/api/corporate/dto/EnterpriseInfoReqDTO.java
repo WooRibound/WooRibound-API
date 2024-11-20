@@ -13,6 +13,7 @@ import lombok.Setter;
 public class EnterpriseInfoReqDTO {
 
     private String entId;
+    private String entName;
     private String ceoName;
     private String entField;
     private EntSize entSize;
