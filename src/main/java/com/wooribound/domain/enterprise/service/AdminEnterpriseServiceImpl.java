@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -39,8 +40,13 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
 
     @Override
     public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
-        try {
-            Enterprise enterprise = enterpriseRepository.findByEntId(entId);
+            Optional<Enterprise> optionalEnterprise = enterpriseRepository.findByEntId(entId);
+
+        if (optionalEnterprise.isEmpty()) {
+            throw new NoEnterpriseException("해당 기업 ID를 찾을 수 없습니다: " + entId);
+        }
+
+        Enterprise enterprise = optionalEnterprise.get();
 
             return AdminEnterpriseDetailDTO.builder()
                     .entId(enterprise.getEntId())
@@ -53,9 +59,6 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                     .entField(enterprise.getEntField())
                     .revenue(enterprise.getRevenue())
                     .build();
-        } catch (Exception e) {
-            throw new NoEnterpriseException("해당 기업 ID를 찾을 수 없습니다: " + entId, e);
-        }
     }
 
     @Override
