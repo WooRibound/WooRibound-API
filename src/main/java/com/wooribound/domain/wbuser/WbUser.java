@@ -1,32 +1,21 @@
 package com.wooribound.domain.wbuser;
 
+import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.interestjob.InterestJob;
 import com.wooribound.domain.knowhow.Knowhow;
 import com.wooribound.domain.knowhowreported.KnowhowReported;
+import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.resume.Resume;
+import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
-import com.wooribound.domain.employment.Employment;
-import com.wooribound.domain.notification.Notification;
-import com.wooribound.domain.userapply.UserApply;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
@@ -78,10 +67,10 @@ public class WbUser {
   private YN jobInterest = YN.N;
 
   @Column(name = "created_at", nullable = false)  // NOT NULL 제약 조건
-  private Date createdAt;
+  private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
-  private Date updatedAt;
+  private LocalDateTime updatedAt;
 
   @Enumerated(value = EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'", length = 10)  // NOT NULL 제약 조건
@@ -118,4 +107,16 @@ public class WbUser {
 
   @OneToMany(mappedBy = "wbUser", fetch = FetchType.LAZY)
   private List<KnowhowReported> knowhowReportedList;
+
+  @PrePersist
+  public void prePersist() {
+    createdAt = LocalDateTime.now();
+    updatedAt = LocalDateTime.now();
+  }
+
+  // @PreUpdate는 엔티티가 업데이트될 때 호출됩니다.
+  @PreUpdate
+  public void preUpdate() {
+    updatedAt = LocalDateTime.now();
+  }
 }

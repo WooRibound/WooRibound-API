@@ -23,8 +23,9 @@ public class WbUserDTO {
     private String addrProvince;
     private int jobPoint;
     private YN jobInterest;
-    private Date createdAt;
-    private Date updatedAt;
+    private YN dataSharingConsent;
+//    private Date createdAt;
+//    private Date updatedAt;
     private YN isDeleted;
     private List<String> workHistoryJobs;
     private List<String> interestJobs;

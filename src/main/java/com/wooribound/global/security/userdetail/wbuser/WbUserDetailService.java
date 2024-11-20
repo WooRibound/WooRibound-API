@@ -88,8 +88,6 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
       newWbUser.setPhone(phone);
       newWbUser.setBirth(birth);
 
-// createdAt 필드에 현재 날짜 설정
-      newWbUser.setCreatedAt(new Date());
       System.out.println("새 유저 저장");
       wbUserRepository.save(newWbUser); // 회원 정보 저장 (사실상의 최초 회원가입)
     
