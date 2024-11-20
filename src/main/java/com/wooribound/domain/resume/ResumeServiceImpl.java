@@ -175,7 +175,6 @@ public class ResumeServiceImpl implements ResumeService {
         }
     }
 
-
     private String createFileName(String fileName){
         return UUID.randomUUID().toString().concat(fileName);
     }

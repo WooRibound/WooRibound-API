@@ -6,6 +6,7 @@ import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
 import com.wooribound.domain.enterprise.dto.AdminPendingEnterpriseDTO;
+import com.wooribound.global.exception.NoEnterpriseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,19 +39,23 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
 
     @Override
     public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
-        Enterprise enterprise = enterpriseRepository.findByEntId(entId);
+        try {
+            Enterprise enterprise = enterpriseRepository.findByEntId(entId);
 
-        return AdminEnterpriseDetailDTO.builder()
-                .entId(enterprise.getEntId())
-                .ceoName(enterprise.getCeoName())
-                .entName(enterprise.getEntName())
-                .regNum(enterprise.getRegNum())
-                .entAddr1(enterprise.getEntAddr1())
-                .entAddr2(enterprise.getEntAddr2())
-                .entSize(enterprise.getEntSize())
-                .entField(enterprise.getEntField())
-                .revenue(enterprise.getRevenue())
-                .build();
+            return AdminEnterpriseDetailDTO.builder()
+                    .entId(enterprise.getEntId())
+                    .ceoName(enterprise.getCeoName())
+                    .entName(enterprise.getEntName())
+                    .regNum(enterprise.getRegNum())
+                    .entAddr1(enterprise.getEntAddr1())
+                    .entAddr2(enterprise.getEntAddr2())
+                    .entSize(enterprise.getEntSize())
+                    .entField(enterprise.getEntField())
+                    .revenue(enterprise.getRevenue())
+                    .build();
+        } catch (Exception e) {
+            throw new NoEnterpriseException("해당 기업 ID를 찾을 수 없습니다: " + entId, e);
+        }
     }
 
     @Override
