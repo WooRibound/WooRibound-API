@@ -24,9 +24,6 @@ public class WbUserDTO {
     private int jobPoint;
     private YN jobInterest;
     private YN dataSharingConsent;
-//    private Date createdAt;
-//    private Date updatedAt;
-    private YN isDeleted;
     private List<String> workHistoryJobs;
     private List<String> interestJobs;
 }

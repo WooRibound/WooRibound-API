@@ -60,8 +60,7 @@ public class WbUserServiceImpl implements WbUserService {
                     .addrProvince(user.getAddrProvince())
                     .jobPoint(user.getJobPoint())
                     .dataSharingConsent(user.getDataSharingConsent())
-                    .jobInterest(user.getJobInterest())
-                    .isDeleted(user.getIsDeleted())
+                    .jobInterest(user.getJobInterest()) 
                     .workHistoryJobs(workHistoryNames)
                     .interestJobs(interestJobNames)
                     .build();
@@ -90,7 +89,6 @@ public class WbUserServiceImpl implements WbUserService {
                         .addrProvince(wbUser.getAddrProvince())
                         .jobPoint(wbUser.getJobPoint())
                         .jobInterest(wbUser.getJobInterest())
-                        .isDeleted(wbUser.getIsDeleted())
                         .workHistoryJobs(wbUser.getWorkHistories().stream()
                                 .map(workHistory -> workHistory.getJob().getJobName()) // WorkHistory -> Job -> JobName
                                 .toList())
@@ -256,13 +254,12 @@ public class WbUserServiceImpl implements WbUserService {
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .gender(user.getGender())
-                .exjobChk(user.getExjobChk())
-                .interestChk(user.getInterestChk())
+                .exjobChk(user.getExjobChk()) // 경력 여부
+                .interestChk(user.getInterestChk()) // 관심 직종 여부
                 .addrCity(user.getAddrCity())
                 .addrProvince(user.getAddrProvince())
                 .jobPoint(user.getJobPoint())
-                .jobInterest(user.getJobInterest())
-                .isDeleted(user.getIsDeleted())
+                .jobInterest(user.getJobInterest()) //
                 .build();
     }
 
