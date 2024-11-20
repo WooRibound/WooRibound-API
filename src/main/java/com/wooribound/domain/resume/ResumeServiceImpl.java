@@ -148,7 +148,6 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public ResumeDetailDTO getWbUserResume(String userId) {
-        try {
             WbUser byIdWbUser = wbUserRepository.findById(userId)
                     .orElseThrow(() -> new NoWbUserException("해당 사용자 ID를 찾을 수 없습니다: " + userId));
 
@@ -170,9 +169,6 @@ public class ResumeServiceImpl implements ResumeService {
                     .resumeEmail(resume.getResumeEmail())
                     .jobList(jobs)
                     .build();
-        } catch (NoWbUserException e) {
-            throw e;
-        }
     }
 
     private String createFileName(String fileName){

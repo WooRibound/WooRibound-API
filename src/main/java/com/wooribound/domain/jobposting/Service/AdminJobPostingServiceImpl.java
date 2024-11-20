@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -37,30 +38,28 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
 
     @Override
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
-        try {
-            JobPosting jobPosting = jobPostingRepository.findJobPostingByPostId(postId);
+        Optional<JobPosting> optionalJobPosting = jobPostingRepository.findJobPostingByPostId(postId);
 
-            if (jobPosting == null) {
-                throw new NoJobPostingException("해당 공고 ID를 찾을 수 없습니다: " + postId);
-            }
-
-            return JobPostingDetailDTO.builder()
-                    .postTitle(jobPosting.getPostTitle())
-                    .entName(jobPosting.getEnterprise().getEntName())
-                    .postImg(jobPosting.getPostImg())
-                    .startDate(jobPosting.getStartDate())
-                    .endDate(jobPosting.getEndDate())
-                    .jobName(jobPosting.getJob().getJobName())
-                    .entAddr1(jobPosting.getEnterprise().getEntAddr1())
-                    .build();
-        } catch (Exception e) {
-            throw new NoJobPostingException("채용공고 정보를 가져오는 도중 에러가 발생했습니다: " + postId, e);
+        if (optionalJobPosting.isEmpty()) {
+            throw new NoJobPostingException("해당 공고 ID를 찾을 수 없습니다: " + postId);
         }
+
+        JobPosting jobPosting = optionalJobPosting.get();
+
+        return JobPostingDetailDTO.builder()
+                .postTitle(jobPosting.getPostTitle())
+                .entName(jobPosting.getEnterprise().getEntName())
+                .postImg(jobPosting.getPostImg())
+                .startDate(jobPosting.getStartDate())
+                .endDate(jobPosting.getEndDate())
+                .jobName(jobPosting.getJob().getJobName())
+                .entAddr1(jobPosting.getEnterprise().getEntAddr1())
+                .build();
     }
 
     @Override
     public String deleteJobPosting(Long postId) {
-        JobPosting jobPosting = jobPostingRepository.findJobPostingByPostId(postId);
+        Optional <JobPosting> optionalJobPosting = jobPostingRepository.findJobPostingByPostId(postId);
 
         if (jobPostingRepository.updateIsDeletedByPostId(postId) != 0) {
             try {
@@ -69,6 +68,8 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                 if (userApplies.isEmpty()) {
                     throw new NoUserApplyException(postId);  // 지원자가 없을 경우 예외 던짐
                 }
+
+                JobPosting jobPosting = optionalJobPosting.get();
 
                 for (UserApply userApply : userApplies) {
                     Notification notification = Notification.builder()

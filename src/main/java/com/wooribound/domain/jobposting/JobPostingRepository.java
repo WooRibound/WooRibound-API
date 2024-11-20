@@ -70,7 +70,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
                                                   @Param("interestJobs") List<String> interestJobs);
 
     // 2. 공고 상세 조회
-    JobPosting findJobPostingByPostId(@Param("postId") Long postId);
+    Optional<JobPosting> findJobPostingByPostId(@Param("postId") Long postId);
 
     // 3. 내 기업 공고 목록 조회
     // JOBPOSTING + COUNT(쿼리연산) 반환해야해서 프로젝션 인터페이스로 리턴값 설정 JobPostingDetailProjection
