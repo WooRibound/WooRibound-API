@@ -36,7 +36,7 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
         Optional<Knowhow> knowhowOptional = knowhowRepository.findById(knowhowId);
 
         if (knowhowOptional.isEmpty()) {
-            throw new KnowhowNotFoundException(String.format("%d는 없는 게시물 입니다.: ", knowhowId));
+            throw new KnowhowNotFoundException(String.format("%d는 없는 게시물 입니다.", knowhowId));
         }
 
         Knowhow knowhow = knowhowOptional.get();

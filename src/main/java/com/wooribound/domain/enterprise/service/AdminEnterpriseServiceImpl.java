@@ -6,11 +6,13 @@ import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.AdminEnterpriseDetailDTO;
 import com.wooribound.domain.enterprise.dto.AdminPendingEnterpriseDTO;
+import com.wooribound.global.exception.NoEnterpriseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -38,19 +40,25 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
 
     @Override
     public AdminEnterpriseDetailDTO getEnterpriseInfo(String entId) {
-        Enterprise enterprise = enterpriseRepository.findByEntId(entId);
+            Optional<Enterprise> optionalEnterprise = enterpriseRepository.findByEntId(entId);
 
-        return AdminEnterpriseDetailDTO.builder()
-                .entId(enterprise.getEntId())
-                .ceoName(enterprise.getCeoName())
-                .entName(enterprise.getEntName())
-                .regNum(enterprise.getRegNum())
-                .entAddr1(enterprise.getEntAddr1())
-                .entAddr2(enterprise.getEntAddr2())
-                .entSize(enterprise.getEntSize())
-                .entField(enterprise.getEntField())
-                .revenue(enterprise.getRevenue())
-                .build();
+        if (optionalEnterprise.isEmpty()) {
+            throw new NoEnterpriseException("해당 기업 ID를 찾을 수 없습니다: " + entId);
+        }
+
+        Enterprise enterprise = optionalEnterprise.get();
+
+            return AdminEnterpriseDetailDTO.builder()
+                    .entId(enterprise.getEntId())
+                    .ceoName(enterprise.getCeoName())
+                    .entName(enterprise.getEntName())
+                    .regNum(enterprise.getRegNum())
+                    .entAddr1(enterprise.getEntAddr1())
+                    .entAddr2(enterprise.getEntAddr2())
+                    .entSize(enterprise.getEntSize())
+                    .entField(enterprise.getEntField())
+                    .revenue(enterprise.getRevenue())
+                    .build();
     }
 
     @Override
