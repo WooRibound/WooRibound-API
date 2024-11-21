@@ -36,7 +36,6 @@ public class EnterpriseAuthFacade {
         .revenue(enterpiseJoinDTO.getRevenue())
         .entAddr1(enterpiseJoinDTO.getEntAddr1())
         .entAddr2(enterpiseJoinDTO.getEntAddr2())
-        .createdAt(new Date())
         .build();
   }
 

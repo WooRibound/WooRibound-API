@@ -4,14 +4,10 @@ import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.global.constant.EntSize;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.global.constant.YNP;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.*;
 
@@ -58,13 +54,13 @@ public class Enterprise {
   private String entAddr2;
 
   @Column(name = "created_at", nullable = false)
-  private Date createdAt;
+  private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
-  private Date updatedAt;
+  private LocalDateTime updatedAt;
 
   @Column(name = "delete_requested_at")
-  private Date deleteRequestedAt;
+  private LocalDateTime deleteRequestedAt;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
@@ -75,5 +71,18 @@ public class Enterprise {
 
   @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
   private List<JobPosting> jobPostings;
+
+  @PrePersist
+  public void prePersist() {
+    createdAt = LocalDateTime.now();
+    updatedAt = LocalDateTime.now();
+    deleteRequestedAt = LocalDateTime.now();
+  }
+
+  // @PreUpdate는 엔티티가 업데이트될 때 호출됩니다.
+  @PreUpdate
+  public void preUpdate() {
+    updatedAt = LocalDateTime.now();
+  }
 }
 

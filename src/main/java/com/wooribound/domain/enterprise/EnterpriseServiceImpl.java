@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
@@ -37,7 +36,6 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             .regNum(enterpriseDTO.getRegNum())
             .entField(enterpriseDTO.getEntField())
             .ceoName(enterpriseDTO.getCeoName())
-            .createdAt(enterpriseDTO.getCreatedAt())
             .isDeleted(YNP.N)
             .build();
         enterpriseRepository.save(ent);
@@ -72,7 +70,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
       // 2. 기업회원 정보 수정
       @Override
       public String updateEnterpriseInfo(EnterpriseInfoReqDTO enterpriseInfoReqDTO) {
-          logger.info("기업회원 정보 수정 START, entId: {}", enterpriseInfoReqDTO.getEntName());
+//          logger.info("기업회원 정보 수정 START, entId: {}", enterpriseInfoReqDTO.getEntName());
           String entId = enterpriseInfoReqDTO.getEntId();
 
           Enterprise enterprise = enterpriseRepository.findById(entId)
@@ -97,7 +95,6 @@ public class EnterpriseServiceImpl implements EnterpriseService {
               enterprise.setEntAddr2(enterpriseInfoReqDTO.getEntAddr2());
           }
 
-          enterprise.setUpdatedAt(new Date());
           enterpriseRepository.save(enterprise);
 
           return entId + " 기업회원 정보 수정 완료 : " +
