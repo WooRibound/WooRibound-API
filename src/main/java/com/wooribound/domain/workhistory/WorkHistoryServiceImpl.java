@@ -12,10 +12,10 @@ public class WorkHistoryServiceImpl implements WorkHistoryService {
   private final WorkHistoryRepository workHistoryRepository;
 
   @Override
-  public void saveByJobName(String userId, List<String> jobNames) {
+  public void saveByJobName(String userId, List<Long> jobNames) {
     try {
       jobNames.stream()
-          .forEach(jobName -> workHistoryRepository.saveByJobName(userId, jobName));
+          .forEach(jobId -> workHistoryRepository.saveByJobName(userId, jobId));
     } catch (Exception e) {
       throw new NoJobException();
     }
