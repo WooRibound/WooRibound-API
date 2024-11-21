@@ -11,20 +11,12 @@ import java.util.Optional;
 
 @Repository
 public interface EnterpriseRepository extends JpaRepository<Enterprise, String> {
-    // 기업회원 가입 반려
-    @Modifying
-    int deleteByEntId(String entId);
-
-    // 기업회원 탈퇴 승인
-    @Modifying
-    @Query("UPDATE Enterprise e SET e.isDeleted = 'Y', e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
-    int updateIsDeleted(@Param("entId") String entId);
-
+    // 기업 회원 목록 조회
     @Query("SELECT e FROM Enterprise e " +
             "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
             "AND (:entField IS NULL OR e.entField = :entField) " +
             "AND (:addrCity IS NULL OR e.entAddr1 = :addrCity) " +
-            "AND e.isDeleted = 'N' " +
+            "AND e.isDeleted IN ('N', 'P') " +
             "AND e.updatedAt IS NOT NULL")
     List<Enterprise> findEnterprises(@Param("entName") String entName,
                                      @Param("entField") String entField,
@@ -44,11 +36,20 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
     @Query("UPDATE Enterprise e SET e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
     int updateUpdatedAt(@Param("entId") String entId);
 
+    // 기업회원 가입 반려
+    @Modifying
+    int deleteByEntId(String entId);
+
     // 탈퇴 승인 대기 중인 기업회원 목록 조회
     @Query("SELECT e FROM Enterprise e " +
             "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
             "AND e.isDeleted = 'P'")
     List<Enterprise> findPendingDeletion(String entName);
+
+    // 기업회원 탈퇴 승인
+    @Modifying
+    @Query("UPDATE Enterprise e SET e.isDeleted = 'Y', e.updatedAt = CURRENT_TIMESTAMP WHERE e.entId = :entId")
+    int updateIsDeleted(@Param("entId") String entId);
 
     // 기업회원 탈퇴 반려
     @Modifying
