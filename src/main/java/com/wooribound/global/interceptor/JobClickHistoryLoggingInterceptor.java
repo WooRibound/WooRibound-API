@@ -2,7 +2,6 @@ package com.wooribound.global.interceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.interceptor.dto.JobPostingLogDTO;
 import com.wooribound.global.interceptor.dto.WbUserLogDTO;
@@ -31,7 +30,6 @@ public class JobClickHistoryLoggingInterceptor implements HandlerInterceptor {
 
     private final AuthenticateUtil authenticateUtil;
     private final WbUserRepository wbUserRepository;
-    private final JobPostingRepository jobPostingRepository;
     private final JobPostingLogService jobPostingLogService;
 
     @Override
