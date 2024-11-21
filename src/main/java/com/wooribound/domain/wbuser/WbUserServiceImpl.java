@@ -9,28 +9,22 @@ import com.wooribound.domain.job.Job;
 import com.wooribound.domain.job.JobRepository;
 import com.wooribound.domain.workhistory.WorkHistory;
 import com.wooribound.domain.workhistory.WorkHistoryRepository;
-import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.JoinWbUserException;
 import com.wooribound.global.exception.NoWbUserException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class WbUserServiceImpl implements WbUserService {
-
-    private static final Logger logger = LoggerFactory.getLogger(WbUserServiceImpl.class);
 
     private final WbUserRepository wbUserRepository;
     private final WorkHistoryRepository workHistoryRepository;
@@ -65,16 +59,15 @@ public class WbUserServiceImpl implements WbUserService {
                     .addrCity(user.getAddrCity())
                     .addrProvince(user.getAddrProvince())
                     .jobPoint(user.getJobPoint())
+                    .dataSharingConsent(user.getDataSharingConsent())
                     .jobInterest(user.getJobInterest())
-                    .createdAt(user.getCreatedAt())
-                    .updatedAt(user.getUpdatedAt())
                     .isDeleted(user.getIsDeleted())
                     .workHistoryJobs(workHistoryNames)
                     .interestJobs(interestJobNames)
                     .build();
 
         } catch (NoWbUserException e) {
-            logger.error("사용자 조회 실패: userId - {}", userId);
+            log.error("사용자 조회 실패: userId - {}", userId);
             throw e;
         }
     }
@@ -97,8 +90,6 @@ public class WbUserServiceImpl implements WbUserService {
                         .addrProvince(wbUser.getAddrProvince())
                         .jobPoint(wbUser.getJobPoint())
                         .jobInterest(wbUser.getJobInterest())
-                        .createdAt(wbUser.getCreatedAt())
-                        .updatedAt(wbUser.getUpdatedAt())
                         .isDeleted(wbUser.getIsDeleted())
                         .workHistoryJobs(wbUser.getWorkHistories().stream()
                                 .map(workHistory -> workHistory.getJob().getJobName()) // WorkHistory -> Job -> JobName
@@ -177,7 +168,7 @@ public class WbUserServiceImpl implements WbUserService {
                     .map(jobName -> {
                         Job job = jobRepository.findByJobName(jobName);
                         if (job == null) {
-                            logger.warn("존재하지 않는 관심 직종: {}", jobName);
+                            log.warn("존재하지 않는 관심 직종: {}", jobName);
                             return null;
                         }
                         return InterestJob.builder()
@@ -193,7 +184,7 @@ public class WbUserServiceImpl implements WbUserService {
 
     private void updateWorkHistories(WbUserDTO user, List<String> workHistoryJobs) {
         // 경력 여부 확인
-        logger.info("ExjobChk 상태: {}", user.getExjobChk());
+        log.info("ExjobChk 상태: {}", user.getExjobChk());
         if (user.getExjobChk() == YN.N) {
             // 경력이 없음으로 설정된 경우 WorkHistory 테이블에서 모든 관련 데이터 삭제
             workHistoryRepository.deleteByUserId(user.getUserId()); // 명시적으로 삭제
@@ -209,7 +200,7 @@ public class WbUserServiceImpl implements WbUserService {
                     .map(jobName -> {
                         Job job = jobRepository.findByJobName(jobName);
                         if (job == null) {
-                            logger.warn("존재하지 않는 경력 직종: {}", jobName);
+                            log.warn("존재하지 않는 경력 직종: {}", jobName);
                             return null;
                         }
                         return WorkHistory.builder()
@@ -243,7 +234,6 @@ public class WbUserServiceImpl implements WbUserService {
             user.setJobInterest(wbUserJoinDTO.getJobInterest());
             user.setAddrCity(wbUserJoinDTO.getAddrCity());
             user.setAddrProvince(wbUserJoinDTO.getAddrProvince());
-            user.setUpdatedAt(new Date());
             user.setDataSharingConsent(wbUserJoinDTO.getDataSharingConsent());
             user.setInterestChk(wbUserJoinDTO.getInterestChk());
             wbUserRepository.save(user);
@@ -272,8 +262,6 @@ public class WbUserServiceImpl implements WbUserService {
                 .addrProvince(user.getAddrProvince())
                 .jobPoint(user.getJobPoint())
                 .jobInterest(user.getJobInterest())
-                .createdAt(user.getCreatedAt())
-                .updatedAt(user.getUpdatedAt())
                 .isDeleted(user.getIsDeleted())
                 .build();
     }

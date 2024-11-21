@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EnterpriseRepository extends JpaRepository<Enterprise, String> {
@@ -30,7 +31,7 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
                                      @Param("addrCity") String addrCity);
 
     // 기업회원 상세 정보 조회
-    Enterprise findByEntId(String entId);
+    Optional<Enterprise> findByEntId(String entId);
 
     // 가입 승인 대기 중인 기업회원 목록 조회
     @Query("SELECT e FROM Enterprise e " +

@@ -1,6 +1,5 @@
 package com.wooribound.domain.jobposting.Service;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.domain.enterprise.Enterprise;
@@ -19,18 +18,20 @@ import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.global.constant.YN;
-import com.wooribound.global.util.RedisUtil;
 import com.wooribound.global.util.S3Util;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class EntJobPostingServiceImpl implements EntJobPostingService {
@@ -39,7 +40,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
     private final S3Util s3Util;
 
-    private static final Logger logger = LogManager.getLogger(EntJobPostingServiceImpl.class);
     private final JobPostingRepository jobPostingRepository;
     private final JobRepository jobRepository;
     private final EnterpriseRepository enterpriseRepository;
@@ -84,14 +84,14 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     @Override
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         // log4j - 공고 상세 조회 시작 로그
-        logger.info("공고 상세 조회 요청 - ID: {}", postId);
+        log.info("공고 상세 조회 요청 - ID: {}", postId);
 
         Optional<JobPosting> jobPostingOptional = jobPostingRepository.findById(postId);
         if (jobPostingOptional.isPresent()) {
             JobPosting jobPosting = jobPostingOptional.get();
 
             // log4j - 조회된 공고 상세 로그
-            logger.info("공고 상세 조회 결과 - ID: {}, Title: {}, entName: {}, postImg: {}, startDate: {}, endDate: {}, jobName: {}, entAddr1: {}, entAddr2: {}",
+            log.info("공고 상세 조회 결과 - ID: {}, Title: {}, entName: {}, postImg: {}, startDate: {}, endDate: {}, jobName: {}, entAddr1: {}, entAddr2: {}",
                     jobPosting.getPostId(), jobPosting.getPostTitle(), jobPosting.getEnterprise().getEntName(), jobPosting.getPostImg(), jobPosting.getStartDate(), jobPosting.getEndDate(), jobPosting.getJob().getJobName(), jobPosting.getEnterprise().getEntAddr1(), jobPosting.getEnterprise().getEntAddr2());
             return JobPostingDetailDTO.builder()
                     .postTitle(jobPosting.getPostTitle())
@@ -106,7 +106,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .build();
         } else {
             // 공고가 존재하지 않는 경우 예외 로그
-            logger.error("공고가 존재하지 않습니다 - ID: {}", postId);
+            log.error("공고가 존재하지 않습니다 - ID: {}", postId);
             // 공고가 존재하지 않는 경우 예외 처리
             throw new RuntimeException("해당 공고 없음: " + postId);
         }
@@ -115,7 +115,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     // 3. 내 기업 공고 목록 조회
     @Override
     public List<JobPostingDetailDTO> getJobPostingList(String entId) {
-        logger.info(entId + "  - 내 기업 공고 목록 조회 시작");
+        log.info(entId + "  - 내 기업 공고 목록 조회 시작");
         List<JobPostingDetailProjection> jobPostings = jobPostingRepository.getMyJobPostings(entId);
         List<JobPostingDetailDTO> response = jobPostings.stream().map(jp -> JobPostingDetailDTO.builder()
                         .postId(jp.getPostId())
@@ -132,7 +132,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                         .build()
                 )
                 .collect(Collectors.toList());
-        logger.info(response.toString());
+        log.info(response.toString());
         return response;
     }
 
@@ -173,7 +173,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         Long applyId = applicantResultReqDTO.getApplyId();
         ApplyResult applyResult = applicantResultReqDTO.getApplyResult();
 
-        logger.info("지원자 결과 설정 START, applyId: {}, applyResult: {}", applyId, applyResult);
+        log.info("지원자 결과 설정 START, applyId: {}, applyResult: {}", applyId, applyResult);
         if (userApplyRepository.setApplicantResult(applyId, applyResult) == 1) {
 
             UserApply userApply = userApplyRepository.findById((long)applyId)
@@ -191,10 +191,10 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
             Long maxId = notificationRepository.findMaxId();
             Long nextId = maxId + 1;
-            logger.info("nextId: {}", nextId.toString());
+            log.info("nextId: {}", nextId.toString());
 
             // 알림 생성
-            logger.info("알림 생성 시작");
+            log.info("알림 생성 시작");
             Notification notification = Notification.builder()
                     .notiId(nextId)
                     .wbUser(wbUser)
@@ -216,7 +216,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     @Override
     public List<ApplicantsDTO> getApplicantRecommendation(int jobId) {
 
-        logger.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
+        log.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
         List<WbUser> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
 
         return recommendedUsers.stream().map(user -> {

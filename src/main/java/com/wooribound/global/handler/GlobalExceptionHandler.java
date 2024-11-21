@@ -99,6 +99,11 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleNoApproveStatusException(NoApproveStatusException e) {
     return ResponseEntity.status(400).body(e.getMessage());
   }
+
+  @ExceptionHandler(NoEnterpriseException.class)
+  public ResponseEntity<String> handleNoEnterpriseException(NoEnterpriseException e) {
+    return ResponseEntity.status(400).body(e.getMessage());
+  }
 }
 
 
