@@ -42,7 +42,7 @@ public class NotificationServiceImpl implements NotificationService {
         Optional<Notification> byIdNotification = notificationRepository.findById(notiId);
 
         if (!byIdNotification.isPresent()) {
-            throw new NotEntityException();
+            throw new NotEntityException("[Notification, ID :" + notiId + "]");
         }
 
         if (!byIdNotification.get().getWbUser().getUserId().equals(userId)) {
