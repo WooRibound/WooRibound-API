@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -36,58 +37,40 @@ public class ResumeServiceImpl implements ResumeService {
     private final WorkHistoryRepository workHistoryRepository;
 
     @Override
+    @Transactional
     public ResumeDTO getResume(Authentication authentication) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
-        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
-        if (byIdWbUser.isEmpty()) {
-            throw new NotEntityException();
-        }
+        WbUser wbUser = wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
 
-        Optional<Resume> byUserIdResume = resumeRepository.findByUserId(byIdWbUser.get().getUserId());
+        Resume resume = resumeRepository.findByUserId(wbUser.getUserId()).orElse(null);
 
-        ResumeDTO.ResumeDTOBuilder dtoBuilder = ResumeDTO.builder()
-                .userId(byIdWbUser.get().getUserId())
-                .userName(byIdWbUser.get().getName())
-                .userPhone(byIdWbUser.get().getPhone());
-
-        if (byUserIdResume.isPresent()) {
-            Resume resume = byUserIdResume.get();
-            dtoBuilder
-                    .userImg(resume.getUserImg())
-                    .resumeEmail(resume.getResumeEmail())
-                    .userIntro(resume.getUserIntro());
-        } else {
-            // 이력서가 없을 때 빈 값 설정
-            dtoBuilder
-                    .userImg("")
-                    .resumeEmail("")
-                    .userIntro("");
-        }
-
-        return dtoBuilder.build();
+        return ResumeDTO.builder()
+                .userName(wbUser.getName())
+                .userPhone(wbUser.getPhone())
+                .userImg(resume != null ? resume.getUserImg() : "")
+                .resumeEmail(resume != null ? resume.getResumeEmail() : "")
+                .userIntro(resume != null ? resume.getUserIntro() : "")
+                .build();
     }
 
     @Override
-    public ResumeDTO registerResume(Authentication authentication, MultipartFile userImg, String resumeEmail, String userIntro) throws IOException {
+    @Transactional
+    public ResumeDTO registerResume(Authentication authentication, MultipartFile userImg, String resumeEmail, String userIntro) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
-        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
-        if (byIdWbUser.isEmpty()) {
-            throw new NotEntityException();
-        }
+        WbUser wbUser = wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
 
-        long resumeId = 1L;
-        Optional<Long> maxResumeId = resumeRepository.getMaxResumeId();
-        if (maxResumeId.isPresent()) {
-            resumeId = maxResumeId.get() + 1;
-        }
+        long resumeId = resumeRepository.getMaxResumeId().orElse(0L) + 1;
 
         String fileURL = s3Util.uploadFile(userImg, wbUserFolderName);
 
+        try {
         Resume resume = Resume.builder()
                 .resumeId(resumeId)
-                .wbUser(byIdWbUser.get())
+                .wbUser(wbUser)
                 .userImg(fileURL)
                 .resumeEmail(resumeEmail)
                 .userIntro(userIntro)
@@ -97,34 +80,34 @@ public class ResumeServiceImpl implements ResumeService {
 
 
         return ResumeDTO.builder()
-                .userId(savedResume.getWbUser().getUserId())
                 .userName(savedResume.getWbUser().getName())
                 .userPhone(savedResume.getWbUser().getPhone())
                 .userImg(savedResume.getUserImg())
                 .resumeEmail(savedResume.getResumeEmail())
                 .userIntro(savedResume.getUserIntro())
                 .build();
+
+        } catch (Exception e) {
+            // 트랜잭션 실패 시 업로드된 이미지 삭제
+            s3Util.deleteFile(fileURL, wbUserFolderName);
+            throw e;
+        }
     }
 
     @Override
+    @Transactional
     public ResumeDTO updateResume(Authentication authentication, MultipartFile userImg, String resumeEmail, String userIntro) throws IOException {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
 
-        Optional<WbUser> byIdWbUser = wbUserRepository.findById(userId);
-        if (byIdWbUser.isEmpty()) {
-            throw new NotEntityException();
-        }
+        WbUser wbUser = wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
 
-        Optional<Resume> byIdResume = resumeRepository.findByUserId(byIdWbUser.get().getUserId());
-        if (byIdResume.isEmpty()) {
-            throw new NotEntityException();
-        }
-
-        Resume resume = byIdResume.get();
+        Resume resume = resumeRepository.findByUserId(wbUser.getUserId())
+                .orElseThrow(() -> new NotEntityException("[Resume]"));
 
         if (userImg != null) {
             // s3에서 파일 삭제
-            s3Util.deleteFile(byIdResume.get().getUserImg(), wbUserFolderName);
+            s3Util.deleteFile(resume.getUserImg(), wbUserFolderName);
 
             // s3에 새로운 파일 업로드
             String fileURL = s3Util.uploadFile(userImg, wbUserFolderName);
@@ -134,10 +117,10 @@ public class ResumeServiceImpl implements ResumeService {
 
         resume.setResumeEmail(resumeEmail);
         resume.setUserIntro(userIntro);
+
         Resume savedResume = resumeRepository.save(resume);
 
         return ResumeDTO.builder()
-                .userId(savedResume.getWbUser().getUserId())
                 .userName(savedResume.getWbUser().getName())
                 .userPhone(savedResume.getWbUser().getPhone())
                 .userImg(savedResume.getUserImg())
@@ -147,6 +130,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    @Transactional
     public ResumeDetailDTO getWbUserResume(String userId) {
             WbUser byIdWbUser = wbUserRepository.findById(userId)
                     .orElseThrow(() -> new NoWbUserException("해당 사용자 ID를 찾을 수 없습니다: " + userId));
@@ -171,7 +155,4 @@ public class ResumeServiceImpl implements ResumeService {
                     .build();
     }
 
-    private String createFileName(String fileName){
-        return UUID.randomUUID().toString().concat(fileName);
-    }
 }

@@ -7,7 +7,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 public class ResumeDTO {
-    private String userId;
     private String userName;
     private String userPhone;
     private String userImg;
