@@ -15,10 +15,10 @@ public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Long> 
   @Query(value = """
        INSERT INTO work_history (job_id, user_id) 
        VALUES (
-           (SELECT job_id FROM job WHERE job_name = :jobName), 
+           (SELECT job_id FROM job WHERE job_id = :jobId), 
            :userId
        )""", nativeQuery = true)
-  void saveByJobName(@Param("userId") String userId, @Param("jobName") String jobName);
+  void saveByJobName(@Param("userId") String userId, @Param("jobId") Long jobId);
 
   @Query("SELECT wh FROM WorkHistory wh WHERE wh.wbUser.userId = :userId")
   List<WorkHistory> findByUserId(@Param("userId") String userId);

@@ -13,13 +13,13 @@ public class InterestJobServiceImpl implements InterestJobService {
 
   private final InterestJobRepository interestJobRepository;
   @Override
-  public void saveByJobNameList(List<String> interestJobs, String userId) {
+  public void saveByJobNameList(List<Long> interestJobs, String userId) {
     // 또는 방법 2: forEach 내부에서 로깅
     try {
       interestJobs.stream()
-          .forEach(jobName -> {
-            log.info("처리중인 직종명: {}", jobName);
-            interestJobRepository.saveInterestJob(userId, jobName);
+          .forEach(jobId -> {
+            log.info("처리중인 직종명: {}", jobId);
+            interestJobRepository.saveInterestJob(userId, jobId);
           });
     } catch (Exception e) {
       log.error("직종 저장 중 오류 발생", e);

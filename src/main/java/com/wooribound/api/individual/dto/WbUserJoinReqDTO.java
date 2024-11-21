@@ -16,7 +16,7 @@ public class WbUserJoinReqDTO {
   private Date birth;
   private String city;
   private String province;
-  private List<String> selectedInterestJobs;
-  private List<String> selectedJobs;
+  private List<Long> selectedInterestJobs;
+  private List<Long> selectedJobs;
   private YN dataSharingConsent;
 }

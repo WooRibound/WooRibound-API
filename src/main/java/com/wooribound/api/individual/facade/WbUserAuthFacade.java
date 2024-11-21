@@ -52,8 +52,8 @@ public class WbUserAuthFacade {
     String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
     YN isSelectInterested;
     YN isExJobSelected;
-    List<String> selectedInterestJobs = wbUserJoinReqDTO.getSelectedInterestJobs();
-    List<String> selectedJobs = wbUserJoinReqDTO.getSelectedJobs();
+    List<Long> selectedInterestJobs = wbUserJoinReqDTO.getSelectedInterestJobs();
+    List<Long> selectedJobs = wbUserJoinReqDTO.getSelectedJobs();
     if (selectedInterestJobs == null ||selectedInterestJobs.isEmpty()){
       isSelectInterested = YN.N;
       System.out.println("관심직종이 비어있습니다.");
