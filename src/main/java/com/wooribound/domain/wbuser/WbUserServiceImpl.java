@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,15 +35,13 @@ public class WbUserServiceImpl implements WbUserService {
     public WbUserDTO getUserInfo(String userId) {
         try {
             WbUser user = wbUserRepository.findByUserId(userId).orElseThrow(NoWbUserException::new);
-            List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
 
-            List<String> workHistoryNames = user.getWorkHistories().stream()
-                    .map(workHistory -> workHistory.getJob().getJobName())
+            List<Long> workHistoryIds = user.getWorkHistories().stream()
+                    .map(workHistory -> workHistory.getJob().getJobId())
                     .collect(Collectors.toList());
 
-            // 관심 직종 이름 리스트 생성
-            List<String> interestJobNames = user.getInterestJobs().stream()
-                    .map(interestJob -> interestJob.getJob().getJobName())
+            List<Long> interestJobIds = user.getInterestJobs().stream()
+                    .map(interestJob -> interestJob.getJob().getJobId())
                     .collect(Collectors.toList());
 
             return WbUserDTO.builder()
@@ -61,9 +58,8 @@ public class WbUserServiceImpl implements WbUserService {
                     .jobPoint(user.getJobPoint())
                     .dataSharingConsent(user.getDataSharingConsent())
                     .jobInterest(user.getJobInterest())
-                    .isDeleted(user.getIsDeleted())
-                    .workHistoryJobs(workHistoryNames)
-                    .interestJobs(interestJobNames)
+                    .workHistoryJobs(workHistoryIds)
+                    .interestJobs(interestJobIds)
                     .build();
 
         } catch (NoWbUserException e) {
@@ -76,103 +72,86 @@ public class WbUserServiceImpl implements WbUserService {
     @Override
     public WbUserUpdateDTO updateUserInfo(WbUserUpdateDTO wbUserUpdateDTO) {
 
-        WbUserDTO user = wbUserRepository.findByUserId(wbUserUpdateDTO.getUserId())
-                .map(wbUser -> WbUserDTO.builder()
-                        .userId(wbUser.getUserId())
-                        .name(wbUser.getName())
-                        .birth(wbUser.getBirth())
-                        .email(wbUser.getEmail())
-                        .phone(wbUser.getPhone())
-                        .gender(wbUser.getGender())
-                        .exjobChk(wbUser.getExjobChk())
-                        .interestChk(wbUser.getInterestChk())
-                        .addrCity(wbUser.getAddrCity())
-                        .addrProvince(wbUser.getAddrProvince())
-                        .jobPoint(wbUser.getJobPoint())
-                        .jobInterest(wbUser.getJobInterest())
-                        .isDeleted(wbUser.getIsDeleted())
-                        .workHistoryJobs(wbUser.getWorkHistories().stream()
-                                .map(workHistory -> workHistory.getJob().getJobName()) // WorkHistory -> Job -> JobName
-                                .toList())
-                        .interestJobs(wbUser.getInterestJobs().stream()
-                                .map(interestJob -> interestJob.getJob().getJobName()) // InterestJob -> Job -> JobName
-                                .toList())
-                        .build())
-                .orElseThrow(() -> new NoWbUserException("사용자를 찾을 수 없습니다. ID: " + wbUserUpdateDTO.getUserId()));
+        Optional<WbUser> byUserId = wbUserRepository.findByUserId(wbUserUpdateDTO.getUserId());
 
-        user.setExjobChk(wbUserUpdateDTO.getExjobChk());
+        if (byUserId.isEmpty()) {
+            throw new NoWbUserException("사용자를 찾을 수 없습니다. ID: " + wbUserUpdateDTO.getUserId());
+        }
+
+        WbUser wbUser = byUserId.get();
+
+        // 경력 직종 업데이트
+        if (wbUserUpdateDTO.getExjobChk() != null) {
+            wbUser.setExjobChk(wbUserUpdateDTO.getExjobChk());
+            updateWorkHistories(wbUserUpdateDTO, wbUserUpdateDTO.getWorkHistoryJobs());
+        }
 
         // 관심 직종 업데이트
         if (wbUserUpdateDTO.getInterestJobs() != null) {
-            updateInterestJobs(user, wbUserUpdateDTO.getInterestJobs());
+            updateInterestJobs(wbUserUpdateDTO, wbUserUpdateDTO.getInterestJobs());
         }
-
-        if (wbUserUpdateDTO.getExjobChk() != null) {
-            user.setExjobChk(wbUserUpdateDTO.getExjobChk());
-            // 경력 직종 업데이트
-            updateWorkHistories(user, wbUserUpdateDTO.getWorkHistoryJobs());
-        }
-
-        // 최신 데이터 조회
-        WbUser updatedUser = wbUserRepository.findByUserId(user.getUserId())
-                .orElseThrow(() -> new NoWbUserException("업데이트 후 사용자 조회 실패: ID: " + user.getUserId()));
 
         // 사용자 정보 업데이트
         if (wbUserUpdateDTO.getName() != null) {
-            updatedUser.setName(wbUserUpdateDTO.getName());
+            wbUser.setName(wbUserUpdateDTO.getName());
         }
         if (wbUserUpdateDTO.getPhone() != null) {
-            updatedUser.setPhone(wbUserUpdateDTO.getPhone());
+            wbUser.setPhone(wbUserUpdateDTO.getPhone());
         }
         if (wbUserUpdateDTO.getGender() != null) {
-            updatedUser.setGender(wbUserUpdateDTO.getGender());
+            wbUser.setGender(wbUserUpdateDTO.getGender());
         }
         if (wbUserUpdateDTO.getAddrCity() != null) {
-            updatedUser.setAddrCity(wbUserUpdateDTO.getAddrCity());
+            wbUser.setAddrCity(wbUserUpdateDTO.getAddrCity());
         }
         if (wbUserUpdateDTO.getAddrProvince() != null) {
-            updatedUser.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
+            wbUser.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
         }
         if (wbUserUpdateDTO.getExjobChk() != null) {
         }
 
         // 최종 저장
-        wbUserRepository.save(updatedUser);
+        WbUser savedUser = wbUserRepository.save(wbUser);
+
+        List<Long> workHistoryIds = savedUser.getWorkHistories().stream()
+                .map(workHistory -> workHistory.getJob().getJobId())
+                .collect(Collectors.toList());
+
+        List<Long> interestJobIds = savedUser.getInterestJobs().stream()
+                .map(interestJob -> interestJob.getJob().getJobId())
+                .collect(Collectors.toList());
 
         return WbUserUpdateDTO.builder()
-                .userId(updatedUser.getUserId())
-                .name(updatedUser.getName())
-                .birth(updatedUser.getBirth())
-                .phone(updatedUser.getPhone())
-                .gender(updatedUser.getGender())
-                .exjobChk(updatedUser.getExjobChk())
-                .addrCity(updatedUser.getAddrCity())
-                .addrProvince(updatedUser.getAddrProvince())
-                .jobInterest(updatedUser.getJobInterest())
-                .workHistoryJobs(updatedUser.getWorkHistories().stream()
-                        .map(workHistory -> workHistory.getJob().getJobName())
-                        .collect(Collectors.toList()))
-                .interestJobs(updatedUser.getInterestJobs().stream()
-                        .map(interestJob -> interestJob.getJob().getJobName())
-                        .collect(Collectors.toList()))
+                .userId(savedUser.getUserId())
+                .name(savedUser.getName())
+                .birth(savedUser.getBirth())
+                .phone(savedUser.getPhone())
+                .gender(savedUser.getGender())
+                .exjobChk(savedUser.getExjobChk())
+                .addrCity(savedUser.getAddrCity())
+                .addrProvince(savedUser.getAddrProvince())
+                .jobInterest(savedUser.getJobInterest())
+                .dataSharingConsent(savedUser.getDataSharingConsent())
+                .workHistoryJobs(workHistoryIds)
+                .interestJobs(interestJobIds)
                 .build();
     }
 
-    private void updateInterestJobs(WbUserDTO user, List<String> interestJobs) {
+    private void updateInterestJobs(WbUserUpdateDTO user, List<Long> interestJobs) {
         // 기존 관심 직종 삭제
         interestJobRepository.deleteByUserId(user.getUserId());
 
         // 새로운 관심 직종 추가
         if (interestJobs != null && !interestJobs.isEmpty()) {
             List<InterestJob> newInterestJobs = interestJobs.stream()
-                    .map(jobName -> {
-                        Job job = jobRepository.findByJobName(jobName);
-                        if (job == null) {
-                            log.warn("존재하지 않는 관심 직종: {}", jobName);
+                    .map(jobId -> {
+                        Optional<Job> job = jobRepository.findById(jobId);
+                        if (job.isEmpty()) {
+                            log.warn("존재하지 않는 관심 직종: {}", jobId);
                             return null;
                         }
                         return InterestJob.builder()
-                                .job(job)
+                                .job(job.get())
                                 .wbUser(wbUserRepository.findByUserId(user.getUserId()).orElseThrow())
                                 .build();
                     })
@@ -182,7 +161,7 @@ public class WbUserServiceImpl implements WbUserService {
         }
     }
 
-    private void updateWorkHistories(WbUserDTO user, List<String> workHistoryJobs) {
+    private void updateWorkHistories(WbUserUpdateDTO user, List<Long> workHistoryJobs) {
         // 경력 여부 확인
         log.info("ExjobChk 상태: {}", user.getExjobChk());
         if (user.getExjobChk() == YN.N) {
@@ -197,19 +176,20 @@ public class WbUserServiceImpl implements WbUserService {
         // 새로운 경력 직종 추가
         if (workHistoryJobs != null && !workHistoryJobs.isEmpty()) {
             List<WorkHistory> newWorkHistories = workHistoryJobs.stream()
-                    .map(jobName -> {
-                        Job job = jobRepository.findByJobName(jobName);
-                        if (job == null) {
-                            log.warn("존재하지 않는 경력 직종: {}", jobName);
+                    .map(jobId -> {
+                        Optional<Job> job = jobRepository.findById(jobId);
+                        if (job.isEmpty()) {
+                            log.warn("존재하지 않는 경력 직종: {}", jobId);
                             return null;
                         }
                         return WorkHistory.builder()
-                                .job(job)
+                                .job(job.get())
                                 .wbUser(wbUserRepository.findByUserId(user.getUserId()).orElseThrow())
                                 .build();
                     })
                     .filter(workHistory -> workHistory != null)
                     .collect(Collectors.toList());
+
             workHistoryRepository.saveAll(newWorkHistories);
         }
     }
@@ -256,13 +236,12 @@ public class WbUserServiceImpl implements WbUserService {
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .gender(user.getGender())
-                .exjobChk(user.getExjobChk())
-                .interestChk(user.getInterestChk())
+                .exjobChk(user.getExjobChk()) // 경력 여부
+                .interestChk(user.getInterestChk()) // 관심 직종 여부
                 .addrCity(user.getAddrCity())
                 .addrProvince(user.getAddrProvince())
                 .jobPoint(user.getJobPoint())
-                .jobInterest(user.getJobInterest())
-                .isDeleted(user.getIsDeleted())
+                .jobInterest(user.getJobInterest()) //
                 .build();
     }
 
