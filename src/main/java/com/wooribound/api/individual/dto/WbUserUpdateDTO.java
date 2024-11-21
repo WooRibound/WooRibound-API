@@ -21,6 +21,7 @@ public class WbUserUpdateDTO {
     private YN jobInterest;
     private String addrCity;
     private String addrProvince;
-    private List<String> workHistoryJobs;
-    private List<String> interestJobs;
+    private YN dataSharingConsent;
+    private List<Long> workHistoryJobs;
+    private List<Long> interestJobs;
 }
