@@ -15,7 +15,7 @@ public interface EnterpriseRepository extends JpaRepository<Enterprise, String> 
     @Query("SELECT e FROM Enterprise e " +
             "WHERE (:entName IS NULL OR e.entName LIKE CONCAT('%', :entName, '%')) " +
             "AND (:entField IS NULL OR e.entField = :entField) " +
-            "AND (:addrCity IS NULL OR e.entAddr1 = :addrCity) " +
+            "AND (:addrCity IS NULL OR e.entAddr1 LIKE CONCAT('%', :addrCity, '%')) " +
             "AND e.isDeleted IN ('N', 'P') " +
             "AND e.updatedAt IS NOT NULL")
     List<Enterprise> findEnterprises(@Param("entName") String entName,
