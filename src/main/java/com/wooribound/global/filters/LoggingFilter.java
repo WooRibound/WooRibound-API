@@ -1,23 +1,21 @@
 package com.wooribound.global.filters;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
 
-@Component
 @Slf4j
 public class LoggingFilter extends OncePerRequestFilter {
 
@@ -59,6 +57,7 @@ public class LoggingFilter extends OncePerRequestFilter {
                 request.getRequestURI(),
                 queryString
         );
+
 
         String content = getContent(request.getInputStream());
         if (StringUtils.hasText(content)) {
