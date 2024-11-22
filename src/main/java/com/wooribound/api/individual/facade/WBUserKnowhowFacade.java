@@ -2,6 +2,7 @@ package com.wooribound.api.individual.facade;
 
 import com.wooribound.domain.knowhow.dto.WbUserKnowhowDTO;
 import com.wooribound.domain.knowhow.service.WbUserKnowhowService;
+import com.wooribound.domain.knowhowreported.service.KnowhowReportedService;
 import com.wooribound.global.util.AuthenticateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ public class WBUserKnowhowFacade {
 
     private final AuthenticateUtil authenticateUtil;
     private final WbUserKnowhowService wbUserKnowhowService;
+    private final KnowhowReportedService knowhowReportedService;
 
     @Transactional(readOnly = true)
     public List<WbUserKnowhowDTO> getAllShareKnowhows(Authentication authentication, String knowhowTitle, String knowhowJob) {
@@ -43,6 +45,12 @@ public class WBUserKnowhowFacade {
     @Transactional(readOnly = true)
     public WbUserKnowhowDTO getShareKnowhowDetail(Long knowhowId) {
         return wbUserKnowhowService.getShareKnowhowDetail(knowhowId);
+    }
+
+    @Transactional
+    public String reportKnowhow (Authentication authentication, Long knowhowId) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        return knowhowReportedService.reportKnowhow(userId, knowhowId);
     }
 
 }

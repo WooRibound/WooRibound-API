@@ -166,6 +166,11 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
 
             // log4j - 조회된 공고 상세 로그
             log.info("공고 상세 조회 결과 - ID: {}, Title: {}", jobPosting.getPostId(), jobPosting.getPostTitle());
+
+            // 포스팅 카운트 수 +1 업데이트
+            jobPosting.setPostingCnt(jobPostingRepository.getMaxPostingCnt().orElse(0L) + 1);
+            jobPostingRepository.save(jobPosting);
+
             return JobPostingDetailDTO.builder()
                     .postTitle(jobPosting.getPostTitle())
                     .entName(jobPosting.getEnterprise().getEntName())

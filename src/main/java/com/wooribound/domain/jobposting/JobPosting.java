@@ -39,6 +39,9 @@ public class JobPosting {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
+    @Column(name = "posting_cnt", nullable = false)
+    private Long postingCnt;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
     private YN isDeleted = YN.N;
@@ -49,4 +52,9 @@ public class JobPosting {
 
     @OneToMany(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private List<UserApply> userApply;
+
+    @PrePersist
+    public void prePersist() {
+        postingCnt = 0L;
+    }
 }

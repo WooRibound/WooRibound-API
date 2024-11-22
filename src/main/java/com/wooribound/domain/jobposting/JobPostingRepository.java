@@ -102,4 +102,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
 
     @Query("SELECT MAX(jp.postId) FROM JobPosting jp")
     Optional<Long> getMaxJobPostingId();
+
+    @Query("SELECT MAX(jp.postingCnt) FROM JobPosting jp")
+    Optional<Long> getMaxPostingCnt();
 }

@@ -5,6 +5,7 @@ import com.wooribound.domain.wbuser.WbUser;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,8 +21,8 @@ public class KnowhowReported {
     @Column(name = "reported_id")
     private Long reportedId;
 
-    @Column(name = "reported_date", nullable = false)
-    private Date reportedDate;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -30,4 +31,9 @@ public class KnowhowReported {
     @ManyToOne
     @JoinColumn(name = "knowhow_id", nullable = false)
     private Knowhow knowhow;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 }
