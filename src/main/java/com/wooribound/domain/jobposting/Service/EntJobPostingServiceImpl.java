@@ -18,6 +18,8 @@ import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoJobPostingException;
+import com.wooribound.global.exception.NoUserApplyException;
 import com.wooribound.global.util.S3Util;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -240,5 +242,6 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         }).collect(Collectors.toList());
 
     }
+
 
 }

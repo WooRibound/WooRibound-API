@@ -2,11 +2,10 @@ package com.wooribound.api.corporate.facade;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
+import com.wooribound.domain.jobposting.Service.AdminJobPostingService;
 import com.wooribound.domain.jobposting.Service.EntJobPostingService;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
-import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.resume.ResumeService;
-import com.wooribound.domain.resume.dto.ResumeDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;
@@ -22,6 +21,7 @@ import java.util.List;
 public class EnterpriseJobPostingFacade {
     private final ResumeService resumeService;
     private final EntJobPostingService entJobPostingService;
+    private final AdminJobPostingService adminJobPostingService;
     private final AuthenticateUtil authenticateUtil;
 
 
@@ -64,7 +64,14 @@ public class EnterpriseJobPostingFacade {
     }
 
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
+    @Transactional(readOnly = true)
     public List<ApplicantsDTO> getApplicantRecommendation(int jobId) {
         return entJobPostingService.getApplicantRecommendation(jobId);
+    }
+
+    // 7. 공고 삭제
+    @Transactional
+    public String deleteJobPosting(Long postId) {
+        return adminJobPostingService.deleteJobPosting(postId);
     }
 }
