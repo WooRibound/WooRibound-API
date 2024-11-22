@@ -87,7 +87,7 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
     @Override
     public List<WbUserKnowhowDTO> getAllExploreKnowhows(String knowhowTitle, String knowhowJob) {
 
-        List<Knowhow> knowhows = knowhowRepository.findByTermAndFilter(knowhowTitle, knowhowJob);
+        List<Knowhow> knowhows = knowhowRepository.findByKnowhowTitleAndKnowhowJob(knowhowTitle, knowhowJob);
 
         return knowhows.stream()
                 .map(this::convertToDTO)

@@ -1,5 +1,6 @@
 package com.wooribound.api.individual.controller;
 
+import com.wooribound.api.individual.dto.KnowhowReportReqDTO;
 import com.wooribound.api.individual.facade.WBUserKnowhowFacade;
 import com.wooribound.domain.knowhow.dto.WbUserKnowhowDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,5 +57,11 @@ public class WbUserKnowhowController {
     public ResponseEntity getShareKnowhowDetail(@RequestParam("knowhowId") Long knowhowId)
     {
         return  ResponseEntity.ok().body(wbUserKnowhowFacade.getShareKnowhowDetail(knowhowId));
+    }
+
+    @Operation(summary = "지혜 나눔 신고하기", description = "지혜 나눔 신고하기")
+    @PostMapping("/report")
+    public ResponseEntity reportKnowhow(Authentication authentication, @RequestBody KnowhowReportReqDTO knowhowReportReqDTO) {
+        return ResponseEntity.ok().body(wbUserKnowhowFacade.reportKnowhow(authentication, knowhowReportReqDTO.getKnowhowId()));
     }
 }
