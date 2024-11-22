@@ -85,7 +85,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN FUNCTION('DATE', jp.endDate) < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp " +
-            "WHERE jp.enterprise.entId = :entId")
+            "WHERE jp.enterprise.entId = :entId AND jp.isDeleted = 'N'")
     List<JobPostingDetailProjection> getMyJobPostings(@Param("entId") String entId);
 
 

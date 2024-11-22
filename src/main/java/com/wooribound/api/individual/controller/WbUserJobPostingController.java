@@ -23,12 +23,13 @@ public class WbUserJobPostingController {
 
     private final WbUserJobPostingFacade wbUserJobPostingFacade;
 
+    // 1. 공고 지원
     @Operation(summary = "공고 지원", description = "공고 지원")
     @PostMapping("/apply")
     public String updateUserApply(Authentication authentication, @RequestParam("postId") Long postId) {
         return wbUserJobPostingFacade.applyForJob(authentication, postId);
     }
-
+    // 2. 공고 조회 - 검색 (회사명, 직무, 지역)
     @Operation(summary = "공고 조회 - 검색 (회사명, 직무, 지역)", description = "공고 조회 - 검색 (회사명, 직무, 지역)")
     @PostMapping()
     public List<JobPostingDTO> getJobPostings(@RequestBody(required = false) UserJobPostingReqDTO userJobPostingReqDTO) {
@@ -43,7 +44,8 @@ public class WbUserJobPostingController {
         return wbUserJobPostingFacade.getJobPostings(userJobPostingReqDTO);
     }
 
-    @Operation(summary = "공고 조회 - 새로운 일 구하기", description = "공고 조회 - 새로운 일 구하기")
+    // 2-1. 공고 조회 - 새로운 일 구하기
+    @Operation(summary = "새로운 일 구하기", description = "새로운 일 구하기")
     @PostMapping("/new")
     public List<JobPostingDTO> getJobPostingsForNew(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
@@ -55,7 +57,8 @@ public class WbUserJobPostingController {
         return wbUserJobPostingFacade.getJobPostingsForNew(authentication, userJobPostingReqDTO);
     }
 
-    @Operation(summary = "공고 조회 - 경력 살리기", description = "공고 조회 - 경력 살리기")
+    // 2-2. 공고 조회 - 경력 살리기
+    @Operation(summary = "경력 살리기", description = "경력 살리기")
     @PostMapping("/career")
     public List<JobPostingDTO> getJobPostingsForCareer(Authentication authentication, @RequestBody UserJobPostingReqDTO userJobPostingReqDTO) {
         // 로그인하지 않은 경우에도 조회 가능하도록 인증 정보가 null인지 확인
@@ -67,6 +70,7 @@ public class WbUserJobPostingController {
         return wbUserJobPostingFacade.getJobPostingsForCareer(authentication, userJobPostingReqDTO);
     }
 
+    // 3. 공고 상세 조회
     @Operation(summary = "공고 상세 조회", description = "공고 상세 조회")
     @GetMapping("/detail")
     public JobPostingDetailDTO getJobPostingDetail(@RequestParam Long postId) {
