@@ -5,13 +5,16 @@ import com.wooribound.api.individual.facade.WbUserJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "개인회원 공고 관련 API", description = "개인 회원 기능 중 공고 관련 기능 입니다.")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +29,8 @@ public class WbUserJobPostingController {
     public String updateUserApply(Authentication authentication, @RequestParam("postId") Long postId) {
         return wbUserJobPostingFacade.applyForJob(authentication, postId);
     }
-
     // 2. 공고 조회 - 검색 (회사명, 직무, 지역)
-    @Operation(summary = "공고 검색", description = "공고 검색 및 전체 조회")
+    @Operation(summary = "공고 조회 - 검색 (회사명, 직무, 지역)", description = "공고 조회 - 검색 (회사명, 직무, 지역)")
     @PostMapping()
     public List<JobPostingDTO> getJobPostings(@RequestBody(required = false) UserJobPostingReqDTO userJobPostingReqDTO) {
 
@@ -75,4 +77,9 @@ public class WbUserJobPostingController {
         return wbUserJobPostingFacade.getJobPostingDetail(postId);
     }
 
+    @Operation(summary = "추천 공고 조회", description = "추천 공고 조회")
+    @GetMapping("/recommend")
+    public ResponseEntity getJobPostingForRecommend() {
+        return ResponseEntity.ok().body(wbUserJobPostingFacade.getJobPostingsForRecommend());
+    }
 }
