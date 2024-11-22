@@ -79,13 +79,14 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "jp.job.jobName AS jobName, jp.enterprise.entAddr1 AS entAddr1, jp.enterprise.entAddr2 AS entAddr2, " +
             "(SELECT COUNT(ua) FROM UserApply ua WHERE ua.jobPosting = jp) AS applicantCount, " +
             "CASE " +
-            "WHEN jp.startDate > CURRENT_DATE THEN 'PENDING' " +
-            "WHEN jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'ACTIVE' " +
-            "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
+            "WHEN FUNCTION('DATE', jp.startDate) <= CURRENT_DATE AND FUNCTION('DATE', jp.endDate) >= CURRENT_DATE THEN 'ACTIVE' " +
+            "WHEN FUNCTION('DATE', jp.startDate) > CURRENT_DATE THEN 'PENDING' " +
+            "WHEN FUNCTION('DATE', jp.endDate) < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp " +
             "WHERE jp.enterprise.entId = :entId")
     List<JobPostingDetailProjection> getMyJobPostings(@Param("entId") String entId);
+
 
     @Modifying
     @Query("UPDATE JobPosting jp SET jp.isDeleted = 'Y' WHERE jp.postId = :postId")

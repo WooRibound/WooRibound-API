@@ -3,6 +3,8 @@ package com.wooribound.domain.enterprise.dto;
 import com.wooribound.global.constant.EntSize;
 import jakarta.validation.constraints.NotEmpty;
 import java.util.Date;
+
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +19,10 @@ public class EnterpriseDTO {
   private String entId;
 
   @NotEmpty(message = "regNum 필드는 필수입니다.")
+  @Pattern(
+          regexp = "^[0-9]{3}-[0-9]{2}-[0-9]{5}$",
+          message = "사업자번호는 ***-**-***** 형식이어야 합니다."
+  )
   private String regNum;
 
   @NotEmpty(message = "entPwd 필드는 필수입니다.")

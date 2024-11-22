@@ -10,7 +10,6 @@ import com.wooribound.global.exception.NoEnterpriseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,7 +69,6 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .entId(enterprise.getEntId())
                         .entName(enterprise.getEntName())
                         .entField(enterprise.getEntField())
-                        .createdAt(enterprise.getCreatedAt())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -83,7 +81,6 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .entId(enterprise.getEntId())
                         .entName(enterprise.getEntName())
                         .entField(enterprise.getEntField())
-                        .deleteRequestedAt(enterprise.getDeleteRequestedAt())
                         .build())
                 .collect(Collectors.toList());
     }
