@@ -1,6 +1,7 @@
 package com.wooribound.api.individual.dto;
 
 import com.wooribound.domain.enterprise.Enterprise;
+import com.wooribound.domain.job.Job;
 
 import java.util.Date;
 

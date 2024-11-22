@@ -21,4 +21,5 @@ public class JobPostingDTO {
     private String entAddr1;
     private String entAddr2;
     private String postState;
+    private String jobName;
 }

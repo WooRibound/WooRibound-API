@@ -153,6 +153,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                         .entAddr1(job.getEnterprise().getEntAddr1())
                         .entAddr2(job.getEnterprise().getEntAddr2())
                         .postState(job.getPostState())
+                        .jobName(job.getJobName())
                         .build())
                 .collect(Collectors.toList());
     }
