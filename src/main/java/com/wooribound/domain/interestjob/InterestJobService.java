@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface InterestJobService {
-  public void saveByJobNameList(List<String> interestJobs, String userId);
+  public void saveByJobNameList(List<Long> interestJobs, String userId);
 }
