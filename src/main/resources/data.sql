@@ -61,10 +61,10 @@ INSERT INTO employment (emp_id, hire_date, emp_recomm, emp_state, ent_id, user_i
 VALUES (2, NOW(), 'N', 'N', 'ENT002', 'USER002', 2);
 
 -- Job_Posting 데이터 (외래 키로 job과 enterprise 필요)
-INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img)
-VALUES (1, NOW(), NOW() + INTERVAL '30' DAY, 1, 'Backend Developer', 'ENT001', 'img/backend.jpg');
-INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img)
-VALUES (2, NOW(), NOW() + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg');
+INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img, posting_cnt)
+VALUES (1, NOW(), NOW() + INTERVAL '30' DAY, 1, 'Backend Developer', 'ENT001', 'img/backend.jpg', 0);
+INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img, posting_cnt)
+VALUES (2, NOW(), NOW() + INTERVAL '60' DAY, 2, 'UI/UX Designer', 'ENT002', 'img/designer.jpg', 0);
 
 -- 지원현황
 INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date)
