@@ -13,8 +13,11 @@ import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.global.constant.YN;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -188,6 +191,20 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
             throw new RuntimeException("해당 공고 없음: " + postId);
         }
     }
+
+    public List<JobPostingDTO> getJobPostingsForRecommend() {
+        // Pageable -> JPA 제공 인터페이스 객체 생성 (최대 10개만 조회)
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<JobPostingProjection> jobPostings = jobPostingRepository.findByOrderByPostingCntDesc(pageable);
+
+        if (jobPostings.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return mapJobPostingsToDTOs(jobPostings);
+    }
+
 
 
 }
