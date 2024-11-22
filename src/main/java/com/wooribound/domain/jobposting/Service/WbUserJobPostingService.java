@@ -15,4 +15,7 @@ public interface WbUserJobPostingService {
     // 2. 공고 상세 조회
     JobPostingDetailDTO getJobPostingDetail(Long postId);
 
+    // 추천 공고 조회
+    List<JobPostingDTO> getJobPostingsForRecommend();
+
 }

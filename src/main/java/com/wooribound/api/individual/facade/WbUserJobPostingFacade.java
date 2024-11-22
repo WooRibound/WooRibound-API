@@ -80,5 +80,10 @@ public class WbUserJobPostingFacade {
         }
     }
 
+    @Transactional(readOnly = true)
+    public List<JobPostingDTO> getJobPostingsForRecommend() {
+        return wbUserJobPostingService.getJobPostingsForRecommend();
+    }
+
 
 }
