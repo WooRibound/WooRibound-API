@@ -57,7 +57,7 @@ public class WbUserJobPostingFacade {
     }
 
     // 3. 공고 상세 조회
-    @Transactional(readOnly = true)
+    @Transactional
     public JobPostingDetailDTO getJobPostingDetail(Long postId) {
         return wbUserJobPostingService.getJobPostingDetail(postId);
     }
