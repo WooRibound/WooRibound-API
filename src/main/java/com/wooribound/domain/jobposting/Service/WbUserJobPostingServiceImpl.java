@@ -146,6 +146,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
                 .map(job -> JobPostingDTO.builder()
                         .jobPostingId(job.getPostId())
                         .entName(job.getEntName())
+                        .postImg(job.getPostImg())
                         .postTitle(job.getPostTitle())
                         .startDate(job.getStartDate())
                         .endDate(job.getEndDate())

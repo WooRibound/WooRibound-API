@@ -15,6 +15,7 @@ public class JobPostingDTO {
     private Long jobPostingId;
     private String entName;
     private String postTitle;
+    private String postImg;
     private Date startDate;
     private Date endDate;
     private String entAddr1;
