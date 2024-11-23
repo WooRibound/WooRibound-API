@@ -91,20 +91,14 @@ VALUES (2, '2', 'USER002', 'PENDING', STR_TO_DATE('2024-11-01', '%Y-%m-%d'));
 
 -- 노하우
 INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (1, 'Software Developer', 'Effective Debugging Techniques', 'Learn how to debug effectively to save time and increase productivity.', STR_TO_DATE('2024-11-05', '%Y-%m-%d'), 'USER001');
+VALUES
+    (1, 'IT개발-데이터', '효율적인 디버깅 기술', '시간을 절약하고 생산성을 높이는 디버깅 기술을 배워보세요.', STR_TO_DATE('2024-11-05', '%Y-%m-%d'), 'USER001'),
+    (2, 'IT개발-데이터', '예측 모델 구축 가이드', '머신러닝을 활용한 예측 모델 구축의 단계별 가이드입니다.', STR_TO_DATE('2024-11-04', '%Y-%m-%d'), 'USER001'),
+    (3, '기획-전략', '효율적인 이해관계자 커뮤니케이션', '프로젝트 이해관계자와 효과적으로 소통하는 전략을 소개합니다.', STR_TO_DATE('2024-11-03', '%Y-%m-%d'), 'USER001'),
+    (4, '디자인', '사용자 중심 디자인 원칙', '더 나은 사용자 경험을 위한 사용자 중심 디자인 원칙에 대해 알아보세요.', STR_TO_DATE('2024-11-02', '%Y-%m-%d'), 'USER002'),
+    (5, 'IT개발-데이터', '서버 성능 최적화', '서버 성능을 최적화하고 안정성을 보장하는 팁과 기술을 공유합니다.', STR_TO_DATE('2024-11-01', '%Y-%m-%d'), 'USER002');
 
-INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (2, 'Data Scientist', 'Building a Predictive Model', 'Step-by-step guide to building a predictive model using machine learning.', STR_TO_DATE('2024-11-04', '%Y-%m-%d'), 'USER001');
-
-INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (3, 'Product Manager', 'Effective Communication with Stakeholders', 'Strategies for effective communication with project stakeholders.', STR_TO_DATE('2024-11-03', '%Y-%m-%d'), 'USER001');
-
-INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (4, 'UI/UX Designer', 'User-Centered Design Principles', 'Introduction to user-centered design principles for better user experiences.', STR_TO_DATE('2024-11-02', '%Y-%m-%d'), 'USER002');
-
-INSERT INTO knowhow (knowhow_id, knowhow_job, knowhow_title, knowhow_content, upload_date, user_id)
-VALUES (5, 'Software Developer', 'Optimizing Server Performance', 'Tips and techniques for optimizing server performance and ensuring stability.', STR_TO_DATE('2024-11-01', '%Y-%m-%d'), 'USER002');
-
+--- 이력서
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
     (1, 'USER001', 'https://example.com/image1.jpg', 'user1@example.com', 'Experienced software developer with a strong background in Java and Spring.');
 
