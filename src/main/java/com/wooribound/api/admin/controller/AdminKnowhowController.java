@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "지혜 관리 관련 API", description = "서비스 관리자 기능 중 지혜 관리 기능 입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/knowhow")
+@RequestMapping("/api/admin/knowhow")
 public class AdminKnowhowController {
     private final AdminKnowhowFacade adminKnowhowFacade;
 

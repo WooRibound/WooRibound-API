@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("corporate/jobposting")
+@RequestMapping("api/corporate/jobposting")
 public class EnterpriseJobPostingController {
 
     private final EnterpriseJobPostingFacade enterpriseJobPostingFacade;

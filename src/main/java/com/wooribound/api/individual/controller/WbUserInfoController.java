@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "지원 현황 / 개인 정보 / 우바 고도 API", description = "개인회원 서비스 중 지원 현황 / 개인 정보 / 우바 고도 입니다.")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/individualuser/info")
+@RequestMapping("/api/individualuser/info")
 public class WbUserInfoController {
 
     private final WbUserInfoFacade wbUserInfoFacade;

@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "개인회원 관리 관련 API", description = "서비스 관리자 기능 중 개인회원 정보 조회 기능 입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/individual")
+@RequestMapping("/api/admin/individual")
 public class AdminIndividualController {
 
     private final AdminIndividualFacade adminIndividualFacade;
