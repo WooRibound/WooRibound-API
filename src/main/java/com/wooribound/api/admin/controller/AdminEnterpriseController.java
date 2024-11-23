@@ -15,7 +15,7 @@ import java.util.List;
 @Tag(name = "기업회원 관리 관련 API", description = "서비스 관리자 기능 중 기업회원 정보 조회 기능 입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/enterprise")
+@RequestMapping("/api/admin/enterprise")
 public class AdminEnterpriseController {
 
     private final AdminEnterpriseFacade adminEnterpriseFacade;

@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "알림 메세지 API", description = "개인회원 서비스 중 알림 메세지 입니다.")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/individual/notifications")
+@RequestMapping("/api/individual/notifications")
 public class WbUserNotificationController {
 
     private final NotificationService notificationService;

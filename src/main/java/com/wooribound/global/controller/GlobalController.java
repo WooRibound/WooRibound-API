@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/global")
+@RequestMapping("/api/global")
 public class GlobalController {
 
     private final JobService jobService;

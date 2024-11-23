@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "지혜 나눔/등록 API", description = "개인회원 서비스 중 지혜 나눔/등록 입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/individual/knowhow")
+@RequestMapping("/api/individual/knowhow")
 public class WbUserKnowhowController {
 
     private final WBUserKnowhowFacade wbUserKnowhowFacade;

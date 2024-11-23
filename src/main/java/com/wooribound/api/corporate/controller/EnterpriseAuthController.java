@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/corporate/auth")
+@RequestMapping("/api/corporate/auth")
 public class EnterpriseAuthController {
 
   private final EnterpriseAuthFacade enterpriseAuthFacade;

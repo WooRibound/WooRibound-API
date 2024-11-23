@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/individualuser/auth/")
+@RequestMapping("/api/individualuser/auth/")
 @RequiredArgsConstructor
 public class WbUserAuthController {
   private final WbUserAuthFacade wbUserAuthFacade;

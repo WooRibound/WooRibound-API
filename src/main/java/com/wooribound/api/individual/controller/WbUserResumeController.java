@@ -17,7 +17,7 @@ import java.io.IOException;
 @Tag(name = "이력서 API", description = "개인회원 서비스 중 이력서 입니다.")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/individual/info/resume")
+@RequestMapping("/api/individual/info/resume")
 public class WbUserResumeController {
 
     private final ResumeService resumeService;

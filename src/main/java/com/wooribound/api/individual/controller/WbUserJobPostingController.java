@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/individualuser/jobposting")
+@RequestMapping("/api/individualuser/jobposting")
 public class WbUserJobPostingController {
 
     private final WbUserJobPostingFacade wbUserJobPostingFacade;

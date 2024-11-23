@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "서비스 관리자 권한 관련 API", description = "서비스 관리자 기능 중 가입/기업회원 가입 및 탈퇴 검증 입니다.")
 @RestController
-@RequestMapping("/admin/auth")
+@RequestMapping("/api/admin/auth")
 @RequiredArgsConstructor
 public class AdminAuthController {
 

@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "채용공고 관리 관련 API", description = "서비스 관리자 기능 중 채용공고 관리 기능 입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/jobposting")
+@RequestMapping("/api/admin/jobposting")
 public class AdminJobPostingController {
     private final AdminJobPostingFacade adminJobPostingFacade;
 
