@@ -81,9 +81,13 @@ public class WbUserJobPostingFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<JobPostingDTO> getJobPostingsForRecommend() {
-        return wbUserJobPostingService.getJobPostingsForRecommend();
+    public List<JobPostingDTO> getRecommendedJobPostings() {
+        return wbUserJobPostingService.getRecommendedJobPostings();
     }
 
+    @Transactional(readOnly = true)
+    public List<JobPostingDTO> getRecentJobPostings() {
+        return wbUserJobPostingService.getRecentJobPostings();
+    }
 
 }
