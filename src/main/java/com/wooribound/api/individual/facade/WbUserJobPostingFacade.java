@@ -29,7 +29,7 @@ public class WbUserJobPostingFacade {
     // 1. 공고 지원
     @Transactional
     public String applyForJob(Authentication authentication, Long postId) {
-        String userId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return userApplyService.createUserApply(userId, postId);
     }
 
