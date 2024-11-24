@@ -84,13 +84,13 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     CustomAuthenticationFilter adminLoginFilter = new CustomAuthenticationFilter(
         authenticationManager(),
-        "/auth/admin/login",
+        "api/auth/admin/login",
         adminSuccessHandler
     );
 
     CustomAuthenticationFilter enterpriseLoginFilter = new CustomAuthenticationFilter(
         authenticationManager(),
-        "/auth/enterprise/login",
+        "/api/auth/enterprise/login",
         enterpriseSuccessHandler
     );
 
@@ -132,7 +132,7 @@ public class SecurityConfig {
             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                 .userService(wbUserDetailService)))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/admin/login", "/auth/enterprise/login","/auth/refresh").permitAll()
+            .requestMatchers("/api/auth/admin/login", "/api/auth/enterprise/login","/api/auth/refresh").permitAll()
             .requestMatchers("/auth/check", "/individualuser/auth/join").hasAnyAuthority(
                 "ROLE_ENTERPRISE_USER",
                 "ROLE_ADMIN_USER",
