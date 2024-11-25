@@ -7,6 +7,7 @@ import com.wooribound.global.constant.YN;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,9 @@ public class JobPosting {
     @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
     private YN isDeleted = YN.N;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
@@ -55,6 +59,7 @@ public class JobPosting {
 
     @PrePersist
     public void prePersist() {
+        createdAt = LocalDateTime.now();
         postingCnt = 0L;
     }
 }

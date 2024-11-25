@@ -194,7 +194,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
         }
     }
 
-    public List<JobPostingDTO> getJobPostingsForRecommend() {
+    public List<JobPostingDTO> getRecommendedJobPostings() {
         // Pageable -> JPA 제공 인터페이스 객체 생성 (최대 10개만 조회)
         Pageable pageable = PageRequest.of(0, 10);
 
@@ -207,6 +207,19 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
         return mapJobPostingsToDTOs(jobPostings);
     }
 
+    @Override
+    public List<JobPostingDTO> getRecentJobPostings() {
+        // Pageable -> JPA 제공 인터페이스 객체 생성 (최대 10개만 조회)
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<JobPostingProjection> jobPostings = jobPostingRepository.findByOrderByCreatedAtDesc(pageable);
+
+        if (jobPostings.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return mapJobPostingsToDTOs(jobPostings);
+    }
 
 
 }

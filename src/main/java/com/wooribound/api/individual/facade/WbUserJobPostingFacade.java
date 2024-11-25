@@ -29,7 +29,7 @@ public class WbUserJobPostingFacade {
     // 1. 공고 지원
     @Transactional
     public String applyForJob(Authentication authentication, Long postId) {
-        String userId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return userApplyService.createUserApply(userId, postId);
     }
 
@@ -81,9 +81,13 @@ public class WbUserJobPostingFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<JobPostingDTO> getJobPostingsForRecommend() {
-        return wbUserJobPostingService.getJobPostingsForRecommend();
+    public List<JobPostingDTO> getRecommendedJobPostings() {
+        return wbUserJobPostingService.getRecommendedJobPostings();
     }
 
+    @Transactional(readOnly = true)
+    public List<JobPostingDTO> getRecentJobPostings() {
+        return wbUserJobPostingService.getRecentJobPostings();
+    }
 
 }
