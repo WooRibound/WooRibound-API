@@ -17,11 +17,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jobSearchHistoryLoggingInterceptor)
-                .addPathPatterns("/individualuser/jobposting") 
+                .addPathPatterns("/api/individualuser/jobposting")
                 .excludePathPatterns("/images/**", "/font/**", "/css/**", "/js/**");
 
         registry.addInterceptor(jobClickHistoryLoggingInterceptor)
-                .addPathPatterns("/individualuser/jobposting/detail")
+                .addPathPatterns("/api/individualuser/jobposting/detail")
                 .excludePathPatterns("/images/**", "/font/**", "/css/**", "/js/**");
     }
 }

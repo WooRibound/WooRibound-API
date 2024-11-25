@@ -12,7 +12,7 @@ public class FilterConfig
     public FilterRegistrationBean<LoggingFilter> loggingFilter() {
         FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new LoggingFilter());
-        registrationBean.addUrlPatterns("/individualuser/jobposting", "/individualuser/jobposting/detail");
+        registrationBean.addUrlPatterns("/api/individualuser/jobposting", "/api/individualuser/jobposting/detail");
         registrationBean.setOrder(1);
         return registrationBean;
     }
