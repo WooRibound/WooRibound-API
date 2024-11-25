@@ -126,4 +126,15 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "ORDER BY jp.postingCnt DESC ")
     List<JobPostingProjection> findByOrderByPostingCntDesc(Pageable pageable);
 
+    @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
+            "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +
+            "CASE " +
+            "WHEN jp.startDate > CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'PENDING' " +
+            "WHEN jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'ACTIVE' " +
+            "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' END AS postState " +
+            "FROM JobPosting jp " +
+            "ORDER BY jp.createdAt DESC ")
+    List<JobPostingProjection> findByOrderByCreatedAtDesc(Pageable pageable);
+
+
 }
