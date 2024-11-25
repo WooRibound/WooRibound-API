@@ -2,6 +2,7 @@ package com.wooribound.api.corporate.facade;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.domain.jobposting.Service.AdminJobPostingService;
 import com.wooribound.domain.jobposting.Service.EntJobPostingService;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
@@ -69,9 +70,15 @@ public class EnterpriseJobPostingFacade {
         return entJobPostingService.getApplicantRecommendation(jobId);
     }
 
+    // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
+    public List<RecommendationHistoryDTO> getRecommendationHistory(String userId) {
+        return entJobPostingService.getRecommendationHistory(userId);
+    }
+
     // 7. 공고 삭제
     @Transactional
     public String deleteJobPosting(Long postId) {
         return adminJobPostingService.deleteJobPosting(postId);
     }
+
 }

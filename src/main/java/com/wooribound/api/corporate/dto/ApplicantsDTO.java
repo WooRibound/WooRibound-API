@@ -19,4 +19,6 @@ public class ApplicantsDTO {
     private String userId;
     private Long applyId;
     private ApplyResult result;
+    private int recommendCount;
+
 }

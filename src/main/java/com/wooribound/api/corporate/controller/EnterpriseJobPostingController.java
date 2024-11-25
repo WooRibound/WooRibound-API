@@ -3,6 +3,7 @@ package com.wooribound.api.corporate.controller;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.api.corporate.facade.EnterpriseJobPostingFacade;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.resume.dto.ResumeDetailDTO;
@@ -66,11 +67,18 @@ public class EnterpriseJobPostingController {
         return enterpriseJobPostingFacade.setApplicantResult(applicantResultReqDTO);
     }
 
-    // 7. 공고별 지원자 추천 (헤드헌팅기능)
+    // 7. 공고별 지원자 추천 (헤드헌팅 기능)
     @Operation(summary = "공고별 지원자 추천", description = "공고별 지원자 추천")
     @GetMapping("/applicant-recommend")
     public List<ApplicantsDTO> getApplicantRecommendation(@RequestParam int jobId) {
         return enterpriseJobPostingFacade.getApplicantRecommendation(jobId);
+    }
+
+    // 7-1. 기업 추천 내역 조회 (프리미엄 기능)
+    @Operation(summary = "기업 추천 내역 조회", description = "기업 추천 내역 조회(프리미엄)")
+    @GetMapping("/applicant-recommend/history")
+    public List<RecommendationHistoryDTO> getRecommendationHistory(@RequestParam String userId) {
+        return enterpriseJobPostingFacade.getRecommendationHistory(userId);
     }
 
     // 8. 공고 삭제
@@ -79,6 +87,8 @@ public class EnterpriseJobPostingController {
     public String deleteJobPosting(@RequestParam Long postId) {
         return enterpriseJobPostingFacade.deleteJobPosting(postId);
     }
+
+
 
     
 }

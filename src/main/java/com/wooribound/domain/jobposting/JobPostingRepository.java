@@ -1,7 +1,10 @@
 package com.wooribound.domain.jobposting;
 
+import com.wooribound.api.corporate.dto.ApplicantsDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.api.individual.dto.JobPostingProjection;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.jobposting.dto.WbUserProjection;
 import com.wooribound.domain.wbuser.WbUser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -94,12 +97,19 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     int updateIsDeletedByPostId(@Param("postId") Long postId);
 
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
-    @Query("SELECT w FROM WbUser w " +
+    @Query("SELECT w.userId AS userId, w.name AS name, COUNT(e) AS recommCount " +
+            "FROM WbUser w " +
             "JOIN w.workHistories wh " +
-            "WHERE wh.job.jobId = :jobId " +
-            "ORDER BY w.jobPoint DESC")
-    List<WbUser> findApplicantRecommendation(@Param("jobId") int jobId);
+            "LEFT JOIN Employment e ON e.wbUser.userId = w.userId AND e.empRecomm = 'Y' " +
+            "WHERE wh.job.jobId = :jobId AND w.dataSharingConsent = 'Y' " +
+            "GROUP BY w.userId, w.name " +
+            "ORDER BY w.jobPoint DESC, recommCount DESC")
+    List<WbUserProjection> findApplicantRecommendation(@Param("jobId") int jobId);
 
+
+    // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
+    @Query("SELECT e.enterprise.entName FROM Employment e WHERE e.wbUser.userId = :userId AND e.empRecomm = 'Y'")
+    List<RecommendationHistoryDTO> findRecommendationHistory(String userId);
 
     @Query("SELECT MAX(jp.postId) FROM JobPosting jp")
     Optional<Long> getMaxJobPostingId();
@@ -117,6 +127,5 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHERE (jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE) OR jp.startDate > CURRENT_DATE " +
             "ORDER BY jp.postingCnt DESC ")
     List<JobPostingProjection> findByOrderByPostingCntDesc(Pageable pageable);
-
 
 }

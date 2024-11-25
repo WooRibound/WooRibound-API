@@ -2,14 +2,17 @@ package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
+import com.wooribound.domain.enterprise.dto.UserApplyProjection;
 import com.wooribound.domain.job.Job;
 import com.wooribound.domain.job.JobRepository;
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.jobposting.dto.WbUserProjection;
 import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.notification.NotificationRepository;
 import com.wooribound.domain.userapply.UserApply;
@@ -141,7 +144,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     // 4. 공고 지원자 전체 조회
     @Override
     public List<ApplicantsDTO> getJobApplicants(int postId) {
-        List<UserApply> applicants = userApplyRepository.findByJobPosting_PostId(postId);
+        List<UserApplyProjection> applicants = userApplyRepository.findByJobPosting_PostId(postId);
 
         return applicants.stream().map(applicant -> {
             // 개별 지원자의 생년월일 가져오기
@@ -165,6 +168,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .applicantAge(age)
                     .applyId(applicant.getApplyId())
                     .result(applicant.getResult())
+                    .recommendCount(applicant.getRecommendCount())
                     .build();
         }).collect(Collectors.toList());
     }
@@ -219,7 +223,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     public List<ApplicantsDTO> getApplicantRecommendation(int jobId) {
 
         log.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
-        List<WbUser> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
+        List<WbUserProjection> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
 
         return recommendedUsers.stream().map(user -> {
             // 생일 계산
@@ -238,9 +242,18 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .applicantGender(user.getGender())
                     .applicantAge(age)
                     .userId(user.getUserId())
+                    .recommendCount(user.getRecommendCount())
                     .build();
         }).collect(Collectors.toList());
 
+    }
+
+    // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
+    @Override
+    public List<RecommendationHistoryDTO> getRecommendationHistory(String userId) {
+        log.info("기업 추천 내역 조회 시작 - userId: {}", userId);
+        List<RecommendationHistoryDTO> history = jobPostingRepository.findRecommendationHistory(userId);
+        return history;
     }
 
 

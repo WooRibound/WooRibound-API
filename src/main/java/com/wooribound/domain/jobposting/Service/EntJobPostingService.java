@@ -2,6 +2,7 @@ package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 
@@ -27,4 +28,6 @@ public interface EntJobPostingService {
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
     List<ApplicantsDTO> getApplicantRecommendation(int jobId);
 
+    // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
+    List<RecommendationHistoryDTO> getRecommendationHistory(String userId);
 }

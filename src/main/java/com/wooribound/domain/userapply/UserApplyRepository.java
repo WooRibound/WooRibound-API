@@ -1,5 +1,6 @@
 package com.wooribound.domain.userapply;
 
+import com.wooribound.domain.enterprise.dto.UserApplyProjection;
 import com.wooribound.global.constant.ApplyResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,8 +16,22 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
     List<UserApply> findByWbUser_UserId(String userId);
 
     // 2. 공고 지원자 전체 조회
-    @Query("SELECT ua FROM UserApply ua WHERE ua.jobPosting.postId = :postId and ua.result != 'CANCELED'")
-    List<UserApply> findByJobPosting_PostId(int postId);
+    @Query("""
+                SELECT ua.applyId AS applyId,
+                       ua.jobPosting AS jobPosting,
+                       ua.wbUser AS wbUser,
+                       ua.result AS result,
+                       ua.notification AS notification,
+                       COALESCE(
+                           (SELECT COUNT(e) 
+                            FROM Employment e 
+                            WHERE e.wbUser.userId = ua.wbUser.userId AND e.empRecomm = 'Y'),
+                           0
+                       ) AS recommendCount
+                FROM UserApply ua
+                WHERE ua.jobPosting.postId = :postId AND ua.result != 'CANCELED'
+            """)
+    List<UserApplyProjection> findByJobPosting_PostId(int postId);
 
     // 3. 지원자 결과 설정
     @Modifying
