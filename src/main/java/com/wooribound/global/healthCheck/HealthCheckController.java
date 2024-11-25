@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,8 @@ public class HealthCheckController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Health Check Success")
   })
-  public String healthCheck(){
-    return "Health Check Success";
+  public ResponseEntity<String> healthCheck(){
+    return ResponseEntity.ok("Health Check Success");
   }
 }
 
