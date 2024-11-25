@@ -50,6 +50,8 @@ public class SecurityConfig {
   private String targetIp;
   @Value("${targetPort}")
   private String targetPort;
+  @Value("${ALB_DNS}")
+  private String ALB_DNS;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -101,6 +103,8 @@ public class SecurityConfig {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList(
                 "http://"+targetIp+":"+targetPort,
+                "https://"+targetIp,
+                "https://"+ALB_DNS,
                 "https://nid.naver.com",  // 네이버 로그인
                 "https://openapi.naver.com"
             ));
