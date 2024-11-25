@@ -14,19 +14,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @RequiredArgsConstructor
 public class Redisconfig {
-  @Value("${REDIS_HOST}")
-  private String redisHost;
+  @Value("${spring.data.redis.host}")
+  private String REDIS_HOST;
 
-  @Value("${REDIS_PORT}")
-  private int redisPort;
-  @Value("${REDIS_PASSWORD}") // 비밀번호를 위한 환경 변수 추가
-  private String redisPassword;
+  @Value("${spring.data.redis.port}")
+  private int REDIS_PORT;
 
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
     RedisStandaloneConfiguration redisStandaloneConfiguration =
-        new RedisStandaloneConfiguration(redisHost, redisPort);
-    redisStandaloneConfiguration.setPassword(redisPassword); // 비밀번호 설정
+        new RedisStandaloneConfiguration(REDIS_HOST, REDIS_PORT);
 
     return new LettuceConnectionFactory(redisStandaloneConfiguration);
   }

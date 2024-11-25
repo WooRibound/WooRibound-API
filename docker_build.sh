@@ -1,0 +1,1 @@
+docker build -t wooribound/server:latest .

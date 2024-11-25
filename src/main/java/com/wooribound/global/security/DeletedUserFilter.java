@@ -13,8 +13,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 public class DeletedUserFilter extends OncePerRequestFilter {
-  @Value("${targetIp}")
-  private String targetIp;
+  @Value("${spring.data.targetIp}")
+  private String TARGET_IP;
+  @Value("${spring.data.targetPort}")
+  private String TARGET_PORT;
+
+  private String protocol;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -23,7 +27,12 @@ public class DeletedUserFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
     } catch (DeletedUserException e) {
       System.out.println("deleteduserfilter에서 잡아냄");
-      response.sendRedirect("http://"+ targetIp +":8080/deleted/user");
+      if (TARGET_PORT.equals("443")) {
+        protocol = "https";
+      } else {
+        protocol = "http";
+      }
+      response.sendRedirect(protocol+"://"+ TARGET_IP +":"+TARGET_PORT+"/deleted/user");
     }
   }
 }

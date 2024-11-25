@@ -46,10 +46,14 @@ public class SecurityConfig {
   private final WbUserDetailService wbUserDetailService;
   private final AdminUserDetailService adminUserDetailService;
   private final EnterpriseUserDetailService enterpriseUserDetailService;
-  @Value("${targetIp}")
-  private String targetIp;
-  @Value("${targetPort}")
-  private String targetPort;
+  @Value("${spring.data.targetIp}")
+  private String TARGET_IP;
+  @Value("${spring.data.targetPort}")
+  private String TARGET_PORT;
+  @Value("${spring.data.albDNS}")
+  private String ALB_DNS;
+
+  private String protocol;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -100,7 +104,9 @@ public class SecurityConfig {
           public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList(
-                "http://"+targetIp+":"+targetPort,
+                "http://"+TARGET_IP+":"+TARGET_PORT,
+                "https://"+TARGET_IP,
+                "https://"+ALB_DNS,
                 "https://nid.naver.com",  // 네이버 로그인
                 "https://openapi.naver.com"
             ));
@@ -122,7 +128,12 @@ public class SecurityConfig {
               if (exception instanceof OAuth2AuthenticationException) {
                 Throwable authException = ((OAuth2AuthenticationException) exception).getCause();
                 if (authException instanceof DeletedUserException) {
-                  response.sendRedirect("http://"+targetIp+":"+targetPort+"/deleted/user");
+                  if (TARGET_PORT.equals("443")){
+                    protocol = "https";
+                  } else {
+                    protocol = "http";
+                  }
+                  response.sendRedirect(protocol+"://"+TARGET_IP+":"+TARGET_PORT+"/deleted/user");
                   return;
                 }
               }
