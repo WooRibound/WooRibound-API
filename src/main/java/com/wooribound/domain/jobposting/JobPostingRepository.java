@@ -77,7 +77,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     Optional<JobPosting> findJobPostingByPostId(@Param("postId") Long postId);
 
     // 3. 내 기업 공고 목록 조회
-    // JOBPOSTING + COUNT(쿼리연산) 반환해야해서 프로젝션 인터페이스로 리턴값 설정 JobPostingDetailProjection
     @Query("SELECT jp.postId AS postId, jp.postTitle AS postTitle, jp.enterprise.entName AS entName, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, " +
             "jp.job.jobName AS jobName, jp.enterprise.entAddr1 AS entAddr1, jp.enterprise.entAddr2 AS entAddr2, " +
@@ -105,7 +104,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "GROUP BY w.userId, w.name " +
             "ORDER BY w.jobPoint DESC, recommCount DESC")
     List<WbUserProjection> findApplicantRecommendation(@Param("jobId") int jobId);
-
 
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
     @Query("SELECT e.enterprise.entName FROM Employment e WHERE e.wbUser.userId = :userId AND e.empRecomm = 'Y'")

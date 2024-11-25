@@ -225,28 +225,32 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         log.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
         List<WbUserProjection> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
 
-        return recommendedUsers.stream().map(user -> {
-            // 생일 계산
-            Date birthDate = user.getBirth();
-            Calendar today = Calendar.getInstance();
-            Calendar birthCalendar = Calendar.getInstance();
-            birthCalendar.setTime(birthDate);
+        // 최대 10명의 지원자만 선택
+        return recommendedUsers.stream()
+                .limit(10)
+                .map(user -> {
+                    // 생일 계산
+                    Date birthDate = user.getBirth();
+                    Calendar today = Calendar.getInstance();
+                    Calendar birthCalendar = Calendar.getInstance();
+                    birthCalendar.setTime(birthDate);
 
-            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
-            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
-                age--;
-            }
+                    int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+                    if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                        age--;
+                    }
 
-            return ApplicantsDTO.builder()
-                    .applicantName(user.getName())
-                    .applicantGender(user.getGender())
-                    .applicantAge(age)
-                    .userId(user.getUserId())
-                    .recommendCount(user.getRecommendCount())
-                    .build();
-        }).collect(Collectors.toList());
-
+                    return ApplicantsDTO.builder()
+                            .applicantName(user.getName())
+                            .applicantGender(user.getGender())
+                            .applicantAge(age)
+                            .userId(user.getUserId())
+                            .recommendCount(user.getRecommendCount())
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
+
 
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
     @Override
