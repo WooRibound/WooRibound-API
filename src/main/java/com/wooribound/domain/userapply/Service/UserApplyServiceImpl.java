@@ -10,6 +10,7 @@ import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.exception.NotEntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,29 @@ public class UserApplyServiceImpl implements UserApplyService {
             log.error("지원 생성 중 예상치 못한 오류 발생: {}", e.getMessage());
             return "지원 중 오류가 발생했습니다. 다시 시도해 주세요.";
         }
+    }
+
+    @Override
+    public WbUserApplyDTO getUserApplyDetail(String userId, Long applyId) {
+        wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
+
+        UserApply userApply = userApplyRepository.findById(applyId).
+                orElseThrow(() -> new NotEntityException("[UserApply, ID :" + applyId + "]"));
+
+        return WbUserApplyDTO.builder()
+                .applyId(userApply.getApplyId())
+                .result(userApply.getResult())
+                .postId(userApply.getJobPosting().getPostId())
+                .postTitle(userApply.getJobPosting().getPostTitle())
+                .postImg(userApply.getJobPosting().getPostImg())
+                .jobName(userApply.getJobPosting().getJob().getJobName())
+                .startDate(userApply.getJobPosting().getStartDate())
+                .endDate(userApply.getJobPosting().getEndDate())
+                .entName(userApply.getJobPosting().getEnterprise().getEntName())
+                .entAddr1(userApply.getJobPosting().getEnterprise().getEntAddr1())
+                .entAddr2(userApply.getJobPosting().getEnterprise().getEntAddr2())
+                .build();
     }
 
     // 2. 지원 공고 조회
