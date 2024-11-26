@@ -2,10 +2,13 @@ package com.wooribound.domain.userapply.Service;
 
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
+import com.wooribound.domain.resume.Resume;
+import com.wooribound.domain.resume.ResumeRepository;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.ApplyResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,8 @@ public class UserApplyServiceImpl implements UserApplyService {
 
     private final UserApplyRepository userApplyRepository;
     private final JobPostingRepository jobPostingRepository;
-    private final com.wooribound.domain.wbuser.WbUserRepository wbUserRepository;
+    private final ResumeRepository resumeRepository;
+    private final WbUserRepository wbUserRepository;
 
     // 1. 공고 지원
     @Override
@@ -34,6 +38,11 @@ public class UserApplyServiceImpl implements UserApplyService {
                     .orElseThrow(() -> new NoSuchElementException("해당 공고 ID가 존재하지 않습니다."));
             WbUser wbUser = wbUserRepository.findById(userId)
                     .orElseThrow(() -> new NoSuchElementException("해당 사용자 ID가 존재하지 않습니다."));
+            Optional<Resume> resume = resumeRepository.findByUserId(userId);
+
+            if (resume.isEmpty()) {
+                return "이력서를 등록하고 지원해주세요.";
+            }
 
             Optional<UserApply> byIdUserApply = userApplyRepository.findById(postId);
 
