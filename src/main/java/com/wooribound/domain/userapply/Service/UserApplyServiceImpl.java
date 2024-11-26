@@ -85,6 +85,7 @@ public class UserApplyServiceImpl implements UserApplyService {
                                     .result(userApply.getResult())
                                     .entName(userApply.getJobPosting().getEnterprise().getEntName())
                                     .postTitle(userApply.getJobPosting().getPostTitle())
+                                    .postId(userApply.getJobPosting().getPostId())
                                     .startDate(userApply.getJobPosting().getStartDate())
                                     .endDate(userApply.getJobPosting().getEndDate())
                                     .entAddr1(userApply.getJobPosting().getEnterprise().getEntAddr1())

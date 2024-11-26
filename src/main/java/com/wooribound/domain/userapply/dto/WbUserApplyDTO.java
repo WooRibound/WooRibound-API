@@ -17,6 +17,7 @@ public class WbUserApplyDTO {
     private ApplyResult result;
     private String entName;
     private String postTitle;
+    private Long postId;
     private Date startDate;
     private Date  endDate;
     private String entAddr1;
