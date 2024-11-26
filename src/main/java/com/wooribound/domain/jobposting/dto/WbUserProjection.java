@@ -8,6 +8,6 @@ public interface WbUserProjection {
     String getUserId();
     String getName();
     Gender getGender();
-    int getRecommendCount();
+    Integer getRecommendCount();
     Date getBirth();
 }

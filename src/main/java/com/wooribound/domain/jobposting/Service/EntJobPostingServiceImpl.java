@@ -3,6 +3,7 @@ package com.wooribound.domain.jobposting.Service;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
+import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.UserApplyProjection;
@@ -225,27 +226,31 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
         log.info("공고 직무별 지원자 추천 시작 - jobId: {}", jobId);
         List<WbUserProjection> recommendedUsers = jobPostingRepository.findApplicantRecommendation(jobId);
 
-        // 최대 10명의 지원자만 선택
         return recommendedUsers.stream()
                 .limit(10)
                 .map(user -> {
-                    // 생일 계산
                     Date birthDate = user.getBirth();
-                    Calendar today = Calendar.getInstance();
-                    Calendar birthCalendar = Calendar.getInstance();
-                    birthCalendar.setTime(birthDate);
+                    Integer age = null;
 
-                    int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
-                    if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
-                        age--;
+                    if (birthDate != null) {
+                        Calendar today = Calendar.getInstance();
+                        Calendar birthCalendar = Calendar.getInstance();
+                        birthCalendar.setTime(birthDate);
+
+                        age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+                        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                            age--;
+                        }
                     }
+
+                    Integer recommendCount = (user.getRecommendCount() != null) ? user.getRecommendCount() : 0;
 
                     return ApplicantsDTO.builder()
                             .applicantName(user.getName())
                             .applicantGender(user.getGender())
-                            .applicantAge(age)
+                            .applicantAge(age != null ? age : 0) // 나이가 null인 경우 기본값 0 설정
                             .userId(user.getUserId())
-                            .recommendCount(user.getRecommendCount())
+                            .recommendCount(recommendCount)
                             .build();
                 })
                 .collect(Collectors.toList());
@@ -255,10 +260,13 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
     @Override
     public List<RecommendationHistoryDTO> getRecommendationHistory(String userId) {
-        log.info("기업 추천 내역 조회 시작 - userId: {}", userId);
-        List<RecommendationHistoryDTO> history = jobPostingRepository.findRecommendationHistory(userId);
-        return history;
-    }
+        List<Employment> histories = jobPostingRepository.findRecommendationHistory(userId);
 
+        return histories.stream()
+                .map(history -> RecommendationHistoryDTO.builder()
+                    .entName(history.getEnterprise().getEntName())
+                    .build())
+         .collect(Collectors.toList());
+    }
 
 }

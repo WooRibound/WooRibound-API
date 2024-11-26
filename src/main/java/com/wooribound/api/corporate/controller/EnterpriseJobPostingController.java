@@ -10,6 +10,7 @@ import com.wooribound.domain.resume.dto.ResumeDetailDTO;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.global.util.AuthenticateUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "기업회원 공고 관련 API", description = "기업 회원 기능 중 공고 관련 기능 입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/corporate/jobposting")
