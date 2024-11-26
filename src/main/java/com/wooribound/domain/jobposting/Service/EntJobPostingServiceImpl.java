@@ -149,7 +149,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
         return applicants.stream().map(applicant -> {
             // 개별 지원자의 생년월일 가져오기
-            Date birthDate = applicant.getWbUser().getBirth();
+            Date birthDate = applicant.getBirth();
 
             // 생년월일을 이용해 나이 계산
             Calendar today = Calendar.getInstance();
@@ -163,9 +163,9 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
             // DTO 생성
             return ApplicantsDTO.builder()
-                    .userId(applicant.getWbUser().getUserId())
-                    .applicantName(applicant.getWbUser().getName())
-                    .applicantGender(applicant.getWbUser().getGender())
+                    .userId(applicant.getUserId())
+                    .applicantName(applicant.getName())
+                    .applicantGender(applicant.getGender())
                     .applicantAge(age)
                     .applyId(applicant.getApplyId())
                     .result(applicant.getResult())

@@ -17,21 +17,25 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
 
     // 2. 공고 지원자 전체 조회
     @Query("""
-                SELECT ua.applyId AS applyId,
-                       ua.jobPosting AS jobPosting,
-                       ua.wbUser AS wbUser,
-                       ua.result AS result,
-                       ua.notification AS notification,
-                       COALESCE(
-                           (SELECT COUNT(e) 
-                            FROM Employment e 
-                            WHERE e.wbUser.userId = ua.wbUser.userId AND e.empRecomm = 'Y'),
-                           0
-                       ) AS recommendCount
+                SELECT 
+                    ua.applyId AS applyId,
+                    ua.wbUser.birth AS birth,
+                    ua.wbUser.gender AS gender,
+                    ua.wbUser.name AS name,
+                    ua.wbUser.userId AS userId,
+                    ua.result AS result,
+                    COALESCE((
+                        SELECT COUNT(e.empId) 
+                        FROM Employment e 
+                        WHERE e.wbUser.userId = ua.wbUser.userId 
+                          AND e.empRecomm = 'Y'
+                    ), 0) AS recommendCount
                 FROM UserApply ua
-                WHERE ua.jobPosting.postId = :postId AND ua.result != 'CANCELED'
+                WHERE ua.jobPosting.postId = :postId 
+                  AND ua.result != 'CANCELED'
             """)
     List<UserApplyProjection> findByJobPosting_PostId(int postId);
+
 
     // 3. 지원자 결과 설정
     @Modifying
