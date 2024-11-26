@@ -5,6 +5,7 @@ import com.wooribound.api.admin.facade.AdminAuthFacade;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,5 +36,11 @@ public class AdminAuthController {
     @PostMapping("/delete-approval")
     public String deleteApprove(@RequestBody AdminApproveReqDTO adminApproveReqDTO) {
         return adminAuthFacade.deleteApprove(adminApproveReqDTO);
+    }
+
+    @Operation(summary = "로드 대시보드 조회", description = "인프라 로그 대시보드 조회")
+    @GetMapping("/dashboard")
+    public String getDashboard(Authentication authentication) {
+        return adminAuthFacade.getDashboard(authentication);
     }
 }
