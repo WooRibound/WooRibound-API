@@ -11,4 +11,6 @@ public interface AdminService {
     String joinApprove(AdminApproveReqDTO adminApproveReqDTO);
 
     String deleteApprove(AdminApproveReqDTO adminApproveReqDTO);
+
+    String getDashboard(String adminId);
 }

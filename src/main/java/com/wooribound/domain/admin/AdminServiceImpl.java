@@ -4,10 +4,13 @@ import com.wooribound.api.admin.dto.AdminApproveReqDTO;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.global.constant.YN;
+import com.wooribound.global.exception.NoAdminException;
 import com.wooribound.global.exception.NoApproveStatusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,5 +67,17 @@ public class AdminServiceImpl implements AdminService {
             else
                 return "[" + adminApproveReqDTO.getEntId() + "] 기업의 회원탈퇴 반려가 정상적으로 수행되지 않았습니다.";
         }
+    }
+
+    @Override
+    public String getDashboard(String adminId) {
+        Optional<Admin> admin = adminRepository.findById(adminId);
+
+        if (admin.isPresent()) {
+            String dashboardUrl = "http://localhost:3000/d/ce4zub47pmj9cc/new-dashboard?kiosk=&orgId=1&from=now-2d&to=now&timezone=browser";
+            return dashboardUrl;
+        }
+        else
+            throw new NoAdminException();
     }
 }

@@ -104,6 +104,11 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleNoEnterpriseException(NoEnterpriseException e) {
     return ResponseEntity.status(400).body(e.getMessage());
   }
+
+  @ExceptionHandler(NoAdminException.class)
+  public ResponseEntity<String> handleNoAdminException(NoAdminException e) {
+    return ResponseEntity.status(400).body(e.getMessage());
+  }
 }
 
 
