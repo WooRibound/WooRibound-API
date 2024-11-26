@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine
+FROM --platform=linux/amd64 amazoncorretto:17-alpine
 WORKDIR /app
 COPY build/libs/*.jar app.jar
 EXPOSE 8080

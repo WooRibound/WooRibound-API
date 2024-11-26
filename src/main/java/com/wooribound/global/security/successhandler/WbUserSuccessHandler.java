@@ -22,10 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final JWTUtil jwtUtil;
   private final RedisUtil redisUtil;
-  @Value("${targetIp}")
-  private String targetIp;
-  @Value("${targetPort}")
-  private String targetPort;
+  @Value("${spring.data.targetIp}")
+  private String TARGET_IP;
+  @Value("${spring.data.targetPort}")
+  private String TARGET_PORT;
+
+  private String protocol;
 
 
 
@@ -52,16 +54,22 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     // redis에 insert (key = username / value = refreshToken)
     redisUtil.setValues(userId, refreshToken, Duration.ofMillis(86400000L));
 
+    if (TARGET_PORT.equals("443")){
+      protocol = "https";
+    } else {
+      protocol = "http";
+    }
+
     // 응답
     // 응답
     String redirectUrl_oldUser = UriComponentsBuilder
-        .fromUriString("http://"+targetIp+":"+targetPort)
+        .fromUriString(protocol+"://"+TARGET_IP+":"+TARGET_PORT)
         .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
         .build()
         .toUriString();
 
     String redirectUrl_newUser = UriComponentsBuilder
-        .fromUriString("http://"+targetIp+":"+targetPort+"/individual-user/register")
+        .fromUriString(protocol+"://"+TARGET_IP+":"+TARGET_PORT+"/individual-user/register")
         .fragment("accessToken=" + accessToken)  // fragment로 accesstoken 전송
         .build()
         .toUriString();
