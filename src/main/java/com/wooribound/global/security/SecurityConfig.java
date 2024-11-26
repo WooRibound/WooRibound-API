@@ -88,7 +88,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     CustomAuthenticationFilter adminLoginFilter = new CustomAuthenticationFilter(
         authenticationManager(),
-        "api/auth/admin/login",
+        "/api/auth/admin/login",
         adminSuccessHandler
     );
 
