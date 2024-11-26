@@ -1,7 +1,11 @@
 package com.wooribound.domain.jobposting;
 
+import com.wooribound.api.corporate.dto.ApplicantsDTO;
+import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.api.individual.dto.JobPostingProjection;
+import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
+import com.wooribound.domain.jobposting.dto.WbUserProjection;
 import com.wooribound.domain.wbuser.WbUser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -74,7 +78,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     Optional<JobPosting> findJobPostingByPostId(@Param("postId") Long postId);
 
     // 3. 내 기업 공고 목록 조회
-    // JOBPOSTING + COUNT(쿼리연산) 반환해야해서 프로젝션 인터페이스로 리턴값 설정 JobPostingDetailProjection
     @Query("SELECT jp.postId AS postId, jp.postTitle AS postTitle, jp.enterprise.entName AS entName, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, " +
             "jp.job.jobName AS jobName, jp.enterprise.entAddr1 AS entAddr1, jp.enterprise.entAddr2 AS entAddr2, " +
@@ -94,12 +97,22 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     int updateIsDeletedByPostId(@Param("postId") Long postId);
 
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
-    @Query("SELECT w FROM WbUser w " +
+    @Query("SELECT w.userId AS userId, " +
+            "w.name AS name, " +
+            "CAST(w.birth AS date) AS birth, " +
+            "w.gender AS gender, " +
+            "SUM(CASE WHEN e.empRecomm = 'Y' THEN 1 ELSE 0 END) AS recommCount " +
+            "FROM WbUser w " +
             "JOIN w.workHistories wh " +
-            "WHERE wh.job.jobId = :jobId " +
-            "ORDER BY w.jobPoint DESC")
-    List<WbUser> findApplicantRecommendation(@Param("jobId") int jobId);
+            "LEFT JOIN Employment e ON e.wbUser.userId = w.userId " +
+            "WHERE wh.job.jobId = :jobId AND w.dataSharingConsent = 'Y' " +
+            "GROUP BY w.userId, w.name, w.birth, w.gender, w.jobPoint " +
+            "ORDER BY w.jobPoint DESC, recommCount DESC")
+    List<WbUserProjection> findApplicantRecommendation(@Param("jobId") int jobId);
 
+    // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
+    @Query("SELECT emp as entName FROM Employment emp WHERE emp.wbUser.userId = :userId AND emp.empRecomm = 'Y'")
+    List<Employment> findRecommendationHistory(String userId);
 
     @Query("SELECT MAX(jp.postId) FROM JobPosting jp")
     Optional<Long> getMaxJobPostingId();
