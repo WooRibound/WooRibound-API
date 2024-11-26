@@ -74,8 +74,7 @@ public class AdminServiceImpl implements AdminService {
         Optional<Admin> admin = adminRepository.findById(adminId);
 
         if (admin.isPresent()) {
-            String dashboardUrl = "http://localhost:3000/d/ce4zub47pmj9cc/new-dashboard?kiosk=&orgId=1&from=now-2d&to=now&timezone=browser";
-            return dashboardUrl;
+            return "http://localhost:3000/d/ce4zub47pmj9cc/new-dashboard?kiosk=&orgId=1&from=now-2d&to=now&timezone=browser";
         }
         else
             throw new NoAdminException();
