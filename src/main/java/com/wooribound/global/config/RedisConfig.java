@@ -9,11 +9,16 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-@EnableRedisRepositories
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+
+import java.io.IOException;
+
 @Configuration
+@EnableRedisRepositories
 @RequiredArgsConstructor
-public class Redisconfig {
+public class RedisConfig {
   @Value("${spring.data.redis.host}")
   private String REDIS_HOST;
 
@@ -23,8 +28,7 @@ public class Redisconfig {
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
     RedisStandaloneConfiguration redisStandaloneConfiguration =
-        new RedisStandaloneConfiguration(REDIS_HOST, REDIS_PORT);
-
+            new RedisStandaloneConfiguration(REDIS_HOST, REDIS_PORT);
     return new LettuceConnectionFactory(redisStandaloneConfiguration);
   }
 
@@ -34,7 +38,17 @@ public class Redisconfig {
     redisTemplate.setKeySerializer(new StringRedisSerializer());
     redisTemplate.setValueSerializer(new StringRedisSerializer());
     redisTemplate.setConnectionFactory(redisConnectionFactory());
-
     return redisTemplate;
+  }
+
+  @Bean
+  public RedisTemplate<String, OAuth2AuthorizationRequest> oauth2AuthorizationRequestRedisTemplate(
+          RedisConnectionFactory connectionFactory) {
+    RedisTemplate<String, OAuth2AuthorizationRequest> template = new RedisTemplate<>();
+    template.setConnectionFactory(connectionFactory);
+    template.setKeySerializer(new StringRedisSerializer());
+    template.setValueSerializer(new JdkSerializationRedisSerializer());
+    template.setHashValueSerializer(new JdkSerializationRedisSerializer());
+    return template;
   }
 }

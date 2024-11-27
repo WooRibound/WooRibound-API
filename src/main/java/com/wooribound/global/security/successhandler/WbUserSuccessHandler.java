@@ -64,7 +64,7 @@ public class WbUserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     // 응답
     String redirectUrl_oldUser = UriComponentsBuilder
         .fromUriString(protocol+"://"+TARGET_IP+":"+TARGET_PORT)
-        .fragment("accessToken=" + accessToken)  // Bearer 접두사 추가
+        .fragment("accessToken=" + accessToken)
         .build()
         .toUriString();
 
