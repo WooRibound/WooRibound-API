@@ -21,11 +21,18 @@ public class WbUserInfoFacade {
     private final UserApplyService userApplyService;
     private final WbUserService wbUserService;
 
-    // 1. 지원 공고 조회
+    // 1. 지원 현황 조회
     @Transactional(readOnly = true)
     public List<WbUserApplyDTO> getUserApplyList(Authentication authentication) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return userApplyService.getUserApplyList(userId);
+    }
+
+    // 지원 현황 상세 조회
+    @Transactional(readOnly = true)
+    public WbUserApplyDTO getUserApplyDetail(Authentication authentication, Long applyId) {
+        String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
+        return userApplyService.getUserApplyDetail(userId, applyId);
     }
 
     // 2. 지원 공고 취소
