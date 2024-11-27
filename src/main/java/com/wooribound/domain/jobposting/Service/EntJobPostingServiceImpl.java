@@ -21,6 +21,7 @@ import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoJobPostingException;
 import com.wooribound.global.exception.NoUserApplyException;
@@ -242,12 +243,11 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                             age--;
                         }
                     }
-                    // Integer recommendCount = (user.getRecommendCount() != null) ? user.getRecommendCount() : 0;
 
                     return ApplicantsDTO.builder()
                             .applicantName(user.getName())
-                            .applicantGender(user.getGender())
-                            .applicantAge(age != null ? age : 0) // 나이가 null인 경우 기본값 0 설정
+                            .applicantGender((Gender) Enum.valueOf(Gender.class, String.valueOf(user.getGender())))
+                            .applicantAge(age != null ? age : 0)
                             .userId(user.getUserId())
                             .recommendCount(user.getRecommendCount())
                             .build();

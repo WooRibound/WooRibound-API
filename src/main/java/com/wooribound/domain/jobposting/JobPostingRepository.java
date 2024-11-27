@@ -100,22 +100,29 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     int updateIsDeletedByPostId(@Param("postId") Long postId);
 
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
-    @Query("""
+    // 6. 공고별 지원자 추천 (헤드헌팅기능)
+    @Query(value = """
                 SELECT 
-                    w.userId AS userId, 
+                    w.user_id AS userId, 
                     w.name AS name, 
-                    CAST(w.birth AS date) AS birth, 
+                    CAST(w.birth AS DATE) AS birth, 
                     w.gender AS gender, 
-                    SUM(CASE WHEN e.empRecomm = 'Y' THEN 1 ELSE 0 
-                        END) AS recommCount 
-                FROM WbUser w JOIN w.workHistories wh 
-                LEFT JOIN Employment e ON e.wbUser.userId = w.userId 
-                WHERE wh.job.jobId = :jobId 
-                    AND w.exjobChk = 'Y' 
-                    AND w.dataSharingConsent = 'Y'
-                GROUP BY w.userId, w.name, w.birth, w.gender, w.jobPoint 
-                ORDER BY w.jobPoint DESC, recommCount DESC
-            """)
+                    IFNULL(SUM(CASE WHEN e.emp_recomm = 'Y' THEN 1 ELSE 0 END), 0) AS recommendCount
+                FROM 
+                    wb_user w
+                JOIN 
+                    work_history wh ON w.user_id = wh.user_id
+                LEFT JOIN 
+                    employment e ON w.user_id = e.user_id
+                WHERE 
+                    w.data_sharing_consent = 'Y' 
+                    AND w.exjob_chk = 'Y'
+                    AND wh.job_id = :jobId
+                GROUP BY 
+                    w.user_id, w.name, w.birth, w.gender
+                ORDER BY 
+                    recommendCount DESC
+            """, nativeQuery = true)
     List<WbUserProjection> findApplicantRecommendation(@Param("jobId") int jobId);
 
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
