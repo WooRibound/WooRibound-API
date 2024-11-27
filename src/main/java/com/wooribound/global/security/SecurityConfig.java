@@ -10,6 +10,7 @@ import com.wooribound.global.security.userdetail.admin.AdminUserDetailService;
 import com.wooribound.global.security.userdetail.enterprise.EnterpriseUserDetailService;
 import com.wooribound.global.security.userdetail.wbuser.WbUserDetailService;
 import com.wooribound.global.util.JWTUtil;
+import com.wooribound.global.util.RedisOAuth2AuthorizationRequestRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
@@ -46,6 +47,7 @@ public class SecurityConfig {
   private final WbUserDetailService wbUserDetailService;
   private final AdminUserDetailService adminUserDetailService;
   private final EnterpriseUserDetailService enterpriseUserDetailService;
+  private final RedisOAuth2AuthorizationRequestRepository authorizationRequestRepository;
   @Value("${spring.data.targetIp}")
   private String TARGET_IP;
   @Value("${spring.data.targetPort}")
@@ -123,6 +125,9 @@ public class SecurityConfig {
         .addFilterAt(enterpriseLoginFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
         .oauth2Login(oauth2 -> oauth2
+            .authorizationEndpoint(authorization -> authorization
+                    .authorizationRequestRepository(authorizationRequestRepository)
+            )
             .successHandler(wbUserSuccessHandler)
             .failureHandler((request, response, exception) -> {
               if (exception instanceof OAuth2AuthenticationException) {
