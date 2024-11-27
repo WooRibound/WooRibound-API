@@ -7,6 +7,7 @@ import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,12 @@ public class WbUserInfoController {
     @GetMapping("/jobposting/myapply")
     public List<WbUserApplyDTO> getUserApplyList(Authentication authentication) {
         return wbUserInfoFacade.getUserApplyList(authentication);
+    }
+
+    @Operation(summary = "지원 현황 상세 조회", description = "지원 현황 상세 조회")
+    @GetMapping("/jobposting/myapply/detail")
+    public ResponseEntity getUserApplyDetail(Authentication authentication, @RequestParam("applyId") Long applyId) {
+        return ResponseEntity.ok().body(wbUserInfoFacade.getUserApplyDetail(authentication, applyId));
     }
 
     @Operation(summary = "공고 지원 취소", description = "공고 지원 취소")

@@ -2,11 +2,15 @@ package com.wooribound.domain.userapply.Service;
 
 import com.wooribound.domain.jobposting.JobPosting;
 import com.wooribound.domain.jobposting.JobPostingRepository;
+import com.wooribound.domain.resume.Resume;
+import com.wooribound.domain.resume.ResumeRepository;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.wbuser.WbUser;
+import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.exception.NotEntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +28,8 @@ public class UserApplyServiceImpl implements UserApplyService {
 
     private final UserApplyRepository userApplyRepository;
     private final JobPostingRepository jobPostingRepository;
-    private final com.wooribound.domain.wbuser.WbUserRepository wbUserRepository;
+    private final ResumeRepository resumeRepository;
+    private final WbUserRepository wbUserRepository;
 
     // 1. 공고 지원
     @Override
@@ -34,6 +39,11 @@ public class UserApplyServiceImpl implements UserApplyService {
                     .orElseThrow(() -> new NoSuchElementException("해당 공고 ID가 존재하지 않습니다."));
             WbUser wbUser = wbUserRepository.findById(userId)
                     .orElseThrow(() -> new NoSuchElementException("해당 사용자 ID가 존재하지 않습니다."));
+            Optional<Resume> resume = resumeRepository.findByUserId(userId);
+
+            if (resume.isEmpty()) {
+                return "이력서를 등록하고 지원해주세요.";
+            }
 
             Optional<UserApply> byIdUserApply = userApplyRepository.findById(postId);
 
@@ -64,6 +74,29 @@ public class UserApplyServiceImpl implements UserApplyService {
         }
     }
 
+    @Override
+    public WbUserApplyDTO getUserApplyDetail(String userId, Long applyId) {
+        wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
+
+        UserApply userApply = userApplyRepository.findById(applyId).
+                orElseThrow(() -> new NotEntityException("[UserApply, ID :" + applyId + "]"));
+
+        return WbUserApplyDTO.builder()
+                .applyId(userApply.getApplyId())
+                .result(userApply.getResult())
+                .postId(userApply.getJobPosting().getPostId())
+                .postTitle(userApply.getJobPosting().getPostTitle())
+                .postImg(userApply.getJobPosting().getPostImg())
+                .jobName(userApply.getJobPosting().getJob().getJobName())
+                .startDate(userApply.getJobPosting().getStartDate())
+                .endDate(userApply.getJobPosting().getEndDate())
+                .entName(userApply.getJobPosting().getEnterprise().getEntName())
+                .entAddr1(userApply.getJobPosting().getEnterprise().getEntAddr1())
+                .entAddr2(userApply.getJobPosting().getEnterprise().getEntAddr2())
+                .build();
+    }
+
     // 2. 지원 공고 조회
     @Override
     public List<WbUserApplyDTO> getUserApplyList(String userId) {
@@ -76,6 +109,7 @@ public class UserApplyServiceImpl implements UserApplyService {
                                     .result(userApply.getResult())
                                     .entName(userApply.getJobPosting().getEnterprise().getEntName())
                                     .postTitle(userApply.getJobPosting().getPostTitle())
+                                    .postId(userApply.getJobPosting().getPostId())
                                     .startDate(userApply.getJobPosting().getStartDate())
                                     .endDate(userApply.getJobPosting().getEndDate())
                                     .entAddr1(userApply.getJobPosting().getEnterprise().getEntAddr1())

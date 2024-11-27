@@ -15,10 +15,13 @@ import java.util.Date;
 public class WbUserApplyDTO {
     private Long applyId;
     private ApplyResult result;
-    private String entName;
+    private Long postId;
     private String postTitle;
+    private String postImg;
+    private String jobName;
     private Date startDate;
     private Date  endDate;
+    private String entName;
     private String entAddr1;
     private String entAddr2;
 }

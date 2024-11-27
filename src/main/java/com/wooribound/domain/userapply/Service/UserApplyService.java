@@ -9,6 +9,8 @@ public interface UserApplyService {
     // 1. 공고 지원
     String createUserApply(String userId, Long postId);
 
+    WbUserApplyDTO getUserApplyDetail(String userId, Long applyId);
+
     // 2. 지원 공고 조회
     List<WbUserApplyDTO> getUserApplyList(String userId);
 
