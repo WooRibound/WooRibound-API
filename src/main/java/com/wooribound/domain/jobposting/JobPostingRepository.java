@@ -27,10 +27,10 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'ACTIVE' " +
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
             "END) AS postState " +
-            "FROM JobPosting jp")
+            "FROM JobPosting jp" +
+            " ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findAllJobPostingProjections();
 
-    // TODO: 공고 지역 시~도만 출력되게 변경 필요, 첫번쨰 공백 전까지 문자열 자르기?
     // 1. 공고 조회 (검색)
     @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +
@@ -43,7 +43,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "(:entName IS NULL OR jp.enterprise.entName LIKE %:entName%) AND " +
             "(:jobName IS NULL OR jp.job.jobName = :jobName) AND " +
             "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 = :entAddr1) AND " +
-            "(jp.isDeleted = 'N')")
+            "(jp.isDeleted = 'N')" +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findJobPostings(@Param("entName") String entName,
                                                @Param("jobName") String jobName,
                                                @Param("entAddr1") String entAddr1);
@@ -57,7 +58,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp WHERE " +
-            "(:exJobs IS NULL OR jp.job.jobName IN :exJobs)")
+            "(:exJobs IS NULL OR jp.job.jobName IN :exJobs)" +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findJobPostingsCareer(@Param("exJobs") List<String> exJobs);
 
     // 2-2. 공고 조회 (메뉴 접근 - 새로운 일 찾기)
@@ -88,7 +90,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN FUNCTION('DATE', jp.endDate) < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp " +
-            "WHERE jp.enterprise.entId = :entId AND jp.isDeleted = 'N'")
+            "WHERE jp.enterprise.entId = :entId AND jp.isDeleted = 'N' " +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingDetailProjection> getMyJobPostings(@Param("entId") String entId);
 
 
@@ -97,22 +100,29 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     int updateIsDeletedByPostId(@Param("postId") Long postId);
 
     // 6. 공고별 지원자 추천 (헤드헌팅기능)
-    @Query("""
+    // 6. 공고별 지원자 추천 (헤드헌팅기능)
+    @Query(value = """
                 SELECT 
-                    w.userId AS userId, 
+                    w.user_id AS userId, 
                     w.name AS name, 
-                    CAST(w.birth AS date) AS birth, 
+                    CAST(w.birth AS DATE) AS birth, 
                     w.gender AS gender, 
-                    SUM(CASE WHEN e.empRecomm = 'Y' THEN 1 ELSE 0 
-                        END) AS recommCount 
-                FROM WbUser w JOIN w.workHistories wh 
-                LEFT JOIN Employment e ON e.wbUser.userId = w.userId 
-                WHERE wh.job.jobId = :jobId 
-                    AND w.exjobChk = 'Y' 
-                    AND w.dataSharingConsent = 'Y'
-                GROUP BY w.userId, w.name, w.birth, w.gender, w.jobPoint 
-                ORDER BY w.jobPoint DESC, recommCount DESC
-            """)
+                    IFNULL(SUM(CASE WHEN e.emp_recomm = 'Y' THEN 1 ELSE 0 END), 0) AS recommendCount
+                FROM 
+                    wb_user w
+                JOIN 
+                    work_history wh ON w.user_id = wh.user_id
+                LEFT JOIN 
+                    employment e ON w.user_id = e.user_id
+                WHERE 
+                    w.data_sharing_consent = 'Y' 
+                    AND w.exjob_chk = 'Y'
+                    AND wh.job_id = :jobId
+                GROUP BY 
+                    w.user_id, w.name, w.birth, w.gender
+                ORDER BY 
+                    recommendCount DESC
+            """, nativeQuery = true)
     List<WbUserProjection> findApplicantRecommendation(@Param("jobId") int jobId);
 
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)

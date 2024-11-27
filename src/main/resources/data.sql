@@ -47,37 +47,37 @@ VALUES ('ENT010', '최영훈', '총무-법무·사무', 'MEDIUM', '5432109876', 
 
 -- Wb_User 데이터
 INSERT INTO wb_user (
-    user_id, gender, job_point, birth, created_at,
+    user_id, gender, job_point, birth, created_at, data_sharing_consent,
     addr_city, addr_province, name, phone, email,
     exjob_chk, interest_chk, job_interest, is_deleted
 ) VALUES (
              'USER001', 'M', 10,
              STR_TO_DATE('1985-05-20 00:00:00', '%Y-%m-%d %H:%i:%s'),
-             NOW(),
+             NOW(), 'Y',
              '서울', '서울시', '김철수', '010-1234-5678', 'kim@example.com',
-             'N', 'Y', 'N', 'N'
+             'Y', 'Y', 'Y', 'N'
          );
 INSERT INTO wb_user (
-    user_id, gender, job_point, birth, created_at,
+    user_id, gender, job_point, birth, created_at, data_sharing_consent,
     addr_city, addr_province, name, phone, email,
     exjob_chk, interest_chk, job_interest, is_deleted
 ) VALUES (
              'USER002', 'F', 5,
              STR_TO_DATE('1990-03-15 00:00:00', '%Y-%m-%d %H:%i:%s'),
-             NOW(),
+             NOW(), 'Y',
              '부산', '부산시', '이영희', '010-9876-5432', 'lee@example.com',
-             'N', 'Y', 'N', 'N'
+             'Y', 'Y', 'N', 'N'
          );
 INSERT INTO wb_user (
-    user_id, gender, job_point, birth, created_at,
+    user_id, gender, job_point, birth, created_at, data_sharing_consent,
     addr_city, addr_province, name, phone, email,
     exjob_chk, interest_chk, job_interest, is_deleted
 ) VALUES (
              'USER003', 'M', 15,
              STR_TO_DATE('1988-08-05 00:00:00', '%Y-%m-%d %H:%i:%s'),
-             NOW(),
+             NOW(), 'Y',
              '성남', '경기도', '최민수', '010-3456-7890', 'choi@example.com',
-             'N', 'Y', 'N', 'N'
+             'N', 'Y', 'Y', 'N'
          );
 INSERT INTO wb_user (user_id, gender, job_point, birth, created_at, addr_city, addr_province, name, phone, email, exjob_chk, interest_chk, job_interest, is_deleted, data_sharing_consent)
 VALUES ('USER004', 'F', 25, STR_TO_DATE('1992-11-10 00:00:00', '%Y-%m-%d %H:%i:%s'), NOW(), '대전', '대전시', '박지영', '010-1234-5679', 'park@example.com', 'N', 'N', 'N', 'N', 'N');
@@ -167,7 +167,7 @@ VALUES (
 INSERT INTO work_history (exjob_id, job_id, user_id)
 VALUES (1, 1, 'USER001');
 INSERT INTO work_history (exjob_id, job_id, user_id)
-VALUES (2, 2, 'USER002');
+VALUES (2, 1, 'USER002');
 INSERT INTO work_history (exjob_id, job_id, user_id)
 VALUES (3, 3, 'USER003');
 INSERT INTO work_history (exjob_id, job_id, user_id)

@@ -7,7 +7,7 @@ import java.sql.Date;
 public interface WbUserProjection {
     String getUserId();
     String getName();
-    Gender getGender();
-    Integer getRecommendCount();
+    Character getGender();
+    int getRecommendCount();
     Date getBirth();
 }
