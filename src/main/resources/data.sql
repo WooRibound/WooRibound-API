@@ -55,7 +55,7 @@ INSERT INTO wb_user (
              STR_TO_DATE('1985-05-20 00:00:00', '%Y-%m-%d %H:%i:%s'),
              NOW(),
              '서울', '서울시', '김철수', '010-1234-5678', 'kim@example.com',
-             'N', 'Y', 'N', 'N'
+             'Y', 'Y', 'N', 'N'
          );
 INSERT INTO wb_user (
     user_id, gender, job_point, birth, created_at,
@@ -66,7 +66,7 @@ INSERT INTO wb_user (
              STR_TO_DATE('1990-03-15 00:00:00', '%Y-%m-%d %H:%i:%s'),
              NOW(),
              '부산', '부산시', '이영희', '010-9876-5432', 'lee@example.com',
-             'N', 'Y', 'N', 'N'
+             'Y', 'Y', 'N', 'N'
          );
 INSERT INTO wb_user (
     user_id, gender, job_point, birth, created_at,
@@ -167,7 +167,7 @@ VALUES (
 INSERT INTO work_history (exjob_id, job_id, user_id)
 VALUES (1, 1, 'USER001');
 INSERT INTO work_history (exjob_id, job_id, user_id)
-VALUES (2, 2, 'USER002');
+VALUES (2, 1, 'USER002');
 INSERT INTO work_history (exjob_id, job_id, user_id)
 VALUES (3, 3, 'USER003');
 INSERT INTO work_history (exjob_id, job_id, user_id)

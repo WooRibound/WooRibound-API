@@ -27,10 +27,10 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN jp.startDate <= CURRENT_DATE AND jp.endDate >= CURRENT_DATE THEN 'ACTIVE' " +
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
             "END) AS postState " +
-            "FROM JobPosting jp")
+            "FROM JobPosting jp" +
+            " ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findAllJobPostingProjections();
 
-    // TODO: 공고 지역 시~도만 출력되게 변경 필요, 첫번쨰 공백 전까지 문자열 자르기?
     // 1. 공고 조회 (검색)
     @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +
@@ -43,7 +43,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "(:entName IS NULL OR jp.enterprise.entName LIKE %:entName%) AND " +
             "(:jobName IS NULL OR jp.job.jobName = :jobName) AND " +
             "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 = :entAddr1) AND " +
-            "(jp.isDeleted = 'N')")
+            "(jp.isDeleted = 'N')" +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findJobPostings(@Param("entName") String entName,
                                                @Param("jobName") String jobName,
                                                @Param("entAddr1") String entAddr1);
@@ -57,7 +58,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN jp.endDate < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp WHERE " +
-            "(:exJobs IS NULL OR jp.job.jobName IN :exJobs)")
+            "(:exJobs IS NULL OR jp.job.jobName IN :exJobs)" +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findJobPostingsCareer(@Param("exJobs") List<String> exJobs);
 
     // 2-2. 공고 조회 (메뉴 접근 - 새로운 일 찾기)
@@ -88,7 +90,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "WHEN FUNCTION('DATE', jp.endDate) < CURRENT_DATE THEN 'CLOSED' " +
             "END AS postState " +
             "FROM JobPosting jp " +
-            "WHERE jp.enterprise.entId = :entId AND jp.isDeleted = 'N'")
+            "WHERE jp.enterprise.entId = :entId AND jp.isDeleted = 'N' " +
+            "ORDER BY jp.createdAt DESC")
     List<JobPostingDetailProjection> getMyJobPostings(@Param("entId") String entId);
 
 
