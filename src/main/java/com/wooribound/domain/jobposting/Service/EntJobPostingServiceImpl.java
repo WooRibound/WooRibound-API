@@ -24,6 +24,7 @@ import com.wooribound.global.constant.ApplyResult;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoJobPostingException;
 import com.wooribound.global.exception.NoUserApplyException;
+import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.util.S3Util;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -269,4 +270,45 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
          .collect(Collectors.toList());
     }
 
+    @Override
+    public String deleteJobPosting(String userId, Long postId) {
+        enterpriseRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[Enterprise, ID :" + userId + "]"));
+
+        Optional <JobPosting> optionalJobPosting = jobPostingRepository.findJobPostingByPostId(postId);
+
+        if (jobPostingRepository.updateIsDeletedByPostId(postId) != 0) {
+            try {
+                List<UserApply> userApplies = userApplyRepository.findUserApply(postId);
+
+                if (userApplies.isEmpty()) {
+                    throw new NoUserApplyException(postId);  // 지원자가 없을 경우 예외 던짐
+                }
+
+                JobPosting jobPosting = optionalJobPosting.get();
+
+                for (UserApply userApply : userApplies) {
+                    Notification notification = Notification.builder()
+                            .wbUser(userApply.getWbUser())
+                            .userApply(userApply)
+                            .notice(userApply.getWbUser().getName() + "님께서 지원하신 " +
+                                    jobPosting.getEnterprise().getEntName() + " 기업의 " +
+                                    jobPosting.getPostTitle() + " 채용공고가 삭제되어 지원 취소 처리 되었습니다." +
+                                    "\n 불편을 드려 죄송합니다.")
+                            .isConfirmed(YN.N)
+                            .createdAt(new Date())
+                            .build();
+
+                    notificationRepository.save(notification);
+                }
+                int updatedCnt = userApplyRepository.cancelUserApplyByPostId(postId);
+
+                return postId + "번 채용공고를 성공적으로 삭제 처리했습니다.";
+            } catch (NoUserApplyException e) {
+                return "채용공고는 삭제되었지만, 해당 공고에 지원자가 없어 지원 취소 알림은 없습니다.";
+            }
+        } else {
+            throw new NoJobPostingException(postId);  // 채용공고 삭제 실패 시 예외 처리
+        }
+    }
 }

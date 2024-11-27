@@ -30,4 +30,6 @@ public interface EntJobPostingService {
 
     // 6-1. 기업 추천 내역 조회 (프리미엄 기능)
     List<RecommendationHistoryDTO> getRecommendationHistory(String userId);
+
+    String deleteJobPosting(String userId, Long postId);
 }
