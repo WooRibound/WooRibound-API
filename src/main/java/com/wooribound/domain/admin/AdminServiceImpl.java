@@ -19,7 +19,6 @@ public class AdminServiceImpl implements AdminService {
     private final PasswordEncoder passwordEncoder;
     private final EnterpriseRepository enterpriseRepository;
 
-
     @Override
     public void create(AdminDTO adminDTO) {
         String encodedPW = passwordEncoder.encode(adminDTO.getAdminPw());
@@ -73,9 +72,8 @@ public class AdminServiceImpl implements AdminService {
     public String getDashboard(String adminId) {
         Optional<Admin> admin = adminRepository.findById(adminId);
 
-        if (admin.isPresent()) {
-            return "http://localhost:3000/d/fe52n5f3ny4u8b/wb-infra?orgId=1&from=now-24h&to=now";
-        }
+        if (admin.isPresent())
+            return "Y";
         else
             throw new NoAdminException();
     }
