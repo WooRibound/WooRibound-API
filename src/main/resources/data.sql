@@ -203,8 +203,24 @@ VALUES
 
 -- 이력서
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
-    (1, 'USER001', 'https://example.com/image1.jpg', 'kim@example.com', '전략 기획 경력이 풍부한 전문가로서 데이터 기반 분석에 강점을 가지고 있습니다.'),
-    (2, 'USER002', 'https://example.com/image2.jpg', 'lee@example.com', '고객 중심 마케팅과 데이터 분석을 통해 성과를 낸 마케팅 전문가입니다.');
+  (3, 'USER003', 'https://example.com/image3.jpg', 'choi@example.com', 'IT 분야에서 15년 이상의 경험을 바탕으로 시스템 구축과 최적화 프로젝트를 성공적으로 이끌었습니다. 새로운 도전과 성장을 추구하고 있습니다.'),
+  (4, 'USER004', 'https://example.com/image4.jpg', 'park@example.com', '10년간 UI/UX 디자인 경험을 통해 사용자 친화적인 인터페이스를 설계하며 브랜드 가치를 높였습니다. 창의적인 문제 해결에 강점을 가지고 있습니다.'),
+  (5, 'USER005', 'https://example.com/image5.jpg', 'jang@example.com', '물류 및 유통 관리 전문가로서, 효율적인 재고 관리와 공급망 최적화 프로젝트를 성공적으로 수행했습니다. 데이터 기반 의사결정을 중시합니다.'),
+  (6, 'USER006', 'https://example.com/image6.jpg', 'hong@example.com', '교육 분야에서 12년 이상 경력을 쌓아온 전문가로, 학습 프로그램 개발과 교사 연수를 통해 성과를 이끌어냈습니다.'),
+  (7, 'USER007', 'https://example.com/image7.jpg', 'choid@example.com', 'R&D 부문에서 20년 이상 경력을 쌓으며 신기술 개발과 특허 출원 프로젝트를 성공적으로 이끌었습니다. 혁신과 팀워크를 중시합니다.'),
+  (8, 'USER008', 'https://example.com/image8.jpg', 'go@example.com', '5년간 공공 기관에서 기획 업무를 담당하며 정책 수립과 행정 업무 효율화를 주도했습니다. 조직 관리 경험이 풍부합니다.'),
+  (9, 'USER009', 'https://example.com/image9.jpg', 'leej@example.com', '제조업 분야에서 18년간 근무하며 생산 공정 개선과 품질 관리 프로젝트를 수행했습니다. Lean Manufacturing에 전문성을 보유하고 있습니다.'),
+  (10, 'USER010', 'https://example.com/image10.jpg', 'kima@example.com', '30년간 의료기기 영업에서 연속 매출 성장을 이끌어내며 팀 리더로서 성과를 창출했습니다. 고객 중심의 솔루션 제공에 강점이 있습니다.'),
+  (11, 'USER011', 'https://example.com/image11.jpg', 'parkj@example.com', 'IT 기술 지원 전문가로서 클라우드 기반 시스템 구축과 고객 지원을 통해 높은 고객 만족도를 유지했습니다. 변화 관리 경험이 있습니다.'),
+  (12, 'USER012', 'https://example.com/image12.jpg', 'yoon@example.com', '20년간 금융 분석과 리스크 관리 분야에서 경력을 쌓았으며, 데이터 분석을 통한 성과 예측에 강점을 보유하고 있습니다.'),
+  (13, 'USER013', 'https://example.com/image13.jpg', 'leek@example.com', '영업 및 마케팅 전문가로서 25년간 글로벌 기업과 협업하며 매출 성장을 이뤄냈습니다. 데이터 기반 캠페인 설계에 전문성을 가지고 있습니다.'),
+  (14, 'USER014', 'https://example.com/image14.jpg', 'kime@example.com', '뷰티 산업에서 신제품 개발 프로젝트를 10년간 성공적으로 주도하며 트렌드를 반영한 제품 기획에 강점을 보유하고 있습니다.'),
+  (15, 'USER015', 'https://example.com/image15.jpg', 'choiy@example.com', '법무 전문가로서 30년 이상 기업 자문 및 계약 검토를 수행했습니다. 복잡한 문제를 해결하는 능력에 자신이 있습니다.'),
+  (16, 'USER016', 'https://example.com/image16.jpg', 'seungmin@example.com', '건설업 분야에서 프로젝트 관리자로서 대규모 건축 프로젝트를 성공적으로 완수하였습니다. 리더십과 예산 관리 경험이 풍부합니다.'),
+  (17, 'USER017', 'https://example.com/image17.jpg', 'jiyun@example.com', '마케팅 및 PR 전문가로서 15년간 브랜드 가치를 증대시키는 데 기여했습니다. 창의적인 콘텐츠 기획에 강점을 보유하고 있습니다.'),
+  (18, 'USER018', 'https://example.com/image18.jpg', 'hyunwoo@example.com', '국제 물류 전문가로서 수출입 프로세스 최적화와 비용 절감 프로젝트를 성공적으로 수행했습니다. 팀 협업과 의사소통이 뛰어납니다.'),
+  (19, 'USER019', 'https://example.com/image19.jpg', 'sujin@example.com', '환경 컨설팅 분야에서 지속 가능성을 고려한 프로젝트를 12년간 성공적으로 진행하였습니다. 데이터 분석과 정책 제안에 강점을 가지고 있습니다.'),
+  (20, 'USER020', 'https://example.com/image20.jpg', 'kihyuk@example.com', '자동차 산업에서 15년간 생산 관리 및 설비 유지보수 업무를 담당하며 가동률 개선 프로젝트를 성공적으로 이끌었습니다.');
 
 
 INSERT INTO admin (admin_id, admin_name, admin_pw, admin_type)

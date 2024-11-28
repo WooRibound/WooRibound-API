@@ -82,6 +82,7 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .entId(enterprise.getEntId())
                         .entName(enterprise.getEntName())
                         .entField(enterprise.getEntField())
+                        .deleteRequestedAt(enterprise.getDeleteRequestedAt())
                         .build())
                 .collect(Collectors.toList());
     }
