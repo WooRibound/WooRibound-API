@@ -58,6 +58,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
                 .startDate(jobPosting.getStartDate())
                 .endDate(jobPosting.getEndDate())
                 .jobName(jobPosting.getJob().getJobName())
+                .postingCnt(jobPosting.getPostingCnt())
                 .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                 .build();
     }
