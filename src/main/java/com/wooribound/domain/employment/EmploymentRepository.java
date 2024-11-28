@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface EmploymentRepository extends JpaRepository<Employment, Long> {
 
-    List<Employment> findByEnterprise_EntId(String entId);
+    List<Employment> findByEnterprise_EntIdOrderByHireDateAsc(String entId);
 }

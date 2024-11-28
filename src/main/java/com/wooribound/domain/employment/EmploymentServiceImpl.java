@@ -20,7 +20,7 @@ public class EmploymentServiceImpl implements EmploymentService{
     // 1. 고용 직원 목록 조회
     @Override
     public List<EmployeeDTO> getEmployees(String entId) {
-        return employmentRepository.findByEnterprise_EntId(entId).stream()
+        return employmentRepository.findByEnterprise_EntIdOrderByHireDateAsc(entId).stream()
                 .map(employment -> EmployeeDTO.builder()
                         .empId(employment.getEmpId())
                         .hireDate(employment.getHireDate())
