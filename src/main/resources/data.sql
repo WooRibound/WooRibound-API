@@ -23,49 +23,6 @@ INSERT INTO job (job_id, job_name) VALUES (21, '공공-복지');
 
 
 -- Enterprise 데이터
-<<<<<<< Updated upstream
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT001', '김철수', '기획-전략', 'MEDIUM', '1234567890', '100000000', 'CJ ENM', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'IT 타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT002', '이영희', '금융-보험', 'LARGE', '0987654321', '500000000', '삼성화재', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '부산시 해운대구', '블루 스퀘어', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT003', '최민수', 'IT개발-데이터', 'MEDIUM', '5678901234', '150000000', '네이버', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', '분당구', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT004', '박지영', '디자인', 'SMALL', '3456789012', '70000000', '카카오', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '제주동', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT005', '이준호', '영업-판매-무역', 'LARGE', '4567890123', '300000000', '롯데', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '인천시 남구', '롯데타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT006', '김유진', '교육', 'MEDIUM', '9876543210', '90000000', '한솔교육', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '광주시 북구', '한솔빌딩', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT007', '장희원', '연구-R&D', 'LARGE', '8765432109', '400000000', 'LG', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '대전시 서구', 'LG타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT008', '박은빈', '건설-건축', 'LARGE', '7654321098', '800000000', '현대건설', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '울산시 남구', '현대타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT009', '김하늘', '서비스', 'SMALL', '6543210987', '60000000', '에버랜드', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 용인시', '에버랜드', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT010', '최영훈', '총무-법무·사무', 'MEDIUM', '5432109876', '110000000', '우바법무법인', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 서초구', '법조타운', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT011', '한승호', '의료-제약', 'LARGE', '4321098765', '750000000', '녹십자', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 화성시', '녹십자타운', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT012', '이서연', '마케팅-홍보', 'MEDIUM', '3210987654', '120000000', '더존', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 마포구', '더존빌딩', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT013', '최민지', '법률', 'SMALL', '2109876543', '50000000', '민지법률사무소', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '부산시 연제구', '연제동 사무소', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT014', '박준영', '유통', 'LARGE', '1098765432', '650000000', 'GS리테일', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', 'GS타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT015', '정하나', '엔터테인먼트', 'MEDIUM', '0198765432', '200000000', 'SM엔터테인먼트', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 송파구', '코엑스', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT016', '강철민', '자동차-기계', 'LARGE', '0987654321', '850000000', '기아자동차', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 광명시', '기아타워', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT017', '윤정수', '패션-뷰티', 'MEDIUM', '8765432101', '95000000', '아모레퍼시픽', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 용산구', '아모레타운', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT018', '김도연', '스포츠', 'SMALL', '7654321012', '70000000', '아디다스코리아', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 중구', '스포츠타운', NOW(), 'N');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT019', '정혜린', '환경-에너지', 'LARGE', '6543210123', '770000000', 'SK에너지', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 영등포구', 'SK타워', NOW(), 'Y');
-INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, is_deleted)
-VALUES ('ENT020', '오승재', '농업-축산업', 'MEDIUM', '5432101234', '130000000', '팜프렌즈', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '전라남도 나주시', '팜프라자', NOW(), 'Y');
-
-=======
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT001', '김철수', '기획-전략', 'MEDIUM', '1234567890', '100000000', 'CJ ENM', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'IT 타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
@@ -112,7 +69,7 @@ INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue,
 VALUES ('ENT022', '최영재', '패션-뷰티', 'MEDIUM', '5432101234', '130000000', 'abc마트', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '트윈타워', NOW(), NOW(), 'P');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT023', '하영준', '서비스', 'MEDIUM', '5432101234', '130000000', '대명리조트', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '강원도 고성군', '대명리조트', NOW(), NOW(), 'Y');
->>>>>>> Stashed changes
+
 
 -- Wb_User 데이터
 INSERT INTO wb_user (user_id, gender, job_point, birth, created_at, data_sharing_consent, addr_city, addr_province, name, phone, email, exjob_chk, interest_chk, job_interest, is_deleted) VALUES ('USER001', 'M', 10, STR_TO_DATE('1985-05-20 00:00:00', '%Y-%m-%d %H:%i:%s'), NOW(), 'Y', '서울', '서울시', '김철수', '010-1234-5678', 'kim@example.com', 'Y', 'Y', 'Y', 'N');

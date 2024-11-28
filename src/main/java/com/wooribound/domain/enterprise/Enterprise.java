@@ -75,8 +75,6 @@ public class Enterprise {
   @PrePersist
   public void prePersist() {
     createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-    deleteRequestedAt = LocalDateTime.now();
   }
 
   // @PreUpdate는 엔티티가 업데이트될 때 호출됩니다.

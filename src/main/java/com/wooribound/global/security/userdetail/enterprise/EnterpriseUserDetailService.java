@@ -37,7 +37,16 @@ public class EnterpriseUserDetailService implements UserDetailsService {
           enterpriseUser.getEntId(),
           enterpriseUser.getEntName(),
           enterpriseUser.getEntPwd(),
-          List.of(() -> "ROLE_ENTERPRISE_DELETE_PENDING")
+          List.of(() -> "ROLE_ENTERPRISE_PENDING")
+      );
+    }
+
+    if (enterpriseUser.getIsDeleted() == YNP.N && enterpriseUser.getUpdatedAt() == null) {
+      return new EnterpriseUserDetail(
+              enterpriseUser.getEntId(),
+              enterpriseUser.getEntName(),
+              enterpriseUser.getEntPwd(),
+              List.of(() -> "ROLE_ENTERPRISE_PENDING")
       );
     }
 

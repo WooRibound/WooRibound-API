@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
@@ -15,6 +16,6 @@ public class AdminPendingEnterpriseDTO {
     private String entId;
     private String entName;
     private String entField;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private Date deleteRequestedAt;
 }
