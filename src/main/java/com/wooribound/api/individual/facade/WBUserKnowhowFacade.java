@@ -26,7 +26,7 @@ public class WBUserKnowhowFacade {
     }
 
     @Transactional
-    public Long deleteShareKnowhow(Authentication authentication, Long knowhowId) {
+    public String deleteShareKnowhow(Authentication authentication, Long knowhowId) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserKnowhowService.deleteShareKnowhow(userId, knowhowId);
     }
