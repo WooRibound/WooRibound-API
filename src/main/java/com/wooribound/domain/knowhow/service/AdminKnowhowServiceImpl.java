@@ -38,6 +38,7 @@ public class AdminKnowhowServiceImpl implements AdminKnowhowService {
             return AdminKnowhowDTO.builder()
                     .knowhowId(projection.getKnowhowId())
                     .userId(projection.getUserId())
+                    .userName(projection.getUserName())
                     .knowhowJob(projection.getKnowhowJob())
                     .knowhowTitle(projection.getKnowhowTitle())
                     .uploadDate(projection.getUploadDate())
