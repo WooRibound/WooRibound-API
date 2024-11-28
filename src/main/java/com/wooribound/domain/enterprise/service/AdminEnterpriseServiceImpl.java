@@ -69,6 +69,7 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                         .entId(enterprise.getEntId())
                         .entName(enterprise.getEntName())
                         .entField(enterprise.getEntField())
+                        .createdAt(enterprise.getCreatedAt())
                         .build())
                 .collect(Collectors.toList());
     }

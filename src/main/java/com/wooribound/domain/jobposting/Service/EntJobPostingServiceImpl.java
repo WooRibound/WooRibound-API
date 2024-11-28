@@ -4,6 +4,7 @@ import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.domain.employment.Employment;
+import com.wooribound.domain.employment.EmploymentRepository;
 import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.domain.enterprise.dto.UserApplyProjection;
@@ -53,6 +54,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     private final EnterpriseRepository enterpriseRepository;
     private final UserApplyRepository userApplyRepository;
     private final NotificationRepository notificationRepository;
+    private final EmploymentRepository  employmentRepository;
 
     // 1. 공고 등록
     @Override
@@ -198,6 +200,20 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                 default -> "";
             };
 
+            // 고용 데이터 생성
+            if(applyResult.equals(ApplyResult.ACCEPTED)) {
+                Employment employment = Employment.builder()
+                        .wbUser(wbUser)
+                        .enterprise(userApply.getJobPosting().getEnterprise())
+                        .job(userApply.getJobPosting().getJob())
+                        .empRecomm(YN.N)
+                        .empState(YN.Y)
+                        .build();
+
+                log.info("employment 생성 : {}", employment);
+                employmentRepository.save(employment);
+            }
+
             Long maxId = notificationRepository.findMaxId();
             Long nextId = maxId + 1;
             log.info("nextId: {}", nextId.toString());
@@ -214,6 +230,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .build();
 
             notificationRepository.save(notification);
+
 
             return "지원자 결과 설정이 완료되었습니다.";
         } else {
