@@ -38,7 +38,7 @@ public class AdminAuthController {
         return adminAuthFacade.deleteApprove(adminApproveReqDTO);
     }
 
-    @Operation(summary = "로드 대시보드 조회", description = "인프라 로그 대시보드 조회")
+    @Operation(summary = "로그 대시보드 조회", description = "인프라 로그 대시보드 조회")
     @GetMapping("/dashboard")
     public String getDashboard(Authentication authentication) {
         return adminAuthFacade.getDashboard(authentication);
