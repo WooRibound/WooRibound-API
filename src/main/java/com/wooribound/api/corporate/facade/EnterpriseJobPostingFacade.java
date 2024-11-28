@@ -3,7 +3,6 @@ package com.wooribound.api.corporate.facade;
 import com.wooribound.api.corporate.dto.ApplicantsDTO;
 import com.wooribound.api.corporate.dto.JobPostingReqDTO;
 import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
-import com.wooribound.domain.jobposting.Service.AdminJobPostingService;
 import com.wooribound.domain.jobposting.Service.EntJobPostingService;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.resume.ResumeService;
@@ -20,9 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class EnterpriseJobPostingFacade {
+
     private final ResumeService resumeService;
     private final EntJobPostingService entJobPostingService;
-    private final AdminJobPostingService adminJobPostingService;
     private final AuthenticateUtil authenticateUtil;
 
 
@@ -77,8 +76,9 @@ public class EnterpriseJobPostingFacade {
 
     // 7. 공고 삭제
     @Transactional
-    public String deleteJobPosting(Long postId) {
-        return adminJobPostingService.deleteJobPosting(postId);
+    public String deleteJobPosting(Authentication authentication, Long postId) {
+        String userId = authenticateUtil.CheckEnterpriseAuthAndGetUserId(authentication);
+        return entJobPostingService.deleteJobPosting(userId, postId);
     }
 
 }
