@@ -1,18 +1,16 @@
 package com.wooribound.domain.jobposting;
 
-import com.wooribound.api.corporate.dto.ApplicantsDTO;
-import com.wooribound.api.corporate.dto.RecommendationHistoryDTO;
 import com.wooribound.api.individual.dto.JobPostingProjection;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailProjection;
 import com.wooribound.domain.jobposting.dto.WbUserProjection;
-import com.wooribound.domain.wbuser.WbUser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -132,8 +130,8 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     @Query("SELECT MAX(jp.postId) FROM JobPosting jp")
     Optional<Long> getMaxJobPostingId();
 
-    @Query("SELECT MAX(jp.postingCnt) FROM JobPosting jp")
-    Optional<Long> getMaxPostingCnt();
+    @Query("SELECT jp.postingCnt FROM JobPosting jp where jp.postId =:postId")
+    Optional<Long> getPostingCnt(@RequestParam("postId") Long postId);
 
     @Query("SELECT jp.enterprise AS enterprise, jp.postId AS postId, jp.enterprise.entName AS entName, jp.postTitle AS postTitle, jp.postImg AS postImg, " +
             "jp.startDate AS startDate, jp.endDate AS endDate, jp.job.jobName AS jobName, " +

@@ -110,6 +110,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
                     .startDate(jobPosting.getStartDate())
                     .endDate(jobPosting.getEndDate())
                     .jobName(jobPosting.getJob().getJobName())
+                    .postingCnt(jobPosting.getPostingCnt())
                     .entAddr1(jobPosting.getEnterprise().getEntAddr1())
                     .entAddr2(jobPosting.getEnterprise().getEntAddr2())
                     .jobId(jobPosting.getJob().getJobId())
