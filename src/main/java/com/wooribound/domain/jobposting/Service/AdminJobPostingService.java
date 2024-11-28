@@ -11,5 +11,5 @@ public interface AdminJobPostingService {
 
     JobPostingDetailDTO getJobPostingDetail(Long postId);
 
-    String deleteJobPosting(Long postId);
+    String deleteJobPosting(String userId, Long postId);
 }

@@ -86,11 +86,8 @@ public class EnterpriseJobPostingController {
     // 8. 공고 삭제
     @Operation(summary = "채용공고 삭제", description = "채용공고 삭제")
     @PostMapping("/detail/delete")
-    public String deleteJobPosting(@RequestParam Long postId) {
-        return enterpriseJobPostingFacade.deleteJobPosting(postId);
+    public String deleteJobPosting(Authentication authentication, @RequestParam Long postId) {
+        return enterpriseJobPostingFacade.deleteJobPosting(authentication, postId);
     }
-
-
-
     
 }

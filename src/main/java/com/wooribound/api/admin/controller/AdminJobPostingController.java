@@ -7,6 +7,7 @@ import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class AdminJobPostingController {
 
     @Operation(summary = "채용공고 삭제", description = "채용공고 삭제")
     @PostMapping("/delete")
-    public String deleteJobPosting(@RequestParam Long postId) {
-        return adminJobPostingFacade.deleteJobPosting(postId);
+    public String deleteJobPosting(Authentication authentication, @RequestParam Long postId) {
+
+        return adminJobPostingFacade.deleteJobPosting(authentication, postId);
     }
 }

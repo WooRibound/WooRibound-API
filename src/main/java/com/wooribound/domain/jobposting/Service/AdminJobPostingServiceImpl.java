@@ -2,6 +2,8 @@ package com.wooribound.domain.jobposting.Service;
 
 import com.wooribound.api.admin.dto.AdminJobPostingReqDTO;
 import com.wooribound.api.individual.dto.JobPostingProjection;
+import com.wooribound.domain.admin.Admin;
+import com.wooribound.domain.admin.AdminRepository;
 import com.wooribound.domain.jobposting.dto.JobPostingDTO;
 import com.wooribound.domain.jobposting.dto.JobPostingDetailDTO;
 import com.wooribound.domain.jobposting.JobPosting;
@@ -13,6 +15,8 @@ import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoJobPostingException;
 import com.wooribound.global.exception.NoUserApplyException;
+import com.wooribound.global.exception.NotEntityException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,7 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
     private final JobPostingRepository jobPostingRepository;
     private final UserApplyRepository userApplyRepository;
     private final NotificationRepository notificationRepository;
+    private final AdminRepository adminRepository;
 
     @Override
     public List<JobPostingDTO> getAllJobPostings(AdminJobPostingReqDTO adminJobPostingReqDTO) {
@@ -58,7 +63,10 @@ public class AdminJobPostingServiceImpl implements AdminJobPostingService {
     }
 
     @Override
-    public String deleteJobPosting(Long postId) {
+    public String deleteJobPosting(String userId, Long postId) {
+        adminRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[Admin, ID :" + userId + "]"));
+
         Optional <JobPosting> optionalJobPosting = jobPostingRepository.findJobPostingByPostId(postId);
 
         if (jobPostingRepository.updateIsDeletedByPostId(postId) != 0) {
