@@ -173,7 +173,7 @@ public class WbUserJobPostingServiceImpl implements WbUserJobPostingService {
             log.info("공고 상세 조회 결과 - ID: {}, Title: {}", jobPosting.getPostId(), jobPosting.getPostTitle());
 
             // 포스팅 카운트 수 +1 업데이트
-            jobPosting.setPostingCnt(jobPostingRepository.getMaxPostingCnt().orElse(0L) + 1);
+            jobPosting.setPostingCnt(jobPostingRepository.getPostingCnt(postId).orElse(0L) + 1);
             jobPostingRepository.save(jobPosting);
 
             return JobPostingDetailDTO.builder()
