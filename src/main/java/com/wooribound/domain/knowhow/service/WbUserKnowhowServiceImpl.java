@@ -6,6 +6,8 @@ import com.wooribound.domain.knowhow.dto.WbUserKnowhowDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.exception.KnowhowNotFoundException;
+import com.wooribound.global.exception.NoKnowhowException;
+import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,17 +46,16 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
     }
 
     @Override
-    public Long deleteShareKnowhow(String userId, Long knowhowId) {
-        Optional<Knowhow> byKnowhowId = knowhowRepository.findById(knowhowId);
+    public String deleteShareKnowhow(String userId, Long knowhowId) {
+        wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
 
-        if (byKnowhowId.isEmpty()) {
-            throw new IllegalArgumentException("없는 지혜 나눔 게시물입니다.");
-        }
+        Knowhow knowhow = knowhowRepository.findById(knowhowId)
+                .orElseThrow(() -> new NotEntityException("[Knowhow, ID :" + knowhowId + "]"));
 
-        Knowhow knowhow = byKnowhowId.get();
         if (knowhow.getWbUser().getUserId().equals(userId)) {
             knowhowRepository.delete(knowhow);
-            return knowhowId;
+            return "삭제가 완료되었습니다.";
         } else {
             throw new UnauthorizedAccessException();
         }

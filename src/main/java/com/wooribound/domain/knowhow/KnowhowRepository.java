@@ -16,7 +16,7 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
     // 신고 횟수 기준으로 내림차순
     @Query("SELECT k.knowhowId AS knowhowId, k.knowhowJob AS knowhowJob, " +
             "k.knowhowTitle AS knowhowTitle, k.uploadDate AS uploadDate, " +
-            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId FROM Knowhow k " +
+            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId, k.wbUser.name AS userName FROM Knowhow k " +
             "LEFT JOIN KnowhowReported k_report ON k_report.knowhow = k " +
             "WHERE (:knowhowTitle IS NULL OR k.knowhowTitle LIKE %:knowhowTitle%) " +
             "AND (:knowhowJob IS NULL OR k.knowhowJob = :knowhowJob) " +
@@ -28,7 +28,7 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
     // 신고 횟수 기준으로 오름차순
     @Query("SELECT k.knowhowId AS knowhowId, k.knowhowJob AS knowhowJob, " +
             "k.knowhowTitle AS knowhowTitle, k.uploadDate AS uploadDate, " +
-            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId FROM Knowhow k " +
+            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId, k.wbUser.name AS userName FROM Knowhow k " +
             "LEFT JOIN KnowhowReported k_report ON k_report.knowhow = k " +
             "WHERE (:knowhowTitle IS NULL OR k.knowhowTitle LIKE %:knowhowTitle%) " +
             "AND (:knowhowJob IS NULL OR k.knowhowJob = :knowhowJob) " +
@@ -40,7 +40,7 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
     // 업로드 날짜 기준 내림차순
     @Query("SELECT k.knowhowId AS knowhowId, k.knowhowJob AS knowhowJob, " +
             "k.knowhowTitle AS knowhowTitle, k.uploadDate AS uploadDate, " +
-            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId FROM Knowhow k " +
+            "COUNT(k_report) AS reportedCnt, k.wbUser.userId AS userId, k.wbUser.name AS userName FROM Knowhow k " +
             "LEFT JOIN KnowhowReported k_report ON k_report.knowhow = k " +
             "WHERE (:knowhowTitle IS NULL OR k.knowhowTitle LIKE %:knowhowTitle%) " +
             "AND (:knowhowJob IS NULL OR k.knowhowJob = :knowhowJob) " +
