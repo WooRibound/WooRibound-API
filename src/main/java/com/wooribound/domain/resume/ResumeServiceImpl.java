@@ -132,15 +132,31 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     @Transactional
     public ResumeDetailDTO getWbUserResume(String userId) {
-            WbUser byIdWbUser = wbUserRepository.findById(userId)
-                    .orElseThrow(() -> new NoWbUserException("해당 사용자 ID를 찾을 수 없습니다: " + userId));
+        WbUser byIdWbUser = wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NoWbUserException("해당 사용자 ID를 찾을 수 없습니다: " + userId));
 
-            Resume resume = resumeRepository.findByUserId(userId).orElseThrow();
-            List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
+        List<WorkHistory> workHistoryList = workHistoryRepository.findByUserId(userId);
 
-            List<String> jobs = workHistoryList.stream()
-                    .map(workHistory -> workHistory.getJob().getJobName()) // jobName만 추출
-                    .collect(Collectors.toList());
+        List<String> jobs = workHistoryList.stream()
+                .map(workHistory -> workHistory.getJob().getJobName()) // jobName만 추출
+                .collect(Collectors.toList());
+
+            Resume resume = resumeRepository.findByUserId(userId)
+                    .orElse(null);
+
+            if (resume == null) {
+                return ResumeDetailDTO.builder()
+                        .userName(byIdWbUser.getName())
+                        .jobPoint(byIdWbUser.getJobPoint())
+                        .phone(byIdWbUser.getPhone())
+                        .addrCity(byIdWbUser.getAddrCity())
+                        .addrProvince(byIdWbUser.getAddrProvince())
+                        .userIntro("")
+                        .userImg("")
+                        .resumeEmail("")
+                        .jobList(jobs)
+                        .build();
+            }
 
             return ResumeDetailDTO.builder()
                     .userName(resume.getWbUser().getName())
