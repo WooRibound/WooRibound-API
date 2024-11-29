@@ -55,4 +55,7 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
     @Query("SELECT MAX(u.applyId) FROM UserApply u")
     Optional<Long> getMaxUserApplyId();
 
+    @Query("SELECT ua FROM UserApply ua WHERE ua.jobPosting.postId = :postId and ua.wbUser.userId = :userId")
+    Optional<UserApply> getByPostIdAndUserId(@Param("postId") Long postId, @Param("userId") String userId);
+
 }
