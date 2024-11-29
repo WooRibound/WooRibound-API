@@ -254,3 +254,22 @@ INSERT INTO work_history (exjob_id, job_id, user_id) VALUES (11, 3, 'USER005');
 INSERT INTO work_history (exjob_id, job_id, user_id) VALUES (12, 3, 'USER002');
 INSERT INTO work_history (exjob_id, job_id, user_id) VALUES (13, 2, 'USER001');
 INSERT INTO work_history (exjob_id, job_id, user_id) VALUES (14, 3, 'USER013');
+
+-- interest jobs
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (1, 6, 'USER001'); -- IT개발-데이터
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (2, 1, 'USER001'); -- 기획-전략
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (3, 3, 'USER001'); -- 회계-세무·재무
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (4, 8, 'USER002'); -- 영업-판매-무역
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (5, 2, 'USER002'); -- 마케팅-홍보·조사
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (6, 5, 'USER002'); -- 총무-법무·사무
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (7, 6, 'USER005'); -- IT개발-데이터
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (8, 17, 'USER005'); -- 연구-R&D
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (9, 20, 'USER005'); -- 금융-보험
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (10, 7, 'USER008'); -- 디자인
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (11, 10, 'USER008'); -- 구매-자재-물류
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (12, 6, 'USER012'); -- IT개발-데이터
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (13, 1, 'USER013'); -- 기획-전략
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (14, 2, 'USER013'); -- 마케팅-홍보·조사
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (15, 6, 'USER016'); -- IT개발-데이터
+INSERT INTO wb.interest_job (interest_id, job_id, user_id) VALUES (16, 8, 'USER017'); -- 영업-판매-무역
+
