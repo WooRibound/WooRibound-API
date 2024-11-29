@@ -70,7 +70,9 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
                                                @Param("searchTerm") String searchTerm,
                                                @Param("jobFilter") String jobFilter);
 
-    @Query("SELECT k FROM Knowhow k WHERE k.knowhowTitle LIKE CONCAT('%', :knowhowTitle, '%') AND (:knowhowJob = '전체 직무' OR k.knowhowJob = :knowhowJob)")
+    @Query("SELECT k FROM Knowhow k" +
+            " WHERE k.knowhowTitle LIKE CONCAT('%', :knowhowTitle, '%') " +
+            "AND (:knowhowJob = '전체 직무' OR k.knowhowJob = :knowhowJob) ORDER BY k.uploadDate DESC")
     List<Knowhow> findByKnowhowTitleAndKnowhowJob(@Param("knowhowTitle") String knowhowTitle, @Param("knowhowJob") String knowhowJob);
 
     @Query("SELECT MAX(k.knowhowId) FROM Knowhow k")
