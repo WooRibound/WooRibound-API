@@ -20,6 +20,11 @@ public class WBUserKnowhowFacade {
     private final KnowhowReportedService knowhowReportedService;
 
     @Transactional(readOnly = true)
+    public List<WbUserKnowhowDTO> getLatest4ShareKnowhows() {
+        return wbUserKnowhowService.getLatest4ShareKnowhows();
+    }
+
+    @Transactional(readOnly = true)
     public List<WbUserKnowhowDTO> getAllShareKnowhows(Authentication authentication, String knowhowTitle, String knowhowJob) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserKnowhowService.getAllShareKnowhows(userId, knowhowTitle, knowhowJob);

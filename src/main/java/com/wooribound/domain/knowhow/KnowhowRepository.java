@@ -2,6 +2,7 @@ package com.wooribound.domain.knowhow;
 
 import com.wooribound.domain.knowhow.dto.AdminKnowhowDetailProjection;
 import com.wooribound.domain.knowhow.dto.AdminKnowhowProjection;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -77,4 +78,7 @@ public interface KnowhowRepository extends JpaRepository<Knowhow, Long> {
 
     @Query("SELECT MAX(k.knowhowId) FROM Knowhow k")
     Optional<Long> getMaxKnowhowId();
+
+
+    List<Knowhow> findAllByOrderByUploadDateDesc(Pageable pageable);
 }

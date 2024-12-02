@@ -10,6 +10,9 @@ import com.wooribound.global.exception.NoKnowhowException;
 import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -23,6 +26,16 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
 
     private final KnowhowRepository knowhowRepository;
     private final WbUserRepository wbUserRepository;
+
+    @Override
+    public List<WbUserKnowhowDTO> getLatest4ShareKnowhows() {
+        Pageable pageable = PageRequest.of(0, 4);
+        List<Knowhow> knowhows = knowhowRepository.findAllByOrderByUploadDateDesc(pageable);
+
+        return knowhows.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<WbUserKnowhowDTO> getAllShareKnowhows(String userId, String knowhowTitle, String knowhowJob) {
