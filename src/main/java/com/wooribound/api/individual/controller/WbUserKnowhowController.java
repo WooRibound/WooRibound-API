@@ -19,6 +19,13 @@ public class WbUserKnowhowController {
 
     private final WBUserKnowhowFacade wbUserKnowhowFacade;
 
+    @Operation(summary = "지혜 나눔 전체 목록 조회(메인)", description = "지혜 나눔 전체 목록 조회(메인)")
+    @GetMapping("/main/share")
+    public ResponseEntity getFirst5ShareKnowhows()
+    {
+        return ResponseEntity.ok().body(wbUserKnowhowFacade.getLatest4ShareKnowhows());
+    }
+
     @Operation(summary = "지혜 나눔 전체 목록 조회", description = "지혜 나눔 전체 목록 조회")
     @GetMapping("/share")
     public ResponseEntity getAllShareKnowhows(Authentication authentication,
