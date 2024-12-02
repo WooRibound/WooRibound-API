@@ -17,6 +17,4 @@ public interface OAuth2Response {
   Gender getGender();
 
   Date getBirth();
-
-  String getPhone();
 }
