@@ -72,12 +72,4 @@ public class NaverResponse implements OAuth2Response {
   }
 
 
-  @Override
-  public String getPhone() {
-    // mobile이 null일 경우 null 반환
-    Object mobile = attribute.get("mobile");
-    return mobile != null ? mobile.toString() : null;
-  }
-
-
 }

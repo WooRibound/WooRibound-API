@@ -47,7 +47,6 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     String userName = oAuth2Response.getName();
     String userEmail = oAuth2Response.getEmail();
     Gender gender = oAuth2Response.getGender();
-    String phone = oAuth2Response.getPhone();
     Date birth = oAuth2Response.getBirth();
 
 
@@ -85,7 +84,6 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 // gender에 대한 null 체크 및 변환
 
       newWbUser.setGender(gender);
-      newWbUser.setPhone(phone);
       newWbUser.setBirth(birth);
 
       System.out.println("새 유저 저장");
