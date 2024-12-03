@@ -107,6 +107,9 @@ public class WbUserServiceImpl implements WbUserService {
         if (wbUserUpdateDTO.getAddrProvince() != null) {
             wbUser.setAddrProvince(wbUserUpdateDTO.getAddrProvince());
         }
+        if (wbUserUpdateDTO.getDataSharingConsent() != null) {
+            wbUser.setDataSharingConsent(wbUserUpdateDTO.getDataSharingConsent());
+        }
         if (wbUserUpdateDTO.getExjobChk() != null) {
         }
 
