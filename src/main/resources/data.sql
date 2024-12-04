@@ -30,7 +30,7 @@ VALUES ('ENT002', '이영희', '의료/보건', 'SMALL', '0987654321', '70000000
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT003', '최민수', '문화/예술', 'SMALL', '5678901234', '50000000', '제주특별자치도', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '관광문화센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT004', '박지영', '서비스업', 'LARGE', '3456789012', '500000000', '대한항공', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', '대한항공본사', NOW(), NOW(), 'N');
+VALUES ('ENT004', '박지영', '항공업', 'LARGE', '3456789012', '500000000', '대한항공', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', '대한항공본사', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT005', '이준호', '교육업', 'MEDIUM', '4567890123', '90000000', '동부여성발전센터', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 동대문구', '여성발전센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
@@ -38,22 +38,22 @@ VALUES ('ENT006', '김유진', '교육업', 'MEDIUM', '9876543210', '85000000', 
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT007', '장희원', '의료/보건', 'MEDIUM', '8765432109', '100000000', '보험심사간호사회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 중구', '의료상담센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT008', '박은빈', '사회적기업', 'LARGE', '7654321098', '400000000', '한국사회적기업진흥원', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 성동구', '사회적기업지원센터', NOW(), NOW(), 'N');
+VALUES ('ENT008', '박은빈', '공공기관', 'LARGE', '7654321098', '400000000', '한국사회적기업진흥원', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 성동구', '사회적기업지원센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT009', '김하늘', '문화/예술', 'SMALL', '6543210987', '75000000', '금오종합사회복지관', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상북도 구미시', '금오복지관', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT010', '최영훈', '서비스업', 'SMALL', '5432109876', '70000000', 'MIRI GROUP', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
+VALUES ('ENT010', '최영훈', 'IT', 'SMALL', '5432109876', '70000000', 'LINE', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT011', '김유진', '제약/생명과학', 'LARGE', '1234567890', '900000000', '헬스케어바이오', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '헬스케어타운', NOW(), NOW(), 'N'),
-       ('ENT012', '이도현', 'IT', 'MEDIUM', '2345678901', '500000000', '테크노소프트', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 구로구', 'IT센터', NOW(), NOW(), 'N'),
+VALUES ('ENT011', '김유진', '제약/생명과학', 'LARGE', '1234567890', '900000000', '푸른밀', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '헬스케어타운', NOW(), NOW(), 'N'),
+       ('ENT012', '이도현', 'IT', 'MEDIUM', '2345678901', '500000000', '푸른IT', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 구로구', 'IT센터', NOW(), NOW(), 'N'),
        ('ENT013', '정수연', '교육업', 'LARGE', '3456789012', '800000000', '천재교육', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 양천구', '천재교육타운', NOW(), NOW(), 'N'),
        ('ENT014', '박찬호', '서비스업', 'LARGE', '4567890123', '700000000', 'GS리테일', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', 'GS타워', NOW(), NOW(), 'N'),
-       ('ENT015', '송예지', '예술/문화', 'MEDIUM', '5678901234', '200000000', '행복취미센터', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', '레저타운', NOW(), NOW(), 'N'),
-       ('ENT016', '이수정', '예술/문화', 'SMALL', '6789012345', '100000000', '핸드메이드코리아', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '공예타운', NOW(), NOW(), 'N'),
-       ('ENT017', '김민수', '관광/레저', 'MEDIUM', '7890123456', '300000000', '지역문화재단', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상남도 진주시', '문화센터', NOW(), NOW(), 'N'),
+       ('ENT015', '송예지', '예술/문화', 'MEDIUM', '5678901234', '200000000', '강남구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', '레저타운', NOW(), NOW(), 'N'),
+       ('ENT016', '이수정', '예술/문화', 'SMALL', '6789012345', '100000000', '예쁜마음(주)', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '공예타운', NOW(), NOW(), 'N'),
+       ('ENT017', '김민수', '관광/레저', 'MEDIUM', '7890123456', '300000000', '전주지자체', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상남도 진주시', '문화센터', NOW(), NOW(), 'N'),
        ('ENT018', '이재훈', '요식업', 'LARGE', '8901234567', '600000000', 'SK하이닉스', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 이천시', 'SK타운', NOW(), NOW(), 'N'),
-       ('ENT019', '최현우', 'IT', 'SMALL', '9012345678', '150000000', '데이터솔루션', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 금천구', '데이터타운', NOW(), NOW(), 'N'),
-       ('ENT020', '유지은', '제약/생명과학', 'MEDIUM', '0123456789', '700000000', '웰니스바이오', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '대전광역시 유성구', '바이오타운', NOW(), NOW(), 'N');
+       ('ENT019', '최현우', 'IT', 'SMALL', '9012345678', '150000000', '감동물산', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 금천구', '데이터타운', NOW(), NOW(), 'N'),
+       ('ENT020', '유지은', '예술/문화', 'MEDIUM', '0123456789', '700000000', '금천구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '대전광역시 유성구', '바이오타운', NOW(), NOW(), 'N');
 
 
 -- Wb_User 데이터
@@ -130,26 +130,25 @@ VALUES (20, '2024-09-27', 'Y', 'N', 'ENT001', 'USER005', 5);
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img, posting_cnt, created_at)
 VALUES
     (1, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '20' DAY, 1, 'Oracle ERP 전문가 모집', 'ENT001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/OracleERP.png', 0, NOW() - INTERVAL '10' DAY),
-    (2, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '60' DAY, 2, '금연상담사 기간제 계약직 모집', 'ENT002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/금연상담사.png', 5, NOW() - INTERVAL '30' DAY),
-    (3, NOW() - INTERVAL '45' DAY, NOW() + INTERVAL '15' DAY, 3, '지역 역사 및 문화 해설사 모집', 'ENT003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/문화해설사.png', 12, NOW() - INTERVAL '45' DAY),
-    (4, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '90' DAY, 4, '국제선 예약 전문 상담원 모집', 'ENT004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/상담원.png', 8, NOW() - INTERVAL '60' DAY),
-    (5, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '10' DAY, 5, '셔플댄스 강사 모집', 'ENT005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/셔플댄스강사.png', 23, NOW() - INTERVAL '5' DAY),
-    (6, NOW() + INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 6, '스케줄 관리 전문가 모집', 'ENT006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/스케줄관리사.png', 5, NOW() + INTERVAL '10' DAY),
-    (7, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '120' DAY, 7, '2024 원예교실 강사 모집', 'ENT007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/원예강사.png', 10, NOW() + INTERVAL '30' DAY),
-    (8, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '30' DAY, 8, '인사팀 보조직원 모집', 'ENT008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/인사팀보조.png', 3, NOW() - INTERVAL '5' DAY),
-    (9, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '60' DAY, 9, '의료자문 담당 간호사 모집', 'ENT009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문간호사.png', 18, NOW() - INTERVAL '20' DAY),
-    (10, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '45' DAY, 10, '사회적기업진흥원 외부전문가 모집', 'ENT010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문위원.png', 27, NOW() - INTERVAL '10' DAY),
+    (2, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '60' DAY, 9, '금연상담사 기간제 계약직 모집', 'ENT002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/금연상담사.png', 5, NOW() - INTERVAL '30' DAY),
+    (3, NOW() - INTERVAL '45' DAY, NOW() + INTERVAL '15' DAY, 19, '지역 역사 및 문화 해설사 모집', 'ENT003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/문화해설사.png', 12, NOW() - INTERVAL '45' DAY),
+    (4, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '90' DAY, 9, '국제선 예약 전문 상담원 모집', 'ENT004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/상담원.png', 8, NOW() - INTERVAL '60' DAY),
+    (5, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '10' DAY, 19, '셔플댄스 강사 모집', 'ENT005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/셔플댄스강사.png', 23, NOW() - INTERVAL '5' DAY),
+    (6, NOW() + INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 1, '스케줄 관리 전문가 모집', 'ENT006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/스케줄관리사.png', 5, NOW() + INTERVAL '10' DAY),
+    (7, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '120' DAY, 19, '2024 원예교실 강사 모집', 'ENT009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/원예강사.png', 10, NOW() + INTERVAL '30' DAY),
+    (8, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '30' DAY, 13, '인사팀 보조직원 모집', 'ENT010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/인사팀보조.png', 3, NOW() - INTERVAL '5' DAY),
+    (9, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '60' DAY, 16, '의료자문 담당 간호사 모집', 'ENT007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문간호사.png', 18, NOW() - INTERVAL '20' DAY),
+    (10, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '45' DAY, 17, '사회적기업진흥원 외부전문가 모집', 'ENT008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문위원.png', 27, NOW() - INTERVAL '10' DAY),
     (11, NOW() + INTERVAL '15' DAY, NOW() + INTERVAL '60' DAY, 11, '건강기능식품 개발 전문가 모집', 'ENT011', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/health.png', 6, NOW() + INTERVAL '15' DAY),
-    (12, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '90' DAY, 12, '데이터 입력 및 정리 사무직 모집', 'ENT012', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%89%E1%85%A1%E1%84%86%E1%85%AE%E1%84%8C%E1%85%B5%E1%86%A8.png', 20, NOW() + INTERVAL '30' DAY),
-    (13, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '75' DAY, 13, '구내식당 단체 조리사 모집', 'ENT013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%80%E1%85%AE%E1%84%82%E1%85%A2%E1%84%89%E1%85%B5%E1%86%A8%E1%84%83%E1%85%A1%E1%86%BC%E1%84%8C%E1%85%A9%E1%84%85%E1%85%B5%E1%84%89%E1%85%A1.png', 15, NOW() - INTERVAL '60' DAY),
-    (14, NOW() + INTERVAL '45' DAY, NOW() + INTERVAL '90' DAY, 14, '지역 역사 해설사 모집', 'ENT014', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%A7%E1%86%A8%E1%84%8B%E1%85%A7%E1%86%A8%E1%84%89%E1%85%A1%E1%84%92%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AF%E1%84%89%E1%85%A1.png', 4, NOW() + INTERVAL '45' DAY),
-    (15, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '60' DAY, 15, '수공예 상품 제작자 모집', 'ENT015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%89%E1%85%AE%E1%84%80%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A8%E1%84%89%E1%85%A1%E1%86%BC%E1%84%91%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%A6%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A1.png', 25, NOW() - INTERVAL '5' DAY),
-    (16, NOW() + INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 16, '노인·중장년층 대상 건강 및 취미 활동 지도', 'ENT016', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%8E%E1%85%B1%E1%84%86%E1%85%B5%E1%84%92%E1%85%AA%E1%86%AF%E1%84%83%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A1.png', 2, NOW() + INTERVAL '20' DAY),
-    (17, NOW() + INTERVAL '5' DAY, NOW() + INTERVAL '120' DAY, 17, '점포 관리자 모집', 'ENT017', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%8C%E1%85%A5%E1%86%B7%E1%84%91%E1%85%A9%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A1.png', 9, NOW() + INTERVAL '5' DAY),
-    (18, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '45' DAY, 18, '자녀교육 상담사 모집', 'ENT018', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%8C%E1%85%A1%E1%84%82%E1%85%A7%E1%84%80%E1%85%AD%E1%84%8B%E1%85%B2%E1%86%A8%E1%84%89%E1%85%A1%E1%86%BC%E1%84%83%E1%85%A1%E1%86%B7%E1%84%89%E1%85%A1.png', 30, NOW() - INTERVAL '30' DAY),
-    (19, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 19, '라디오 프로그램을 통해 만나는 새로운 기회!', 'ENT019', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%85%E1%85%A1%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%92%E1%85%A2%E1%86%BC%E1%84%8C%E1%85%A1.png', 12, NOW() - INTERVAL '20' DAY),
-    (20, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 20, '델파이 개발자 모집', 'ENT020', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/%E1%84%83%E1%85%A6%E1%86%AF%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%8C%E1%85%A1.png', 5, NOW() - INTERVAL '10' DAY);
-
+    (12, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '90' DAY, 6, '데이터 입력 및 정리 사무직 모집', 'ENT019', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/data.png', 20, NOW() + INTERVAL '30' DAY),
+    (13, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '75' DAY, 22, '구내식당 단체 조리사 모집', 'ENT018', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/restrant.png', 15, NOW() - INTERVAL '60' DAY),
+    (14, NOW() + INTERVAL '45' DAY, NOW() + INTERVAL '90' DAY, 19, '지역 역사 해설사 모집', 'ENT017', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/dosent.png', 4, NOW() + INTERVAL '45' DAY),
+    (15, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '60' DAY, 19, '수공예 상품 제작자 모집', 'ENT016', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/create.png', 25, NOW() - INTERVAL '5' DAY),
+    (16, NOW() + INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 13, '노인·중장년층 대상 건강 및 취미 활동 지도', 'ENT015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/hobby.png', 2, NOW() + INTERVAL '20' DAY),
+    (17, NOW() + INTERVAL '5' DAY, NOW() + INTERVAL '120' DAY, 8, '점포 관리자 모집', 'ENT014', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/magagement.png', 9, NOW() + INTERVAL '5' DAY),
+    (18, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '45' DAY, 9, '자녀교육 상담사 모집', 'ENT013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/education.png', 30, NOW() - INTERVAL '30' DAY),
+    (19, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 19, '라디오 프로그램을 통해 만나는 새로운 기회!', 'ENT020', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/radio.png', 12, NOW() - INTERVAL '20' DAY),
+    (20, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 6, '델파이 개발자 모집', 'ENT012', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/developer.png', 5, NOW() - INTERVAL '10' DAY);
 -- 지원현황
 INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date) VALUES (1, '1', 'USER001', 'PENDING', STR_TO_DATE('2024-11-01', '%Y-%m-%d'));
 INSERT INTO user_apply (apply_id, post_id, user_id, result, apply_date) VALUES (2, '2', 'USER002', 'PENDING', STR_TO_DATE('2024-11-01', '%Y-%m-%d'));
@@ -185,31 +184,31 @@ VALUES
 
 -- 이력서
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
-  (1, 'USER001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user001.jpg', 'kim@example.com', '전략 기획 경력이 풍부한 전문가로서 데이터 기반 분석에 강점을 가지고 있습니다.'),
-  (2, 'USER002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user002.jpg', 'lee@example.com', '고객 중심 마케팅과 데이터 분석을 통해 성과를 낸 마케팅 전문가입니다.'),
-  (3, 'USER003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user003.jpg', 'choi@example.com', 'IT 분야에서 15년 이상의 경험을 바탕으로 시스템 구축과 최적화 프로젝트를 성공적으로 이끌었습니다. 새로운 도전과 성장을 추구하고 있습니다.'),
-  (4, 'USER004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user004.jpg', 'park@example.com', '10년간 UI/UX 디자인 경험을 통해 사용자 친화적인 인터페이스를 설계하며 브랜드 가치를 높였습니다. 창의적인 문제 해결에 강점을 가지고 있습니다.'),
-  (5, 'USER005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user005.jpg', 'jang@example.com', '물류 및 유통 관리 전문가로서, 효율적인 재고 관리와 공급망 최적화 프로젝트를 성공적으로 수행했습니다. 데이터 기반 의사결정을 중시합니다.'),
-  (6, 'USER006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user006.jpg', 'hong@example.com', '교육 분야에서 12년 이상 경력을 쌓아온 전문가로, 학습 프로그램 개발과 교사 연수를 통해 성과를 이끌어냈습니다.'),
-  (7, 'USER007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user007.jpg', 'choid@example.com', 'R&D 부문에서 20년 이상 경력을 쌓으며 신기술 개발과 특허 출원 프로젝트를 성공적으로 이끌었습니다. 혁신과 팀워크를 중시합니다.'),
-  (8, 'USER008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user008.jpg', 'go@example.com', '5년간 공공 기관에서 기획 업무를 담당하며 정책 수립과 행정 업무 효율화를 주도했습니다. 조직 관리 경험이 풍부합니다.'),
-  (9, 'USER009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user009.jpg', 'leej@example.com', '제조업 분야에서 18년간 근무하며 생산 공정 개선과 품질 관리 프로젝트를 수행했습니다. Lean Manufacturing에 전문성을 보유하고 있습니다.'),
-  (10, 'USER010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user010jpg', 'kima@example.com', '30년간 의료기기 영업에서 연속 매출 성장을 이끌어내며 팀 리더로서 성과를 창출했습니다. 고객 중심의 솔루션 제공에 강점이 있습니다.'),
-  (11, 'USER011', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user011.jpg', 'parkj@example.com', 'IT 기술 지원 전문가로서 클라우드 기반 시스템 구축과 고객 지원을 통해 높은 고객 만족도를 유지했습니다. 변화 관리 경험이 있습니다.'),
-  (12, 'USER012', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user012.jpg', 'yoon@example.com', '20년간 금융 분석과 리스크 관리 분야에서 경력을 쌓았으며, 데이터 분석을 통한 성과 예측에 강점을 보유하고 있습니다.'),
-  (13, 'USER013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user013.jpg', 'leek@example.com', '영업 및 마케팅 전문가로서 25년간 글로벌 기업과 협업하며 매출 성장을 이뤄냈습니다. 데이터 기반 캠페인 설계에 전문성을 가지고 있습니다.'),
-  (14, 'USER014', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user014.jpg', 'kime@example.com', '뷰티 산업에서 신제품 개발 프로젝트를 10년간 성공적으로 주도하며 트렌드를 반영한 제품 기획에 강점을 보유하고 있습니다.'),
-  (15, 'USER015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user015.jpg', 'choiy@example.com', '법무 전문가로서 30년 이상 기업 자문 및 계약 검토를 수행했습니다. 복잡한 문제를 해결하는 능력에 자신이 있습니다.'),
-  (16, 'USER016', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user016.jpg', 'seungmin@example.com', '건설업 분야에서 프로젝트 관리자로서 대규모 건축 프로젝트를 성공적으로 완수하였습니다. 리더십과 예산 관리 경험이 풍부합니다.'),
-  (17, 'USER017', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user017.jpg', 'jiyun@example.com', '마케팅 및 PR 전문가로서 15년간 브랜드 가치를 증대시키는 데 기여했습니다. 창의적인 콘텐츠 기획에 강점을 보유하고 있습니다.'),
-  (18, 'USER018', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user018.jpg', 'hyunwoo@example.com', '국제 물류 전문가로서 수출입 프로세스 최적화와 비용 절감 프로젝트를 성공적으로 수행했습니다. 팀 협업과 의사소통이 뛰어납니다.'),
-  (19, 'USER019', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user019.jpg', 'sujin@example.com', '환경 컨설팅 분야에서 지속 가능성을 고려한 프로젝트를 12년간 성공적으로 진행하였습니다. 데이터 분석과 정책 제안에 강점을 가지고 있습니다.'),
-  (20, 'USER020', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user020.jpg', 'kihyuk@example.com', '자동차 산업에서 15년간 생산 관리 및 설비 유지보수 업무를 담당하며 가동률 개선 프로젝트를 성공적으로 이끌었습니다.'),
-  (21, 'USER021', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user021.jpg', 'minho@example.com', 'IT 아키텍트로서 10년간 클라우드 인프라 설계와 최적화를 성공적으로 수행했습니다. 효율성과 안정성을 중시합니다.'),
-  (22, 'USER022', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user022.jpg', 'eunji@example.com', '교육 콘텐츠 제작 전문가로서 온라인 학습 자료 개발과 혁신적인 교수법 도입에 기여했습니다. 창의성과 열정을 가지고 있습니다.'),
-  (23, 'USER023', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user023.jpg', 'soohyun@example.com', 'HR 전문가로서 8년간 채용과 조직 개발 프로젝트를 이끌며 기업의 성장에 기여했습니다. 사람 중심의 접근 방식을 지향합니다.'),
-  (24, 'USER024', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user024.jpg', 'junho@example.com', '그래픽 디자이너로서 7년간 창의적이고 효과적인 브랜드 아이덴티티 구축 프로젝트를 수행했습니다. 시각적 스토리텔링에 강점을 가지고 있습니다.'),
-  (25, 'USER025', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user025.jpg', 'yuri@example.com', '의료 데이터 분석 전문가로서 6년간 연구 데이터를 통해 치료 효율성을 향상시키는 데 기여했습니다. 정확성과 세부사항에 강합니다.');
+                                                                                (1, 'USER001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user001.jpg', 'kim@example.com', '전략 기획 경력이 풍부한 전문가로서 데이터 기반 분석에 강점을 가지고 있습니다.'),
+                                                                                (2, 'USER002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user002.jpg', 'lee@example.com', '고객 중심 마케팅과 데이터 분석을 통해 성과를 낸 마케팅 전문가입니다.'),
+                                                                                (3, 'USER003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user003.jpg', 'choi@example.com', 'IT 분야에서 15년 이상의 경험을 바탕으로 시스템 구축과 최적화 프로젝트를 성공적으로 이끌었습니다. 새로운 도전과 성장을 추구하고 있습니다.'),
+                                                                                (4, 'USER004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user004.jpg', 'park@example.com', '10년간 UI/UX 디자인 경험을 통해 사용자 친화적인 인터페이스를 설계하며 브랜드 가치를 높였습니다. 창의적인 문제 해결에 강점을 가지고 있습니다.'),
+                                                                                (5, 'USER005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user005.jpg', 'jang@example.com', '물류 및 유통 관리 전문가로서, 효율적인 재고 관리와 공급망 최적화 프로젝트를 성공적으로 수행했습니다. 데이터 기반 의사결정을 중시합니다.'),
+                                                                                (6, 'USER006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user006.jpg', 'hong@example.com', '교육 분야에서 12년 이상 경력을 쌓아온 전문가로, 학습 프로그램 개발과 교사 연수를 통해 성과를 이끌어냈습니다.'),
+                                                                                (7, 'USER007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user007.jpg', 'choid@example.com', 'R&D 부문에서 20년 이상 경력을 쌓으며 신기술 개발과 특허 출원 프로젝트를 성공적으로 이끌었습니다. 혁신과 팀워크를 중시합니다.'),
+                                                                                (8, 'USER008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user008.jpg', 'go@example.com', '5년간 공공 기관에서 기획 업무를 담당하며 정책 수립과 행정 업무 효율화를 주도했습니다. 조직 관리 경험이 풍부합니다.'),
+                                                                                (9, 'USER009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user009.jpg', 'leej@example.com', '제조업 분야에서 18년간 근무하며 생산 공정 개선과 품질 관리 프로젝트를 수행했습니다. Lean Manufacturing에 전문성을 보유하고 있습니다.'),
+                                                                                (10, 'USER010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user010jpg', 'kima@example.com', '30년간 의료기기 영업에서 연속 매출 성장을 이끌어내며 팀 리더로서 성과를 창출했습니다. 고객 중심의 솔루션 제공에 강점이 있습니다.'),
+                                                                                (11, 'USER011', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user011.jpg', 'parkj@example.com', 'IT 기술 지원 전문가로서 클라우드 기반 시스템 구축과 고객 지원을 통해 높은 고객 만족도를 유지했습니다. 변화 관리 경험이 있습니다.'),
+                                                                                (12, 'USER012', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user012.jpg', 'yoon@example.com', '20년간 금융 분석과 리스크 관리 분야에서 경력을 쌓았으며, 데이터 분석을 통한 성과 예측에 강점을 보유하고 있습니다.'),
+                                                                                (13, 'USER013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user013.jpg', 'leek@example.com', '영업 및 마케팅 전문가로서 25년간 글로벌 기업과 협업하며 매출 성장을 이뤄냈습니다. 데이터 기반 캠페인 설계에 전문성을 가지고 있습니다.'),
+                                                                                (14, 'USER014', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user014.jpg', 'kime@example.com', '뷰티 산업에서 신제품 개발 프로젝트를 10년간 성공적으로 주도하며 트렌드를 반영한 제품 기획에 강점을 보유하고 있습니다.'),
+                                                                                (15, 'USER015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user015.jpg', 'choiy@example.com', '법무 전문가로서 30년 이상 기업 자문 및 계약 검토를 수행했습니다. 복잡한 문제를 해결하는 능력에 자신이 있습니다.'),
+                                                                                (16, 'USER016', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user016.jpg', 'seungmin@example.com', '건설업 분야에서 프로젝트 관리자로서 대규모 건축 프로젝트를 성공적으로 완수하였습니다. 리더십과 예산 관리 경험이 풍부합니다.'),
+                                                                                (17, 'USER017', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user017.jpg', 'jiyun@example.com', '마케팅 및 PR 전문가로서 15년간 브랜드 가치를 증대시키는 데 기여했습니다. 창의적인 콘텐츠 기획에 강점을 보유하고 있습니다.'),
+                                                                                (18, 'USER018', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user018.jpg', 'hyunwoo@example.com', '국제 물류 전문가로서 수출입 프로세스 최적화와 비용 절감 프로젝트를 성공적으로 수행했습니다. 팀 협업과 의사소통이 뛰어납니다.'),
+                                                                                (19, 'USER019', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user019.jpg', 'sujin@example.com', '환경 컨설팅 분야에서 지속 가능성을 고려한 프로젝트를 12년간 성공적으로 진행하였습니다. 데이터 분석과 정책 제안에 강점을 가지고 있습니다.'),
+                                                                                (20, 'USER020', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user020.jpg', 'kihyuk@example.com', '자동차 산업에서 15년간 생산 관리 및 설비 유지보수 업무를 담당하며 가동률 개선 프로젝트를 성공적으로 이끌었습니다.'),
+                                                                                (21, 'USER021', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user021.jpg', 'minho@example.com', 'IT 아키텍트로서 10년간 클라우드 인프라 설계와 최적화를 성공적으로 수행했습니다. 효율성과 안정성을 중시합니다.'),
+                                                                                (22, 'USER022', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user022.jpg', 'eunji@example.com', '교육 콘텐츠 제작 전문가로서 온라인 학습 자료 개발과 혁신적인 교수법 도입에 기여했습니다. 창의성과 열정을 가지고 있습니다.'),
+                                                                                (23, 'USER023', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user023.jpg', 'soohyun@example.com', 'HR 전문가로서 8년간 채용과 조직 개발 프로젝트를 이끌며 기업의 성장에 기여했습니다. 사람 중심의 접근 방식을 지향합니다.'),
+                                                                                (24, 'USER024', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user024.jpg', 'junho@example.com', '그래픽 디자이너로서 7년간 창의적이고 효과적인 브랜드 아이덴티티 구축 프로젝트를 수행했습니다. 시각적 스토리텔링에 강점을 가지고 있습니다.'),
+                                                                                (25, 'USER025', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user025.jpg', 'yuri@example.com', '의료 데이터 분석 전문가로서 6년간 연구 데이터를 통해 치료 효율성을 향상시키는 데 기여했습니다. 정확성과 세부사항에 강합니다.');
 
 INSERT INTO admin (admin_id, admin_name, admin_pw, admin_type)
 VALUES (
