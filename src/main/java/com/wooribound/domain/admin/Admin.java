@@ -19,7 +19,7 @@ import lombok.*;
 @Entity
 public class Admin {
   @Id
-  @Column(name = "admin_id", length = 20, nullable = false)
+  @Column(name = "admin_id", length = 20, nullable = false, columnDefinition = "VARCHAR(20) BINARY")
   private String adminId;
 
   @Column(name = "admin_name", length = 10, nullable = false)
