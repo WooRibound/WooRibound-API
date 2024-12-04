@@ -37,36 +37,34 @@ public class UserApplyServiceImpl implements UserApplyService {
         try {
             JobPosting jobPosting = jobPostingRepository.findById(postId)
                     .orElseThrow(() -> new NoSuchElementException("해당 공고 ID가 존재하지 않습니다."));
+
             WbUser wbUser = wbUserRepository.findById(userId)
                     .orElseThrow(() -> new NoSuchElementException("해당 사용자 ID가 존재하지 않습니다."));
-            Optional<Resume> resume = resumeRepository.findByUserId(userId);
 
+            Optional<Resume> resume = resumeRepository.findByUserId(userId);
             if (resume.isEmpty()) {
                 return "이력서를 등록하고 지원해주세요.";
             }
 
-            Optional<UserApply> byIdUserApply = userApplyRepository.findById(postId);
-
-            if (byIdUserApply.isPresent()) {
+            Optional<UserApply> byUserApply = userApplyRepository.getByPostIdAndUserId(postId, userId);
+            if (byUserApply.isPresent()) {
                 return "이미 지원하신 채용공고입니다.";
-            } else {
-                long userApplyId = 1L;
-                Optional<Long> maxUserApplyId = userApplyRepository.getMaxUserApplyId();
-                if (maxUserApplyId.isPresent()) {
-                    userApplyId = maxUserApplyId.get() + 1;
-                }
-
-                UserApply userApply = UserApply.builder()
-                        .applyId(userApplyId)
-                        .jobPosting(jobPosting)
-                        .wbUser(wbUser)
-                        .result(ApplyResult.PENDING)
-                        .applyDate(new Date())
-                        .build();
-
-                userApplyRepository.save(userApply);
-                return "지원이 정상적으로 완료되었습니다.";
             }
+
+            long userApplyId = userApplyRepository.getMaxUserApplyId()
+                    .map(id -> id + 1)
+                    .orElse(1L);
+
+            UserApply userApply = UserApply.builder()
+                    .applyId(userApplyId)
+                    .jobPosting(jobPosting)
+                    .wbUser(wbUser)
+                    .result(ApplyResult.PENDING)
+                    .applyDate(new Date())
+                    .build();
+
+            userApplyRepository.save(userApply);
+            return "지원이 정상적으로 완료되었습니다.";
 
         } catch (Exception e) {
             log.error("지원 생성 중 예상치 못한 오류 발생: {}", e.getMessage());

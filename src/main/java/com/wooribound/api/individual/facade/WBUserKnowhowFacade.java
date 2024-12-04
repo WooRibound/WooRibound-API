@@ -20,13 +20,18 @@ public class WBUserKnowhowFacade {
     private final KnowhowReportedService knowhowReportedService;
 
     @Transactional(readOnly = true)
+    public List<WbUserKnowhowDTO> getLatest4ShareKnowhows() {
+        return wbUserKnowhowService.getLatest4ShareKnowhows();
+    }
+
+    @Transactional(readOnly = true)
     public List<WbUserKnowhowDTO> getAllShareKnowhows(Authentication authentication, String knowhowTitle, String knowhowJob) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserKnowhowService.getAllShareKnowhows(userId, knowhowTitle, knowhowJob);
     }
 
     @Transactional
-    public Long deleteShareKnowhow(Authentication authentication, Long knowhowId) {
+    public String deleteShareKnowhow(Authentication authentication, Long knowhowId) {
         String userId = authenticateUtil.CheckWbUserAuthAndGetUserId(authentication);
         return wbUserKnowhowService.deleteShareKnowhow(userId, knowhowId);
     }

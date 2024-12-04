@@ -6,8 +6,13 @@ import com.wooribound.domain.knowhow.dto.WbUserKnowhowDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
 import com.wooribound.global.exception.KnowhowNotFoundException;
+import com.wooribound.global.exception.NoKnowhowException;
+import com.wooribound.global.exception.NotEntityException;
 import com.wooribound.global.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,6 +26,16 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
 
     private final KnowhowRepository knowhowRepository;
     private final WbUserRepository wbUserRepository;
+
+    @Override
+    public List<WbUserKnowhowDTO> getLatest4ShareKnowhows() {
+        Pageable pageable = PageRequest.of(0, 4);
+        List<Knowhow> knowhows = knowhowRepository.findAllByOrderByUploadDateDesc(pageable);
+
+        return knowhows.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<WbUserKnowhowDTO> getAllShareKnowhows(String userId, String knowhowTitle, String knowhowJob) {
@@ -44,17 +59,16 @@ public class WbUserKnowhowServiceImpl implements WbUserKnowhowService{
     }
 
     @Override
-    public Long deleteShareKnowhow(String userId, Long knowhowId) {
-        Optional<Knowhow> byKnowhowId = knowhowRepository.findById(knowhowId);
+    public String deleteShareKnowhow(String userId, Long knowhowId) {
+        wbUserRepository.findById(userId)
+                .orElseThrow(() -> new NotEntityException("[WbUser, ID :" + userId + "]"));
 
-        if (byKnowhowId.isEmpty()) {
-            throw new IllegalArgumentException("없는 지혜 나눔 게시물입니다.");
-        }
+        Knowhow knowhow = knowhowRepository.findById(knowhowId)
+                .orElseThrow(() -> new NotEntityException("[Knowhow, ID :" + knowhowId + "]"));
 
-        Knowhow knowhow = byKnowhowId.get();
         if (knowhow.getWbUser().getUserId().equals(userId)) {
             knowhowRepository.delete(knowhow);
-            return knowhowId;
+            return "삭제가 완료되었습니다.";
         } else {
             throw new UnauthorizedAccessException();
         }

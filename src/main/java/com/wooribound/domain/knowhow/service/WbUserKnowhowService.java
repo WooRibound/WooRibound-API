@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface WbUserKnowhowService {
 
+    List<WbUserKnowhowDTO> getLatest4ShareKnowhows();
+
     List<WbUserKnowhowDTO> getAllShareKnowhows(String userId, String knowhowTitle, String knowhowJob);
 
-    Long deleteShareKnowhow (String userId, Long knowhowId);
+    String deleteShareKnowhow (String userId, Long knowhowId);
 
     Long createShareKnowhow(String userId, WbUserKnowhowDTO wbUserKnowhowDTO);
 

@@ -19,6 +19,13 @@ public class WbUserKnowhowController {
 
     private final WBUserKnowhowFacade wbUserKnowhowFacade;
 
+    @Operation(summary = "지혜 나눔 전체 목록 조회(메인)", description = "지혜 나눔 전체 목록 조회(메인)")
+    @GetMapping("/main/share")
+    public ResponseEntity getFirst5ShareKnowhows()
+    {
+        return ResponseEntity.ok().body(wbUserKnowhowFacade.getLatest4ShareKnowhows());
+    }
+
     @Operation(summary = "지혜 나눔 전체 목록 조회", description = "지혜 나눔 전체 목록 조회")
     @GetMapping("/share")
     public ResponseEntity getAllShareKnowhows(Authentication authentication,
@@ -31,8 +38,7 @@ public class WbUserKnowhowController {
     @Operation(summary = "지헤 나눔 삭제",  description = "지헤 나눔 삭제")
     @DeleteMapping("/share/delete")
     public ResponseEntity deleteShareKnowhow(Authentication authentication, @RequestParam("knowhowId") Long knowhowId) {
-        wbUserKnowhowFacade.deleteShareKnowhow(authentication, knowhowId);
-        return ResponseEntity.ok().body("삭제가 완료되었습니다.");
+        return ResponseEntity.ok().body(wbUserKnowhowFacade.deleteShareKnowhow(authentication, knowhowId));
     }
 
     @Operation(summary = "지헤 나눔 등록",  description = "지헤 나눔 등록")

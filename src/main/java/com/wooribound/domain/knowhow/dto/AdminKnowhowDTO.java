@@ -12,6 +12,7 @@ import java.util.Date;
 public class AdminKnowhowDTO {
     private Long knowhowId;
     private String userId;
+    private String userName;
     private String knowhowJob;
     private String knowhowTitle;
     private Date uploadDate;

@@ -5,6 +5,7 @@ import com.wooribound.domain.enterprise.EnterpriseRepository;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.constant.YNP;
 import com.wooribound.global.exception.DeletedUserException;
+import com.wooribound.global.exception.UserRegistrationApprovalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -26,6 +27,16 @@ public class EnterpriseUserDetailService implements UserDetailsService {
   public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
     Enterprise enterpriseUser = enterpriseUserRepository.findById(userId)
         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
+
+    if (enterpriseUser.getIsDeleted() == YNP.N && enterpriseUser.getUpdatedAt() == null) {
+      throw new AuthenticationServiceException("아직 가입승인 처리중입니다.",
+              new UserRegistrationApprovalException());
+    }
+
+    if (enterpriseUser.getIsDeleted() == YNP.P) {
+      throw new AuthenticationServiceException("아직 탈퇴승인 처리중입니다.",
+              new UserRegistrationApprovalException());
+    }
 
     if (enterpriseUser.getIsDeleted() == YNP.Y) {
       throw new AuthenticationServiceException("탈퇴한 기업 회원입니다.",
