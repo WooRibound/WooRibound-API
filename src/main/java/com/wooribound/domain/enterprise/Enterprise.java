@@ -22,7 +22,7 @@ import java.util.Date;
 @Entity
 public class Enterprise {
   @Id
-  @Column(name = "ent_id")
+  @Column(name = "ent_id",  columnDefinition = "VARCHAR(20) BINARY")
   private String entId;
 
   @Column(name = "reg_num", length = 20, nullable = false)
