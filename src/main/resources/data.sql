@@ -20,29 +20,29 @@ INSERT INTO job (job_id, job_name) VALUES (18, '교육');
 INSERT INTO job (job_id, job_name) VALUES (19, '미디어-문화-스포츠');
 INSERT INTO job (job_id, job_name) VALUES (20, '금융-보험');
 INSERT INTO job (job_id, job_name) VALUES (21, '공공-복지');
-
+INSERT INTO job (job_id, job_name) VALUES (22, '기타');
 
 -- Enterprise 데이터
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT001', '김철수', '서비스업', 'MEDIUM', '1234567890', '100000000', 'CJ ENM', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'IT 타워', NOW(), NOW(), 'N');
+VALUES ('ENT001', '김철수', 'IT', 'MEDIUM', '1234567890', '150000000', '포스코DX', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '포스코타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT002', '이영희', '금융업', 'LARGE', '0987654321', '500000000', '삼성화재', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '부산시 해운대구', '블루 스퀘어', NOW(), NOW(), 'N');
+VALUES ('ENT002', '이영희', '의료/보건', 'SMALL', '0987654321', '70000000', '대한보건의료정보관리사협회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '보건타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT003', '최민수', 'IT', 'MEDIUM', '5678901234', '150000000', '네이버', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', '분당구', NOW(), NOW(), 'N');
+VALUES ('ENT003', '최민수', '문화/예술', 'SMALL', '5678901234', '50000000', '제주특별자치도', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '관광문화센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT004', '박지영', '예술/문화', 'SMALL', '3456789012', '70000000', '카카오', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '제주동', NOW(), NOW(), 'N');
+VALUES ('ENT004', '박지영', '서비스업', 'LARGE', '3456789012', '500000000', '대한항공', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', '대한항공본사', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT005', '이준호', '유통', 'LARGE', '4567890123', '300000000', '롯데', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '인천시 남구', '롯데타워', NOW(), NOW(), 'N');
+VALUES ('ENT005', '이준호', '교육업', 'MEDIUM', '4567890123', '90000000', '동부여성발전센터', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 동대문구', '여성발전센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT006', '김유진', '교육업', 'MEDIUM', '9876543210', '90000000', '한솔교육', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '광주시 북구', '한솔빌딩', NOW(), NOW(), 'N');
+VALUES ('ENT006', '김유진', '교육업', 'MEDIUM', '9876543210', '85000000', 'MIRI GROUP', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT007', '장희원', '제약/생명과학', 'LARGE', '8765432109', '400000000', 'LG', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '대전시 서구', 'LG타워', NOW(), NOW(), 'N');
+VALUES ('ENT007', '장희원', '의료/보건', 'MEDIUM', '8765432109', '100000000', '보험심사간호사회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 중구', '의료상담센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT008', '박은빈', '건설업', 'LARGE', '7654321098', '800000000', '현대건설', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '울산시 남구', '현대타워', NOW(), NOW(), 'N');
+VALUES ('ENT008', '박은빈', '사회적기업', 'LARGE', '7654321098', '400000000', '한국사회적기업진흥원', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 성동구', '사회적기업지원센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT009', '김하늘', '서비스업', 'SMALL', '6543210987', '60000000', '에버랜드', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 용인시', '에버랜드', NOW(), NOW(), 'N');
+VALUES ('ENT009', '김하늘', '문화/예술', 'SMALL', '6543210987', '75000000', '금오종합사회복지관', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상북도 구미시', '금오복지관', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT010', '최영훈', '운수업', 'MEDIUM', '5432109876', '110000000', '우바법무법인', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 서초구', '법조타운', NOW(), NOW(), 'N');
+VALUES ('ENT010', '최영훈', '서비스업', 'SMALL', '5432109876', '70000000', 'MIRI GROUP', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT011', '한승호', '의료업', 'LARGE', '4321098765', '750000000', '녹십자', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 화성시', '녹십자타운', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
@@ -63,6 +63,7 @@ INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue,
 VALUES ('ENT019', '정혜린', '환경-에너지', 'LARGE', '6543210123', '770000000', 'SK에너지', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 영등포구', 'SK타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT020', '오승재', '농업/어업', 'MEDIUM', '5432101234', '130000000', '팜프렌즈', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '전라남도 나주시', '팜프라자', NOW(), NOW(), 'N');
+
 
 
 -- Wb_User 데이터
@@ -138,16 +139,16 @@ VALUES (20, '2024-09-27', 'Y', 'N', 'ENT001', 'USER005', 5);
 -- Job_Posting 데이터 (외래 키로 job과 enterprise 필요)
 INSERT INTO job_posting (post_id, start_date, end_date, job_id, post_title, ent_id, post_img, posting_cnt, created_at)
 VALUES
-    (1, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '20' DAY, 1, '전략 기획 전문가 모집', 'ENT001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/cj_enm.png', 0, NOW() - INTERVAL '10' DAY),
-    (2, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '60' DAY, 2, '마케팅·홍보 담당자 채용', 'ENT002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/samsung_hwaje.jpeg', 5, NOW() - INTERVAL '30' DAY),
-    (3, NOW() - INTERVAL '45' DAY, NOW() + INTERVAL '15' DAY, 3, '회계·세무 경력자 구인', 'ENT003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/naver.jpg', 12, NOW() - INTERVAL '45' DAY),
-    (4, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '90' DAY, 4, 'HRD 인사·노무 담당자 채용', 'ENT004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/kakao.png', 8, NOW() - INTERVAL '60' DAY),
-    (5, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '10' DAY, 5, '총무·법무 사무관리자 모집', 'ENT005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/lotte.png', 23, NOW() - INTERVAL '5' DAY),
-    (6, NOW() + INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 6, '데이터 엔지니어 및 개발자 채용', 'ENT006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/hansol_education.jpg', 5, NOW() + INTERVAL '10' DAY),
-    (7, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '120' DAY, 7, '그래픽 디자이너 모집', 'ENT007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/LG.png', 10, NOW() + INTERVAL '30' DAY),
-    (8, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '30' DAY, 8, '영업·판매 전문 인재 구인', 'ENT008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/hyundai.png', 3, NOW() - INTERVAL '5' DAY),
-    (9, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '60' DAY, 9, '고객 상담·TM 경력자 모집', 'ENT009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/everland.png', 18, NOW() - INTERVAL '20' DAY),
-    (10, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '45' DAY, 10, '구매·자재 물류 담당자 채용', 'ENT010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/wb_logo.png', 27, NOW() - INTERVAL '10' DAY),
+    (1, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '20' DAY, 1, 'Oracle 재무시스템 전문가 모집', 'ENT001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/OracleERP.png', 0, NOW() - INTERVAL '10' DAY),
+    (2, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '60' DAY, 2, '금연상담사 기간제 계약직 모집', 'ENT002', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/금연상담사.png', 5, NOW() - INTERVAL '30' DAY),
+    (3, NOW() - INTERVAL '45' DAY, NOW() + INTERVAL '15' DAY, 3, '지역 역사 및 문화 해설사 모집', 'ENT003', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/문화해설사.png', 12, NOW() - INTERVAL '45' DAY),
+    (4, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '90' DAY, 4, '국제선 예약 전문 상담원 모집', 'ENT004', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/상담원.png', 8, NOW() - INTERVAL '60' DAY),
+    (5, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '10' DAY, 5, '셔플댄스 강사 모집', 'ENT005', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/셔플댄스강사.png', 23, NOW() - INTERVAL '5' DAY),
+    (6, NOW() + INTERVAL '10' DAY, NOW() + INTERVAL '60' DAY, 6, '스케줄 관리 전문가 모집', 'ENT006', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/스케줄관리사.png', 5, NOW() + INTERVAL '10' DAY),
+    (7, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '120' DAY, 7, '2024 원예교실 화기애애 강사 모집', 'ENT007', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/원예강사.png', 10, NOW() + INTERVAL '30' DAY),
+    (8, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '30' DAY, 8, '인사팀 면접전형 진행 보조직원 모집', 'ENT008', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/인사팀보조.png', 3, NOW() - INTERVAL '5' DAY),
+    (9, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '60' DAY, 9, '의료자문 담당 간호사 모집', 'ENT009', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문간호사.png', 18, NOW() - INTERVAL '20' DAY),
+    (10, NOW() - INTERVAL '10' DAY, NOW() + INTERVAL '45' DAY, 10, '사회적기업진흥원 외부전문가 모집', 'ENT010', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/자문위원.png', 27, NOW() - INTERVAL '10' DAY),
     (11, NOW() + INTERVAL '15' DAY, NOW() + INTERVAL '60' DAY, 11, 'MD 상품기획 전문가 모집', 'ENT011', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/nocksibja.jpeg', 6, NOW() + INTERVAL '15' DAY),
     (12, NOW() + INTERVAL '30' DAY, NOW() + INTERVAL '90' DAY, 12, '운전·운송·배송 직원 채용', 'ENT012', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/douzone.png', 20, NOW() + INTERVAL '30' DAY),
     (13, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '75' DAY, 13, '서비스 관리 담당자 모집', 'ENT013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/teahui.jpeg', 15, NOW() - INTERVAL '60' DAY),
