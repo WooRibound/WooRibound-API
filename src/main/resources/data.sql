@@ -332,7 +332,6 @@ STR_TO_DATE('2024-12-04', '%Y-%m-%d'), 'USER014');
 
 
 
-
 -- 이력서
 INSERT INTO resume (resume_id, user_id, user_img, resume_email, user_intro) VALUES
                                                                                 (1, 'USER001', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/wbUserImage/user001.jpg', 'kim@example.com', '전략 기획 경력이 풍부한 전문가로서 데이터 기반 분석에 강점을 가지고 있습니다.'),
