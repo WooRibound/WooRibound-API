@@ -27,7 +27,8 @@ public class S3Util {
     // S3에 파일 업로드
     public String uploadFile(MultipartFile multipartFile, String s3FolderName) {
         try {
-            String uploadFileName = createFileName(multipartFile.getOriginalFilename());
+//            String uploadFileName = createFileName(multipartFile.getOriginalFilename());
+            String uploadFileName = createFileName();
 
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(multipartFile.getContentType());
@@ -63,7 +64,11 @@ public class S3Util {
     }
 
     // 파일 이름 생성 메소드
-    private String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(fileName);
+//    private String createFileName(String fileName) {
+//        return UUID.randomUUID().toString().concat(fileName);
+//    }
+
+    private String createFileName() {
+        return UUID.randomUUID().toString();
     }
 }
