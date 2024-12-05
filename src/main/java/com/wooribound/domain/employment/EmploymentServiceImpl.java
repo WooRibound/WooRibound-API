@@ -23,6 +23,7 @@ public class EmploymentServiceImpl implements EmploymentService{
         return employmentRepository.findByEnterprise_EntIdOrderByHireDateAsc(entId).stream()
                 .map(employment -> EmployeeDTO.builder()
                         .empId(employment.getEmpId())
+                        .userId(employment.getWbUser().getUserId())
                         .hireDate(employment.getHireDate())
                         .userName(employment.getWbUser().getName())
                         .jobName(employment.getJob().getJobName())
