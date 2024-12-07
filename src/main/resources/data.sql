@@ -26,21 +26,21 @@ INSERT INTO job (job_id, job_name) VALUES (22, '기타');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT001', '김철수', 'IT', 'MEDIUM', '1234567890', '150000000', '포스코DX', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '포스코타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT002', '이영희', '의료/보건', 'SMALL', '0987654321', '70000000', '대한보건의료정보관리사협회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '보건타워', NOW(), NOW(), 'N');
+VALUES ('ENT002', '이영희', '의료업', 'SMALL', '0987654321', '70000000', '대한보건의료정보관리사협회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '보건타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT003', '최민수', '문화/예술', 'SMALL', '5678901234', '50000000', '제주특별자치도', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '관광문화센터', NOW(), NOW(), 'N');
+VALUES ('ENT003', '최민수', '예술/문화', 'SMALL', '5678901234', '50000000', '제주특별자치도', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '제주시', '관광문화센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT004', '박지영', '항공업', 'LARGE', '3456789012', '500000000', '대한항공', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', '대한항공본사', NOW(), NOW(), 'N');
+VALUES ('ENT004', '박지영', '관광/레저', 'LARGE', '3456789012', '500000000', '대한항공', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', '대한항공본사', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT005', '이준호', '교육업', 'MEDIUM', '4567890123', '90000000', '동부여성발전센터', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 동대문구', '여성발전센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT006', '김유진', '교육업', 'MEDIUM', '9876543210', '85000000', 'MIRI GROUP', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT007', '장희원', '의료/보건', 'MEDIUM', '8765432109', '100000000', '보험심사간호사회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 중구', '의료상담센터', NOW(), NOW(), 'N');
+VALUES ('ENT007', '장희원', '의료업', 'MEDIUM', '8765432109', '100000000', '보험심사간호사회', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 중구', '의료상담센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT008', '박은빈', '공공기관', 'LARGE', '7654321098', '400000000', '한국사회적기업진흥원', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 성동구', '사회적기업지원센터', NOW(), NOW(), 'N');
+VALUES ('ENT008', '박은빈', '기타', 'LARGE', '7654321098', '400000000', '한국사회적기업진흥원', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 성동구', '사회적기업지원센터', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT009', '김하늘', '문화/예술', 'SMALL', '6543210987', '75000000', '금오종합사회복지관', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상북도 구미시', '금오복지관', NOW(), NOW(), 'N');
+VALUES ('ENT009', '김하늘', '예술/문화', 'SMALL', '6543210987', '75000000', '금오종합사회복지관', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상북도 구미시', '금오복지관', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT010', '최영훈', 'IT', 'SMALL', '5432109876', '70000000', 'LINE', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
