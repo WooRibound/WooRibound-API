@@ -40,7 +40,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
             "FROM JobPosting jp WHERE " +
             "(:entName IS NULL OR jp.enterprise.entName LIKE %:entName%) AND " +
             "(:jobName IS NULL OR jp.job.jobName = :jobName) AND " +
-            "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 = :entAddr1) AND " +
+            "(:entAddr1 IS NULL OR jp.enterprise.entAddr1 LIKE %:entAddr1%) AND " +
             "(jp.isDeleted = 'N')" +
             "ORDER BY jp.createdAt DESC")
     List<JobPostingProjection> findJobPostings(@Param("entName") String entName,
