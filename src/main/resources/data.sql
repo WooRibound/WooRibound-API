@@ -42,18 +42,18 @@ VALUES ('ENT008', '박은빈', '기타', 'LARGE', '7654321098', '400000000', '�
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT009', '김하늘', '예술/문화', 'SMALL', '6543210987', '75000000', '금오종합사회복지관', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상북도 구미시', '금오복지관', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
-VALUES ('ENT010', '최영훈', 'IT', 'SMALL', '5432109876', '70000000', 'LINE', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', 'MIRI타워', NOW(), NOW(), 'N');
+VALUES ('ENT010', '최영훈', 'IT', 'SMALL', '5432109876', '70000000', 'LINE', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', 'LINE 본사', NOW(), NOW(), 'N');
 INSERT INTO enterprise (ent_id, ceo_name, ent_field, ent_size, reg_num, revenue, ent_name, ent_pwd, ent_addr1, ent_addr2, created_at, updated_at, is_deleted)
 VALUES ('ENT011', '김유진', '제약/생명과학', 'LARGE', '1234567890', '900000000', '푸른밀', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '헬스케어타운', NOW(), NOW(), 'N'),
        ('ENT012', '이도현', 'IT', 'MEDIUM', '2345678901', '500000000', '푸른IT', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 구로구', 'IT센터', NOW(), NOW(), 'N'),
-       ('ENT013', '정수연', '교육업', 'LARGE', '3456789012', '800000000', '천재교육', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 양천구', '천재교육타운', NOW(), NOW(), 'N'),
-       ('ENT014', '박찬호', '서비스업', 'LARGE', '4567890123', '700000000', 'GS리테일', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', 'GS타워', NOW(), NOW(), 'N'),
-       ('ENT015', '송예지', '예술/문화', 'MEDIUM', '5678901234', '200000000', '강남구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 성남시', '레저타운', NOW(), NOW(), 'N'),
-       ('ENT016', '이수정', '예술/문화', 'SMALL', '6789012345', '100000000', '예쁜마음(주)', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '공예타운', NOW(), NOW(), 'N'),
-       ('ENT017', '김민수', '관광/레저', 'MEDIUM', '7890123456', '300000000', '전주지자체', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경상남도 진주시', '문화센터', NOW(), NOW(), 'N'),
-       ('ENT018', '이재훈', '요식업', 'LARGE', '8901234567', '600000000', 'SK하이닉스', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 이천시', 'SK타운', NOW(), NOW(), 'N'),
-       ('ENT019', '최현우', 'IT', 'SMALL', '9012345678', '150000000', '감동물산', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 금천구', '데이터타운', NOW(), NOW(), 'N'),
-       ('ENT020', '유지은', '예술/문화', 'MEDIUM', '0123456789', '700000000', '금천구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '대전광역시 유성구', '바이오타운', NOW(), NOW(), 'N');
+       ('ENT013', '정수연', '교육업', 'LARGE', '3456789012', '800000000', '천재교육', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 양천구', '천재교육 본사', NOW(), NOW(), 'N'),
+       ('ENT014', '박찬호', '유통/물류', 'LARGE', '4567890123', '700000000', 'GS리테일', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강서구', 'GS타워', NOW(), NOW(), 'N'),
+       ('ENT015', '송예지', '공공기관', 'MEDIUM', '5678901234', '200000000', '강남구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 강남구', '강남구청', NOW(), NOW(), 'N'),
+       ('ENT016', '이수정', '예술/문화', 'SMALL', '6789012345', '100000000', '예쁜마음(주)', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 종로구', '공예타운 8층', NOW(), NOW(), 'N'),
+       ('ENT017', '김민수', '공공기관', 'MEDIUM', '7890123456', '300000000', '전주지자체', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '전라북도 전주시', '전주지방자치단체', NOW(), NOW(), 'N'),
+       ('ENT018', '이재훈', '반도체', 'LARGE', '8901234567', '600000000', 'SK하이닉스', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '경기도 이천시', 'SK하이닉스 본사', NOW(), NOW(), 'N'),
+       ('ENT019', '최현우', '무역', 'SMALL', '9012345678', '150000000', '감동물산', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 구로구', '데이터타운', NOW(), NOW(), 'N'),
+       ('ENT020', '유지은', '공공기관', 'MEDIUM', '0123456789', '700000000', '금천구청', '$2a$12$xsgxi5yRyUNfdlW9xQs9z.3Y68ssLjCfRWg81wMCax1S02uOOmyn6', '서울시 금천구', '금천구청', NOW(), NOW(), 'N');
 
 
 -- Wb_User 데이터
@@ -144,7 +144,7 @@ VALUES
     (13, NOW() - INTERVAL '60' DAY, NOW() + INTERVAL '75' DAY, 22, '구내식당 단체 조리사 모집', 'ENT018', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/restrant.png', 15, NOW() - INTERVAL '60' DAY),
     (14, NOW() + INTERVAL '45' DAY, NOW() + INTERVAL '90' DAY, 19, '지역 역사 해설사 모집', 'ENT017', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/dosent.png', 4, NOW() + INTERVAL '45' DAY),
     (15, NOW() - INTERVAL '5' DAY, NOW() + INTERVAL '60' DAY, 19, '수공예 상품 제작자 모집', 'ENT016', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/create.png', 25, NOW() - INTERVAL '5' DAY),
-    (16, NOW() + INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 13, '노인·중장년층 대상 건강 및 취미 활동 지도', 'ENT015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/hobby.png', 2, NOW() + INTERVAL '20' DAY),
+    (16, NOW() + INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 18, '노인·중장년층 대상 건강 및 취미 활동 지도', 'ENT015', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/hobby.png', 2, NOW() + INTERVAL '20' DAY),
     (17, NOW() + INTERVAL '5' DAY, NOW() + INTERVAL '120' DAY, 8, '점포 관리자 모집', 'ENT014', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/magagement.png', 9, NOW() + INTERVAL '5' DAY),
     (18, NOW() - INTERVAL '30' DAY, NOW() + INTERVAL '45' DAY, 9, '자녀교육 상담사 모집', 'ENT013', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/education.png', 30, NOW() - INTERVAL '30' DAY),
     (19, NOW() - INTERVAL '20' DAY, NOW() + INTERVAL '30' DAY, 19, '라디오 프로그램을 통해 만나는 새로운 기회!', 'ENT020', 'https://wb-bucket-01.s3.ap-northeast-2.amazonaws.com/jobPostingImage/radio.png', 12, NOW() - INTERVAL '20' DAY),
