@@ -2,8 +2,7 @@ package com.wooribound.global.security.userdetail.enterprise;
 
 import com.wooribound.domain.enterprise.Enterprise;
 import com.wooribound.domain.enterprise.EnterpriseRepository;
-import com.wooribound.global.constant.YN;
-import com.wooribound.global.constant.YNP;
+import com.wooribound.global.constant.EnterpriseDeletionStatus;
 import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.exception.UserRegistrationApprovalException;
 import lombok.RequiredArgsConstructor;
@@ -28,22 +27,22 @@ public class EnterpriseUserDetailService implements UserDetailsService {
     Enterprise enterpriseUser = enterpriseUserRepository.findById(userId)
         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
 
-    if (enterpriseUser.getIsDeleted() == YNP.N && enterpriseUser.getUpdatedAt() == null) {
+    if (enterpriseUser.getIsDeleted() == EnterpriseDeletionStatus.N && enterpriseUser.getUpdatedAt() == null) {
       throw new AuthenticationServiceException("아직 가입승인 처리중입니다.",
               new UserRegistrationApprovalException());
     }
 
-    if (enterpriseUser.getIsDeleted() == YNP.P) {
+    if (enterpriseUser.getIsDeleted() == EnterpriseDeletionStatus.P) {
       throw new AuthenticationServiceException("아직 탈퇴승인 처리중입니다.",
               new UserRegistrationApprovalException());
     }
 
-    if (enterpriseUser.getIsDeleted() == YNP.Y) {
+    if (enterpriseUser.getIsDeleted() == EnterpriseDeletionStatus.Y) {
       throw new AuthenticationServiceException("탈퇴한 기업 회원입니다.",
           new DeletedUserException("탈퇴한 기업 회원입니다. 회원가입을 새로 진행해 주세요"));
     }
 
-    if (enterpriseUser.getIsDeleted() == YNP.P) {
+    if (enterpriseUser.getIsDeleted() == EnterpriseDeletionStatus.P) {
       return new EnterpriseUserDetail(
           enterpriseUser.getEntId(),
           enterpriseUser.getEntName(),
@@ -52,7 +51,7 @@ public class EnterpriseUserDetailService implements UserDetailsService {
       );
     }
 
-    if (enterpriseUser.getIsDeleted() == YNP.N && enterpriseUser.getUpdatedAt() == null) {
+    if (enterpriseUser.getIsDeleted() == EnterpriseDeletionStatus.N && enterpriseUser.getUpdatedAt() == null) {
       return new EnterpriseUserDetail(
               enterpriseUser.getEntId(),
               enterpriseUser.getEntName(),

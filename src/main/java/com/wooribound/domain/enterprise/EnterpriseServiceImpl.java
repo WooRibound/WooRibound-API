@@ -3,7 +3,7 @@ package com.wooribound.domain.enterprise;
 import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
-import com.wooribound.global.constant.YNP;
+import com.wooribound.global.constant.EnterpriseDeletionStatus;
 import com.wooribound.global.exception.DuplicatedIdException;
 import com.wooribound.global.exception.NoEnterpriseException;
 import com.wooribound.global.exception.NotValidPasswordException;
@@ -36,7 +36,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             .regNum(enterpriseDTO.getRegNum())
             .entField(enterpriseDTO.getEntField())
             .ceoName(enterpriseDTO.getCeoName())
-            .isDeleted(YNP.N)
+            .isDeleted(EnterpriseDeletionStatus.N)
             .build();
         enterpriseRepository.save(ent);
       }
@@ -129,7 +129,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
       if (!passwordEncoder.matches(pw, enterprise.getEntPwd())) {
       throw new NotValidPasswordException();
     }
-    enterprise.setIsDeleted(YNP.P);
+    enterprise.setIsDeleted(EnterpriseDeletionStatus.P);
     enterpriseRepository.save(enterprise);
   }
 }
