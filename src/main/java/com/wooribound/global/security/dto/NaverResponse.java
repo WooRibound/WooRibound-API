@@ -1,6 +1,7 @@
 package com.wooribound.global.security.dto;
 
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,12 +37,12 @@ public class NaverResponse implements OAuth2Response {
   }
 
   @Override
-  public Gender getGender() {
+  public GenderType getGender() {
     Object gender = attribute.get("gender");
     if (gender == null){
-      return Gender.U;
+      return GenderType.U;
     } else {
-      return Gender.valueOf(gender.toString().toUpperCase());
+      return GenderType.valueOf(gender.toString().toUpperCase());
     }
   }
 

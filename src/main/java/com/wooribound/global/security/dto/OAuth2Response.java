@@ -1,6 +1,7 @@
 package com.wooribound.global.security.dto;
 
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
+
 import java.util.Date;
 
 public interface OAuth2Response {
@@ -14,7 +15,7 @@ public interface OAuth2Response {
   // 사용자 실명
   String getName();
 
-  Gender getGender();
+  GenderType getGender();
 
   Date getBirth();
 }

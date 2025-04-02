@@ -22,7 +22,7 @@ import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.global.constant.ApplyStatus;
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoJobPostingException;
 import com.wooribound.global.exception.NoUserApplyException;
@@ -170,7 +170,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
             return ApplicantsDTO.builder()
                     .userId(applicant.getUserId())
                     .applicantName(applicant.getName())
-                    .applicantGender(applicant.getGender())
+                    .applicantGenderType(applicant.getGender())
                     .applicantAge(age)
                     .applyId(applicant.getApplyId())
                     .result(applicant.getResult())
@@ -265,7 +265,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
 
                     return ApplicantsDTO.builder()
                             .applicantName(user.getName())
-                            .applicantGender((Gender) Enum.valueOf(Gender.class, String.valueOf(user.getGender())))
+                            .applicantGenderType((GenderType) Enum.valueOf(GenderType.class, String.valueOf(user.getGender())))
                             .applicantAge(age != null ? age : 0)
                             .userId(user.getUserId())
                             .recommendCount(user.getRecommendCount())

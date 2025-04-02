@@ -20,7 +20,7 @@ public interface UserApplyRepository extends JpaRepository<UserApply, Long> {
                 SELECT 
                     ua.applyId AS applyId,
                     ua.wbUser.birth AS birth,
-                    ua.wbUser.gender AS gender,
+                    ua.wbUser.genderType AS genderType,
                     ua.wbUser.name AS name,
                     ua.wbUser.userId AS userId,
                     ua.result AS result,

@@ -4,11 +4,9 @@ import com.wooribound.api.individual.dto.WbUserDTO;
 import com.wooribound.api.individual.dto.WbUserJoinDTO;
 import com.wooribound.api.individual.dto.WbUserJoinInfoResDTO;
 import com.wooribound.api.individual.dto.WbUserJoinReqDTO;
-import com.wooribound.api.individual.dto.WbUserUpdateDTO;
 import com.wooribound.domain.interestjob.InterestJobService;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserService;
-import com.wooribound.domain.workhistory.WorkHistoryRepository;
 import com.wooribound.domain.workhistory.WorkHistoryService;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoWbUserException;
@@ -42,7 +40,7 @@ public class WbUserAuthFacade {
         .name(wbUserDTO.getName())
         .email(wbUserDTO.getEmail())
         .phone(wbUserDTO.getPhone())
-        .gender(wbUserDTO.getGender())
+        .genderType(wbUserDTO.getGenderType())
         .birth(wbUserDTO.getBirth())
         .build();
   }
@@ -78,7 +76,7 @@ public class WbUserAuthFacade {
           .jobInterest(isSelectInterested)
           .phone(wbUserJoinReqDTO.getPhone())
           .birth(wbUserJoinReqDTO.getBirth())
-          .gender(wbUserJoinReqDTO.getGender())
+          .genderType(wbUserJoinReqDTO.getGenderType())
           .dataSharingConsent(wbUserJoinReqDTO.getDataSharingConsent())
           .interestChk(isSelectInterested==YN.Y?YN.Y:YN.N)
           .build();

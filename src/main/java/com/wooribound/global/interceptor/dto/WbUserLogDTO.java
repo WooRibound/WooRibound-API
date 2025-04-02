@@ -1,7 +1,7 @@
 package com.wooribound.global.interceptor.dto;
 
 import com.wooribound.domain.wbuser.WbUser;
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,7 +13,7 @@ public class WbUserLogDTO {
     private String userId;
     private String name;
     private Date birth;
-    private Gender gender;
+    private GenderType genderType;
     private String addrCity;
     private String addrProvince;
 
@@ -23,7 +23,7 @@ public class WbUserLogDTO {
                 wbUser.getUserId(),
                 wbUser.getName(),
                 wbUser.getBirth(),
-                wbUser.getGender(),
+                wbUser.getGenderType(),
                 wbUser.getAddrCity(),
                 wbUser.getAddrProvince()
         );
