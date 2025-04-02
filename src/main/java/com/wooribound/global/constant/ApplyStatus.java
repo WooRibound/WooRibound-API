@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ApplyResult {
+public enum ApplyStatus {
 
   PENDING("결과 대기중"),
   ACCEPTED("합격"),

@@ -1,6 +1,6 @@
 package com.wooribound.domain.userapply.dto;
 
-import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.constant.ApplyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class WbUserApplyDTO {
     private Long applyId;
-    private ApplyResult result;
+    private ApplyStatus result;
     private Long postId;
     private String postTitle;
     private String postImg;

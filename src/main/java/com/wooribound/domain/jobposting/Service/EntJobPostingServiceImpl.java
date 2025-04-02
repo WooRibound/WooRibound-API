@@ -21,7 +21,7 @@ import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.ApplicantResultReqDTO;
 import com.wooribound.domain.wbuser.WbUser;
-import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.constant.ApplyStatus;
 import com.wooribound.global.constant.Gender;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.NoJobPostingException;
@@ -183,17 +183,17 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
     @Override
     public String setApplicantResult(ApplicantResultReqDTO applicantResultReqDTO) {
         Long applyId = applicantResultReqDTO.getApplyId();
-        ApplyResult applyResult = applicantResultReqDTO.getApplyResult();
+        ApplyStatus applyStatus = applicantResultReqDTO.getApplyStatus();
 
-        log.info("지원자 결과 설정 START, applyId: {}, applyResult: {}", applyId, applyResult);
-        if (userApplyRepository.setApplicantResult(applyId, applyResult) == 1) {
+        log.info("지원자 결과 설정 START, applyId: {}, applyResult: {}", applyId, applyStatus);
+        if (userApplyRepository.setApplicantResult(applyId, applyStatus) == 1) {
 
             UserApply userApply = userApplyRepository.findById((long)applyId)
                     .orElseThrow(() -> new RuntimeException("지원 정보를 찾을 수 없습니다."));
             WbUser wbUser = userApply.getWbUser();
             String entName = userApply.getJobPosting().getEnterprise().getEntName();
 
-            String applyResultKorean = switch (applyResult.name()) {
+            String applyResultKorean = switch (applyStatus.name()) {
                 case "PENDING" -> "발표 전";
                 case "ACCEPTED" -> "합격";
                 case "REJECTED" -> "탈락";
@@ -202,7 +202,7 @@ public class EntJobPostingServiceImpl implements EntJobPostingService {
             };
 
             // 고용 데이터 생성
-            if(applyResult.equals(ApplyResult.ACCEPTED)) {
+            if(applyStatus.equals(ApplyStatus.ACCEPTED)) {
                 Employment employment = Employment.builder()
                         .wbUser(wbUser)
                         .enterprise(userApply.getJobPosting().getEnterprise())
