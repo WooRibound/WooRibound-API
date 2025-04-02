@@ -54,7 +54,7 @@ public class AdminEnterpriseServiceImpl implements AdminEnterpriseService {
                     .regNum(enterprise.getRegNum())
                     .entAddr1(enterprise.getEntAddr1())
                     .entAddr2(enterprise.getEntAddr2())
-                    .entSize(enterprise.getEntSize())
+                    .enterpriseSize(enterprise.getEnterpriseSize())
                     .entField(enterprise.getEntField())
                     .revenue(enterprise.getRevenue())
                     .build();

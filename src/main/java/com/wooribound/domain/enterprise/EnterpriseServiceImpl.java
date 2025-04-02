@@ -29,7 +29,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             .entId(enterpriseDTO.getEntId())
             .entName(enterpriseDTO.getEntName())
             .entPwd(passwordEncoder.encode(enterpriseDTO.getEntPwd()))
-            .entSize(enterpriseDTO.getEntSize())
+            .enterpriseSize(enterpriseDTO.getEnterpriseSize())
             .entAddr1(enterpriseDTO.getEntAddr1())
             .entAddr2(enterpriseDTO.getEntAddr2())
             .revenue(enterpriseDTO.getRevenue())
@@ -55,7 +55,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                       .entName(enterprise1.getEntName())
                       .ceoName(enterprise1.getCeoName())
                       .entField(enterprise1.getEntField())
-                      .entSize(enterprise1.getEntSize())
+                      .enterpriseSize(enterprise1.getEnterpriseSize())
                       .revenue(enterprise1.getRevenue())
                       .entAddr1(enterprise1.getEntAddr1())
                       .entAddr2(enterprise1.getEntAddr2())
@@ -82,8 +82,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           if (enterpriseInfoReqDTO.getEntField() != null) {
               enterprise.setEntField(enterpriseInfoReqDTO.getEntField());
           }
-          if (enterpriseInfoReqDTO.getEntSize() != null) {
-              enterprise.setEntSize(enterpriseInfoReqDTO.getEntSize());
+          if (enterpriseInfoReqDTO.getEnterpriseSize() != null) {
+              enterprise.setEnterpriseSize(enterpriseInfoReqDTO.getEnterpriseSize());
           }
           if (enterpriseInfoReqDTO.getCeoName() != null) {
               enterprise.setCeoName(enterpriseInfoReqDTO.getCeoName());
@@ -100,7 +100,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           return entId + " 기업회원 정보 수정 완료 : " +
                   "EntName : " + enterprise.getEntName() + ", " +
                   "EntField : " + enterprise.getEntField() + ", " +
-                  "EntSize : " + enterprise.getEntSize() + ", " +
+                  "EnterpriseSize : " + enterprise.getEnterpriseSize() + ", " +
                   "CeoName : " + enterprise.getCeoName() + ", " +
                   "EntAddr1 : " + enterprise.getEntAddr1() + ", " +
                   "EntAddr2 : " + enterprise.getEntAddr2();
