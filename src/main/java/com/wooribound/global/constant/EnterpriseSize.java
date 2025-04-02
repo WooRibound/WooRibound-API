@@ -1,7 +1,9 @@
 package com.wooribound.global.constant;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public enum EnterpriseSize {
   STARTUP("스타트업"),

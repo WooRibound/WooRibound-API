@@ -27,7 +27,7 @@ public class EnterpiseJoinDTO {
   @NotEmpty(message = "entField 필드는 필수입니다.")
   private String entField;
 
-  @NotEmpty(message = "entSize 필드는 필수입니다.")
+  @NotEmpty(message = "enterpriseSize 필드는 필수입니다.")
   private EnterpriseSize enterpriseSize;
 
   @NotEmpty(message = "ceoName 필드는 필수입니다.")

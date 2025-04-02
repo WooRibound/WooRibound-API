@@ -100,7 +100,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           return entId + " 기업회원 정보 수정 완료 : " +
                   "EntName : " + enterprise.getEntName() + ", " +
                   "EntField : " + enterprise.getEntField() + ", " +
-                  "EntSize : " + enterprise.getEnterpriseSize() + ", " +
+                  "EnterpriseSize : " + enterprise.getEnterpriseSize() + ", " +
                   "CeoName : " + enterprise.getCeoName() + ", " +
                   "EntAddr1 : " + enterprise.getEntAddr1() + ", " +
                   "EntAddr2 : " + enterprise.getEntAddr2();
