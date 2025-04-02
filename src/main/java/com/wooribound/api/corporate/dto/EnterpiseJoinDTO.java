@@ -1,9 +1,7 @@
 package com.wooribound.api.corporate.dto;
 
-import com.wooribound.global.constant.EntSize;
-import com.wooribound.global.constant.YN;
+import com.wooribound.global.constant.EnterpriseSize;
 import jakarta.validation.constraints.NotEmpty;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +28,7 @@ public class EnterpiseJoinDTO {
   private String entField;
 
   @NotEmpty(message = "entSize 필드는 필수입니다.")
-  private EntSize entSize;
+  private EnterpriseSize enterpriseSize;
 
   @NotEmpty(message = "ceoName 필드는 필수입니다.")
   private String ceoName;

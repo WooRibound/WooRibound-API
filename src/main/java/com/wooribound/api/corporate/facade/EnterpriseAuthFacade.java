@@ -7,7 +7,6 @@ import com.wooribound.global.exception.NotValidPasswordException;
 import com.wooribound.global.exception.WithdrawException;
 import com.wooribound.global.util.AuthenticateUtil;
 import jakarta.transaction.Transactional;
-import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class EnterpriseAuthFacade {
         .entPwd(enterpiseJoinDTO.getEntPwd())
         .entName(enterpiseJoinDTO.getEntName())
         .entField(enterpiseJoinDTO.getEntField())
-        .entSize(enterpiseJoinDTO.getEntSize())
+        .enterpriseSize(enterpiseJoinDTO.getEnterpriseSize())
         .ceoName(enterpiseJoinDTO.getCeoName())
         .revenue(enterpiseJoinDTO.getRevenue())
         .entAddr1(enterpiseJoinDTO.getEntAddr1())

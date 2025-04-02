@@ -1,6 +1,6 @@
 package com.wooribound.domain.enterprise.dto;
 
-import com.wooribound.global.constant.EntSize;
+import com.wooribound.global.constant.EnterpriseSize;
 import jakarta.validation.constraints.NotEmpty;
 import java.util.Date;
 
@@ -35,7 +35,7 @@ public class EnterpriseDTO {
   private String entField;
 
   @NotEmpty(message = "entSize 필드는 필수입니다.")
-  private EntSize entSize;
+  private EnterpriseSize enterpriseSize;
 
   @NotEmpty(message = "ceoName 필드는 필수입니다.")
   private String ceoName;

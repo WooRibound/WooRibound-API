@@ -1,17 +1,14 @@
 package com.wooribound.domain.enterprise;
 
 import com.wooribound.domain.jobposting.JobPosting;
-import com.wooribound.global.constant.EntSize;
+import com.wooribound.global.constant.EnterpriseSize;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.global.constant.YNP;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.*;
-
-import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -39,7 +36,7 @@ public class Enterprise {
 
   @Column(name =  "ent_size", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
-  private EntSize entSize;
+  private EnterpriseSize enterpriseSize;
 
   @Column(name = "ceo_name",length = 20, nullable = false)
   private String ceoName;
