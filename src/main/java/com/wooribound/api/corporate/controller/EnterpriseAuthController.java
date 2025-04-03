@@ -1,16 +1,10 @@
 package com.wooribound.api.corporate.controller;
 
-import com.wooribound.api.corporate.dto.EnterpiseJoinDTO;
+import com.wooribound.api.corporate.dto.EnterpriseJoinDTO;
 import com.wooribound.api.corporate.facade.EnterpriseAuthFacade;
-import com.wooribound.domain.admin.dto.AdminDTO;
-import com.wooribound.global.security.dto.IdPasswordRequest;
-import com.wooribound.global.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +21,8 @@ public class EnterpriseAuthController {
   private final EnterpriseAuthFacade enterpriseAuthFacade;
 
   @PostMapping("/join")
-  public ResponseEntity<String> join(@Validated @RequestBody EnterpiseJoinDTO enterpiseJoinDTO){
-    return ResponseEntity.ok(enterpriseAuthFacade.join(enterpiseJoinDTO));
+  public ResponseEntity<String> join(@Validated @RequestBody EnterpriseJoinDTO enterpriseJoinDTO){
+    return ResponseEntity.ok(enterpriseAuthFacade.join(enterpriseJoinDTO));
   }
 
 

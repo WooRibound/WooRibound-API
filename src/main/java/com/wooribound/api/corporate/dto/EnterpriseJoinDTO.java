@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Setter
-public class EnterpiseJoinDTO {
+public class EnterpriseJoinDTO {
   @NotEmpty(message = "entId 필드는 필수입니다.")
   private String entId;
 

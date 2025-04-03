@@ -1,6 +1,6 @@
 package com.wooribound.api.corporate.facade;
 
-import com.wooribound.api.corporate.dto.EnterpiseJoinDTO;
+import com.wooribound.api.corporate.dto.EnterpriseJoinDTO;
 import com.wooribound.domain.enterprise.EnterpriseService;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.global.exception.NotValidPasswordException;
@@ -18,23 +18,23 @@ public class EnterpriseAuthFacade {
   private final EnterpriseService enterpriseService;
   private final AuthenticateUtil authenticateUtil;
   @Transactional
-  public String join(EnterpiseJoinDTO enterpiseJoinDTO){
-    enterpriseService.create(ConvertToOriginDTO(enterpiseJoinDTO));
+  public String join(EnterpriseJoinDTO enterpriseJoinDTO){
+    enterpriseService.create(ConvertToOriginDTO(enterpriseJoinDTO));
     return "회원가입이 완료되었습니다.";
   }
 
-  private EnterpriseDTO ConvertToOriginDTO(EnterpiseJoinDTO enterpiseJoinDTO){
+  private EnterpriseDTO ConvertToOriginDTO(EnterpriseJoinDTO enterpriseJoinDTO){
     return EnterpriseDTO.builder()
-        .entId(enterpiseJoinDTO.getEntId())
-        .regNum(enterpiseJoinDTO.getRegNum())
-        .entPwd(enterpiseJoinDTO.getEntPwd())
-        .entName(enterpiseJoinDTO.getEntName())
-        .entField(enterpiseJoinDTO.getEntField())
-        .enterpriseSizeType(enterpiseJoinDTO.getEnterpriseSizeType())
-        .ceoName(enterpiseJoinDTO.getCeoName())
-        .revenue(enterpiseJoinDTO.getRevenue())
-        .entAddr1(enterpiseJoinDTO.getEntAddr1())
-        .entAddr2(enterpiseJoinDTO.getEntAddr2())
+        .entId(enterpriseJoinDTO.getEntId())
+        .regNum(enterpriseJoinDTO.getRegNum())
+        .entPwd(enterpriseJoinDTO.getEntPwd())
+        .entName(enterpriseJoinDTO.getEntName())
+        .entField(enterpriseJoinDTO.getEntField())
+        .enterpriseSizeType(enterpriseJoinDTO.getEnterpriseSizeType())
+        .ceoName(enterpriseJoinDTO.getCeoName())
+        .revenue(enterpriseJoinDTO.getRevenue())
+        .entAddr1(enterpriseJoinDTO.getEntAddr1())
+        .entAddr2(enterpriseJoinDTO.getEntAddr2())
         .build();
   }
 
