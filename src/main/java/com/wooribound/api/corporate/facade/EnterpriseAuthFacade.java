@@ -30,7 +30,7 @@ public class EnterpriseAuthFacade {
         .entPwd(enterpiseJoinDTO.getEntPwd())
         .entName(enterpiseJoinDTO.getEntName())
         .entField(enterpiseJoinDTO.getEntField())
-        .enterpriseSize(enterpiseJoinDTO.getEnterpriseSize())
+        .enterpriseSizeType(enterpiseJoinDTO.getEnterpriseSizeType())
         .ceoName(enterpiseJoinDTO.getCeoName())
         .revenue(enterpiseJoinDTO.getRevenue())
         .entAddr1(enterpiseJoinDTO.getEntAddr1())

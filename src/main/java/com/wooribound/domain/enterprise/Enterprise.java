@@ -1,7 +1,7 @@
 package com.wooribound.domain.enterprise;
 
 import com.wooribound.domain.jobposting.JobPosting;
-import com.wooribound.global.constant.EnterpriseSize;
+import com.wooribound.global.constant.EnterpriseSizeType;
 import com.wooribound.domain.employment.Employment;
 import com.wooribound.global.constant.EnterpriseDeletionStatus;
 import jakarta.persistence.*;
@@ -36,7 +36,7 @@ public class Enterprise {
 
   @Column(name =  "ent_size", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
-  private EnterpriseSize enterpriseSize;
+  private EnterpriseSizeType enterpriseSizeType;
 
   @Column(name = "ceo_name",length = 20, nullable = false)
   private String ceoName;
