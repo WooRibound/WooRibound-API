@@ -5,11 +5,9 @@ import com.wooribound.api.admin.facade.AdminAuthFacade;
 import com.wooribound.domain.admin.dto.AdminDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "서비스 관리자 권한 관련 API", description = "서비스 관리자 기능 중 가입/기업회원 가입 및 탈퇴 검증 입니다.")
@@ -22,7 +20,7 @@ public class AdminAuthController {
 
     @Operation(summary = "서비스 관리자 등록", description = "서비스 관리자 등록")
     @PostMapping("/join")
-    public String join(@Validated @RequestBody AdminDTO adminDTO) {
+    public String join(@Valid @RequestBody AdminDTO adminDTO) {
         return adminAuthFacade.join(adminDTO);
     }
 

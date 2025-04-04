@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum EnterpriseSize {
+public enum EnterpriseSizeType {
+
   STARTUP("스타트업"),
   SMALL("중소기업"),
   MEDIUM("중견기업"),

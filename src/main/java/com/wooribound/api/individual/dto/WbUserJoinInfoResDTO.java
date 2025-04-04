@@ -1,7 +1,8 @@
 package com.wooribound.api.individual.dto;
 
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,6 @@ public class WbUserJoinInfoResDTO {
   private String name;
   private String email;
   private String phone;
-  private Gender gender;
+  private GenderType genderType;
   private Date birth;
 }

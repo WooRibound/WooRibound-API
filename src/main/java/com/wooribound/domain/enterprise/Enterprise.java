@@ -1,9 +1,9 @@
 package com.wooribound.domain.enterprise;
 
 import com.wooribound.domain.jobposting.JobPosting;
-import com.wooribound.global.constant.EnterpriseSize;
+import com.wooribound.global.constant.EnterpriseSizeType;
 import com.wooribound.domain.employment.Employment;
-import com.wooribound.global.constant.YNP;
+import com.wooribound.global.constant.EnterpriseDeletionStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -36,7 +36,7 @@ public class Enterprise {
 
   @Column(name =  "ent_size", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
-  private EnterpriseSize enterpriseSize;
+  private EnterpriseSizeType enterpriseSizeType;
 
   @Column(name = "ceo_name",length = 20, nullable = false)
   private String ceoName;
@@ -61,7 +61,7 @@ public class Enterprise {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "is_deleted", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'") // database default 설정 (jpql 사용에 대비)
-  private YNP isDeleted = YNP.N; // entity 필드 기본값 설정 (jpa 함수 사용을 통한 쿼리 생성 대비)
+  private EnterpriseDeletionStatus isDeleted = EnterpriseDeletionStatus.N; // entity 필드 기본값 설정 (jpa 함수 사용을 통한 쿼리 생성 대비)
 
   @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
   private List<Employment> employments;

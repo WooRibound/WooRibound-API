@@ -3,7 +3,7 @@ package com.wooribound.domain.enterprise;
 import com.wooribound.api.corporate.dto.EnterpriseInfoReqDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseDTO;
 import com.wooribound.domain.enterprise.dto.EnterpriseInfoDTO;
-import com.wooribound.global.constant.YNP;
+import com.wooribound.global.constant.EnterpriseDeletionStatus;
 import com.wooribound.global.exception.DuplicatedIdException;
 import com.wooribound.global.exception.NoEnterpriseException;
 import com.wooribound.global.exception.NotValidPasswordException;
@@ -29,14 +29,14 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             .entId(enterpriseDTO.getEntId())
             .entName(enterpriseDTO.getEntName())
             .entPwd(passwordEncoder.encode(enterpriseDTO.getEntPwd()))
-            .enterpriseSize(enterpriseDTO.getEnterpriseSize())
+            .enterpriseSizeType(enterpriseDTO.getEnterpriseSizeType())
             .entAddr1(enterpriseDTO.getEntAddr1())
             .entAddr2(enterpriseDTO.getEntAddr2())
             .revenue(enterpriseDTO.getRevenue())
             .regNum(enterpriseDTO.getRegNum())
             .entField(enterpriseDTO.getEntField())
             .ceoName(enterpriseDTO.getCeoName())
-            .isDeleted(YNP.N)
+            .isDeleted(EnterpriseDeletionStatus.N)
             .build();
         enterpriseRepository.save(ent);
       }
@@ -55,7 +55,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                       .entName(enterprise1.getEntName())
                       .ceoName(enterprise1.getCeoName())
                       .entField(enterprise1.getEntField())
-                      .enterpriseSize(enterprise1.getEnterpriseSize())
+                      .enterpriseSizeType(enterprise1.getEnterpriseSizeType())
                       .revenue(enterprise1.getRevenue())
                       .entAddr1(enterprise1.getEntAddr1())
                       .entAddr2(enterprise1.getEntAddr2())
@@ -82,8 +82,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           if (enterpriseInfoReqDTO.getEntField() != null) {
               enterprise.setEntField(enterpriseInfoReqDTO.getEntField());
           }
-          if (enterpriseInfoReqDTO.getEnterpriseSize() != null) {
-              enterprise.setEnterpriseSize(enterpriseInfoReqDTO.getEnterpriseSize());
+          if (enterpriseInfoReqDTO.getEnterpriseSizeType() != null) {
+              enterprise.setEnterpriseSizeType(enterpriseInfoReqDTO.getEnterpriseSizeType());
           }
           if (enterpriseInfoReqDTO.getCeoName() != null) {
               enterprise.setCeoName(enterpriseInfoReqDTO.getCeoName());
@@ -100,7 +100,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
           return entId + " 기업회원 정보 수정 완료 : " +
                   "EntName : " + enterprise.getEntName() + ", " +
                   "EntField : " + enterprise.getEntField() + ", " +
-                  "EnterpriseSize : " + enterprise.getEnterpriseSize() + ", " +
+                  "EnterpriseSize : " + enterprise.getEnterpriseSizeType() + ", " +
                   "CeoName : " + enterprise.getCeoName() + ", " +
                   "EntAddr1 : " + enterprise.getEntAddr1() + ", " +
                   "EntAddr2 : " + enterprise.getEntAddr2();
@@ -129,7 +129,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
       if (!passwordEncoder.matches(pw, enterprise.getEntPwd())) {
       throw new NotValidPasswordException();
     }
-    enterprise.setIsDeleted(YNP.P);
+    enterprise.setIsDeleted(EnterpriseDeletionStatus.P);
     enterpriseRepository.save(enterprise);
   }
 }

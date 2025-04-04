@@ -104,7 +104,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
                     w.user_id AS userId, 
                     w.name AS name, 
                     CAST(w.birth AS DATE) AS birth, 
-                    w.gender AS gender, 
+                    w.genderType AS genderType, 
                     IFNULL(SUM(CASE WHEN e.emp_recomm = 'Y' THEN 1 ELSE 0 END), 0) AS recommendCount
                 FROM 
                     wb_user w
@@ -117,7 +117,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
                     AND w.exjob_chk = 'Y'
                     AND wh.job_id = :jobId
                 GROUP BY 
-                    w.user_id, w.name, w.birth, w.gender
+                    w.user_id, w.name, w.birth, w.genderType
                 ORDER BY 
                     recommendCount DESC
             """, nativeQuery = true)

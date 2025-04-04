@@ -9,7 +9,7 @@ import com.wooribound.domain.userapply.UserApplyRepository;
 import com.wooribound.domain.userapply.dto.WbUserApplyDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
-import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.constant.ApplyStatus;
 import com.wooribound.global.exception.NotEntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +59,7 @@ public class UserApplyServiceImpl implements UserApplyService {
                     .applyId(userApplyId)
                     .jobPosting(jobPosting)
                     .wbUser(wbUser)
-                    .result(ApplyResult.PENDING)
+                    .result(ApplyStatus.PENDING)
                     .applyDate(new Date())
                     .build();
 
@@ -126,10 +126,10 @@ public class UserApplyServiceImpl implements UserApplyService {
             throw new RuntimeException("해당 사용자의 지원 정보가 아닙니다.");
         }
 
-        if (userApply.getResult().equals(ApplyResult.CANCELED)){
+        if (userApply.getResult().equals(ApplyStatus.CANCELED)){
             return "이미 지원 취소한 공고입니다.";
         } else {
-            userApply.setResult(ApplyResult.CANCELED);
+            userApply.setResult(ApplyStatus.CANCELED);
             userApplyRepository.save(userApply);
 
             return "지원이 정상적으로 취소되었습니다.";

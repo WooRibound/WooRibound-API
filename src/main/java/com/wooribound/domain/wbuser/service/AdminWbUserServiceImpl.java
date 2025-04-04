@@ -27,7 +27,7 @@ public class AdminWbUserServiceImpl implements AdminWbUserService {
                         .userId(wbUser.getUserId())
                         .name(wbUser.getName())
                         .birth(wbUser.getBirth())
-                        .gender(wbUser.getGender())
+                        .genderType(wbUser.getGenderType())
                         .addrCity(wbUser.getAddrCity())
                         .build())
                 .collect(Collectors.toList());

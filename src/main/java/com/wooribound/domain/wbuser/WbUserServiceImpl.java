@@ -50,7 +50,7 @@ public class WbUserServiceImpl implements WbUserService {
                     .birth(user.getBirth())
                     .email(user.getEmail())
                     .phone(user.getPhone())
-                    .gender(user.getGender())
+                    .genderType(user.getGenderType())
                     .exjobChk(user.getExjobChk())
                     .interestChk(user.getInterestChk())
                     .addrCity(user.getAddrCity())
@@ -98,8 +98,8 @@ public class WbUserServiceImpl implements WbUserService {
         if (wbUserUpdateDTO.getPhone() != null) {
             wbUser.setPhone(wbUserUpdateDTO.getPhone());
         }
-        if (wbUserUpdateDTO.getGender() != null) {
-            wbUser.setGender(wbUserUpdateDTO.getGender());
+        if (wbUserUpdateDTO.getGenderType() != null) {
+            wbUser.setGenderType(wbUserUpdateDTO.getGenderType());
         }
         if (wbUserUpdateDTO.getAddrCity() != null) {
             wbUser.setAddrCity(wbUserUpdateDTO.getAddrCity());
@@ -129,7 +129,7 @@ public class WbUserServiceImpl implements WbUserService {
                 .name(savedUser.getName())
                 .birth(savedUser.getBirth())
                 .phone(savedUser.getPhone())
-                .gender(savedUser.getGender())
+                .genderType(savedUser.getGenderType())
                 .exjobChk(savedUser.getExjobChk())
                 .addrCity(savedUser.getAddrCity())
                 .addrProvince(savedUser.getAddrProvince())
@@ -212,7 +212,7 @@ public class WbUserServiceImpl implements WbUserService {
             user.setName(wbUserJoinDTO.getName());
             user.setBirth(wbUserJoinDTO.getBirth());
             user.setPhone(wbUserJoinDTO.getPhone());
-            user.setGender(wbUserJoinDTO.getGender());
+            user.setGenderType(wbUserJoinDTO.getGenderType());
             user.setExjobChk(wbUserJoinDTO.getExjobChk());
             user.setJobInterest(wbUserJoinDTO.getJobInterest());
             user.setAddrCity(wbUserJoinDTO.getAddrCity());
@@ -238,7 +238,7 @@ public class WbUserServiceImpl implements WbUserService {
                 .birth(user.getBirth())
                 .email(user.getEmail())
                 .phone(user.getPhone())
-                .gender(user.getGender())
+                .genderType(user.getGenderType())
                 .exjobChk(user.getExjobChk()) // 경력 여부
                 .interestChk(user.getInterestChk()) // 관심 직종 여부
                 .addrCity(user.getAddrCity())

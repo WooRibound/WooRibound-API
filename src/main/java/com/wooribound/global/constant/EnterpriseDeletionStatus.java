@@ -5,10 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum AdminType {
+public enum EnterpriseDeletionStatus {
 
-  ROLE_SERVICE_ADMIN("서비스 관리자") ,
-  ROLE_INFRA_ADMIN("인프라 관리자");
+  Y("탈퇴 회원"),
+  N("활동 회원"),
+  P("탈퇴처리 중");
 
   private final String text;
 }

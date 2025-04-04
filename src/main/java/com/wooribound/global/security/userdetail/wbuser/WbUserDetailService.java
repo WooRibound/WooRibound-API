@@ -3,7 +3,7 @@ package com.wooribound.global.security.userdetail.wbuser;
 import com.wooribound.api.individual.dto.OAuthDTO;
 import com.wooribound.domain.wbuser.WbUser;
 import com.wooribound.domain.wbuser.WbUserRepository;
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
 import com.wooribound.global.constant.YN;
 import com.wooribound.global.exception.DeletedUserException;
 import com.wooribound.global.security.dto.NaverResponse;
@@ -46,7 +46,7 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
     String userId = oAuth2Response.getId();
     String userName = oAuth2Response.getName();
     String userEmail = oAuth2Response.getEmail();
-    Gender gender = oAuth2Response.getGender();
+    GenderType genderType = oAuth2Response.getGender();
     Date birth = oAuth2Response.getBirth();
 
 
@@ -83,7 +83,7 @@ public class WbUserDetailService extends DefaultOAuth2UserService {
 
 // gender에 대한 null 체크 및 변환
 
-      newWbUser.setGender(gender);
+      newWbUser.setGenderType(genderType);
       newWbUser.setBirth(birth);
 
       System.out.println("새 유저 저장");

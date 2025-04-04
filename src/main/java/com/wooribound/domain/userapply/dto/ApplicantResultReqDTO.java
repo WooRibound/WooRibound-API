@@ -1,6 +1,6 @@
 package com.wooribound.domain.userapply.dto;
 
-import com.wooribound.global.constant.ApplyResult;
+import com.wooribound.global.constant.ApplyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,5 +13,5 @@ import lombok.Setter;
 public class ApplicantResultReqDTO {
 
     private Long applyId;
-    private ApplyResult applyResult;
+    private ApplyStatus applyStatus;
 }

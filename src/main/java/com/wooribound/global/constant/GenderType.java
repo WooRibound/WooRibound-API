@@ -5,10 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum AdminType {
+public enum GenderType {
 
-  ROLE_SERVICE_ADMIN("서비스 관리자") ,
-  ROLE_INFRA_ADMIN("인프라 관리자");
+  M("남자"),
+  F("여자"),
+  U("미지정");
 
   private final String text;
 }

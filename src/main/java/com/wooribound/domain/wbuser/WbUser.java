@@ -8,7 +8,7 @@ import com.wooribound.domain.notification.Notification;
 import com.wooribound.domain.resume.Resume;
 import com.wooribound.domain.userapply.UserApply;
 import com.wooribound.domain.workhistory.WorkHistory;
-import com.wooribound.global.constant.Gender;
+import com.wooribound.global.constant.GenderType;
 import com.wooribound.global.constant.YN;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,7 +43,7 @@ public class WbUser {
 
   @Column(name = "gender", nullable = false, length = 4)
   @Enumerated(value = EnumType.STRING)
-  private Gender gender;
+  private GenderType genderType;
 
   @Column(name = "exjob_chk", columnDefinition = "CHAR(1) DEFAULT 'N'")
   @Enumerated(value = EnumType.STRING)

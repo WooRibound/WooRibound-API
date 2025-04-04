@@ -1,6 +1,6 @@
 package com.wooribound.domain.enterprise.dto;
 
-import com.wooribound.global.constant.EnterpriseSize;
+import com.wooribound.global.constant.EnterpriseSizeType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class EnterpriseInfoDTO {
     private String entName;
     private String ceoName;
     private String entField;
-    private EnterpriseSize enterpriseSize;
+    private EnterpriseSizeType enterpriseSizeType;
     private Long revenue;
     private String entAddr1;
     private String entAddr2;
